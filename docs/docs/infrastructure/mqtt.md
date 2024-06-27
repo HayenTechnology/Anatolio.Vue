@@ -51,7 +51,7 @@ app.mount('#app');
 
 ### 3. Vue Bileþenlerinde MQTT Kullanýmý
 
-```javascipt
+```vue
 <template>
   <div>
     <h1>MQTT Example</h1>
