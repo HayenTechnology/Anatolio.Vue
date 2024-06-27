@@ -1,0 +1,30 @@
+{
+  "name": "@hayentechnology/anatolio-mqtt",
+  "version": "1.0.5",
+  "description": "anatolio framework mqtt vuejs package",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HayenTechnology/Anatolio.Vue.git"
+  },
+  "keywords": [
+    "vue",
+    "framework",
+    "mqtt",
+    "anatolio"
+  ],
+  "author": "hayentechnology",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HayenTechnology/Anatolio.Vue/issues"
+  },
+  "homepage": "https://github.com/HayenTechnology/Anatolio.Vue#readme",
+  "dependencies": {
+   
+    "mqtt": "^5.3.6"
+   
+  }
+}
