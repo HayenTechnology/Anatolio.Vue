@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}|libs\\Anatolio.Vue.Mqtt\\anatolio.vue.mqtt.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.mqtt\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}|libs\\Anatolio.Vue.Mqtt\\anatolio.vue.mqtt.esproj|solutionrelative:libs\\anatolio.vue.mqtt\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}|C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\docs\\docs\\infrastructure\\mqtt.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}|C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs|solutionrelative:docs\\docs\\infrastructure\\mqtt.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}|libs\\Anatolio.Vue.Mqtt\\anatolio.vue.mqtt.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.mqtt\\src\\anatolio.mqtt.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}|libs\\Anatolio.Vue.Mqtt\\anatolio.vue.mqtt.esproj|solutionrelative:libs\\anatolio.vue.mqtt\\src\\anatolio.mqtt.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}|libs\\Anatolio.Vue.Mqtt\\anatolio.vue.mqtt.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.mqtt\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}|libs\\Anatolio.Vue.Mqtt\\anatolio.vue.mqtt.esproj|solutionrelative:libs\\anatolio.vue.mqtt\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}|libs\\Anatolio.Vue.Mqtt\\anatolio.vue.mqtt.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.mqtt\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}|libs\\Anatolio.Vue.Mqtt\\anatolio.vue.mqtt.esproj|solutionrelative:libs\\anatolio.vue.mqtt\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}|C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\docs\\docs\\intro.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}|C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs|solutionrelative:docs\\docs\\intro.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}|C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\docs\\docs\\general\\index.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}|C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs|solutionrelative:docs\\docs\\general\\index.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 313,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,13 +74,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "mqtt.md",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\infrastructure\\mqtt.md",
+              "RelativeDocumentMoniker": "docs\\docs\\infrastructure\\mqtt.md",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\infrastructure\\mqtt.md",
+              "RelativeToolTip": "docs\\docs\\infrastructure\\mqtt.md",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2024-06-27T08:12:33.644Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "intro.md",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\intro.md",
+              "RelativeDocumentMoniker": "docs\\docs\\intro.md",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\intro.md",
+              "RelativeToolTip": "docs\\docs\\intro.md",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2024-06-27T08:12:14.683Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "index.md",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\general\\index.md",
+              "RelativeDocumentMoniker": "docs\\docs\\general\\index.md",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\general\\index.md",
+              "RelativeToolTip": "docs\\docs\\general\\index.md",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2024-06-27T08:12:07.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "package.json",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Mqtt\\package.json",
               "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Mqtt\\package.json",
               "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Mqtt\\package.json",
               "RelativeToolTip": "libs\\Anatolio.Vue.Mqtt\\package.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAADAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-06-27T07:48:46.79Z",
               "EditorCaption": ""
@@ -81,14 +132,14 @@
               "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Mqtt\\src\\anatolio.mqtt.js",
               "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Mqtt\\src\\anatolio.mqtt.js",
               "RelativeToolTip": "libs\\Anatolio.Vue.Mqtt\\src\\anatolio.mqtt.js",
-              "ViewState": "AQIAACgAAAAAAAAAAAAgwCwAAAAFAAAA",
+              "ViewState": "AQIAACYAAAAAAAAAAAAmwDEAAABTAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2024-06-27T07:46:47.068Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "index.js",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Mqtt\\src\\index.js",
               "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Mqtt\\src\\index.js",
