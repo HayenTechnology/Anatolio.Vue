@@ -9,6 +9,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{603F46C9-E
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "anatolio.vue.mqtt", "libs\Anatolio.Vue.Mqtt\anatolio.vue.mqtt.esproj", "{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "docs", "docs\", "{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_62050"
+		Debug.AspNetCompiler.PhysicalPath = "docs\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62050\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_62050"
+		Release.AspNetCompiler.PhysicalPath = "docs\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62050\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "62050"
+		SlnRelativePath = "docs\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +48,10 @@ Global
 		{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
