@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.dashboard\\src\\dashboarddeletecomponent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|solutionrelative:libs\\anatolio.vue.dashboard\\src\\dashboarddeletecomponent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.dashboard\\src\\dashboardeditcomponent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|solutionrelative:libs\\anatolio.vue.dashboard\\src\\dashboardeditcomponent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.dashboard\\src\\dashboardcomponent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|solutionrelative:libs\\anatolio.vue.dashboard\\src\\dashboardcomponent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.dashboard\\src\\dashboardviewcomponent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|solutionrelative:libs\\anatolio.vue.dashboard\\src\\dashboardviewcomponent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio.vue.dashboard\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{80210788-10E8-4DF7-8D90-1D400B76F838}|libs\\Anatolio.Vue.Dashboard\\anatolio.vue.dashboard.esproj|solutionrelative:libs\\anatolio.vue.dashboard\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}|C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\docs\\docs\\infrastructure\\mqtt.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{B051ACC0-F1C4-4136-85F8-BD9EF1ABD140}|C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs|solutionrelative:docs\\docs\\infrastructure\\mqtt.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     },
@@ -75,19 +95,84 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "DashboardDeleteComponent.vue",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\DashboardDeleteComponent.vue",
+              "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Dashboard\\src\\DashboardDeleteComponent.vue",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\DashboardDeleteComponent.vue",
+              "RelativeToolTip": "libs\\Anatolio.Vue.Dashboard\\src\\DashboardDeleteComponent.vue",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAUwEkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2024-06-27T13:30:47.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DashboardEditComponent.vue",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\DashboardEditComponent.vue",
+              "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Dashboard\\src\\DashboardEditComponent.vue",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\DashboardEditComponent.vue",
+              "RelativeToolTip": "libs\\Anatolio.Vue.Dashboard\\src\\DashboardEditComponent.vue",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAuwKMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2024-06-27T13:25:57.152Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DashboardViewComponent.vue",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\DashboardViewComponent.vue",
+              "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Dashboard\\src\\DashboardViewComponent.vue",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\DashboardViewComponent.vue",
+              "RelativeToolTip": "libs\\Anatolio.Vue.Dashboard\\src\\DashboardViewComponent.vue",
+              "ViewState": "AQIAADUAAAAAAAAAAAAuwEAAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2024-06-27T13:23:36.24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "index.js",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\index.js",
+              "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Dashboard\\src\\index.js",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\index.js",
+              "RelativeToolTip": "libs\\Anatolio.Vue.Dashboard\\src\\index.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-06-27T13:22:54.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DashboardComponent.vue",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\DashboardComponent.vue",
+              "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Dashboard\\src\\DashboardComponent.vue",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Dashboard\\src\\DashboardComponent.vue",
+              "RelativeToolTip": "libs\\Anatolio.Vue.Dashboard\\src\\DashboardComponent.vue",
+              "ViewState": "AQIAABgAAAAAAAAAAAAuwCcAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2024-06-27T13:22:32.526Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "mqtt.md",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\infrastructure\\mqtt.md",
               "RelativeDocumentMoniker": "docs\\docs\\infrastructure\\mqtt.md",
               "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\infrastructure\\mqtt.md",
               "RelativeToolTip": "docs\\docs\\infrastructure\\mqtt.md",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAZAAAA",
+              "ViewState": "AQIAABwAAAAAAAAAAAAYwDcAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
               "WhenOpened": "2024-06-27T08:12:33.644Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "intro.md",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\intro.md",
               "RelativeDocumentMoniker": "docs\\docs\\intro.md",
@@ -100,7 +185,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "index.md",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\docs\\docs\\general\\index.md",
               "RelativeDocumentMoniker": "docs\\docs\\general\\index.md",
@@ -113,7 +198,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "package.json",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Mqtt\\package.json",
               "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Mqtt\\package.json",
@@ -126,7 +211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "anatolio.mqtt.js",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Mqtt\\src\\anatolio.mqtt.js",
               "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Mqtt\\src\\anatolio.mqtt.js",
@@ -139,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "index.js",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio.Vue.Mqtt\\src\\index.js",
               "RelativeDocumentMoniker": "libs\\Anatolio.Vue.Mqtt\\src\\index.js",
