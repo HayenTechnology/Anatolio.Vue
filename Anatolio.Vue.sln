@@ -32,6 +32,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "docs", "docs\", "{B051ACC0-
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "anatolio.vue.dashboard", "libs\Anatolio.Vue.Dashboard\anatolio.vue.dashboard.esproj", "{80210788-10E8-4DF7-8D90-1D400B76F838}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "anatolio.vue.querybuilder", "libs\Anatolio.Vue.QueryBuilder\anatolio.vue.querybuilder.esproj", "{4CDA6F2A-E3B5-47E1-A7B8-F7E7B92AB4BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,12 @@ Global
 		{80210788-10E8-4DF7-8D90-1D400B76F838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80210788-10E8-4DF7-8D90-1D400B76F838}.Release|Any CPU.Build.0 = Release|Any CPU
 		{80210788-10E8-4DF7-8D90-1D400B76F838}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4CDA6F2A-E3B5-47E1-A7B8-F7E7B92AB4BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDA6F2A-E3B5-47E1-A7B8-F7E7B92AB4BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDA6F2A-E3B5-47E1-A7B8-F7E7B92AB4BD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4CDA6F2A-E3B5-47E1-A7B8-F7E7B92AB4BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDA6F2A-E3B5-47E1-A7B8-F7E7B92AB4BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CDA6F2A-E3B5-47E1-A7B8-F7E7B92AB4BD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +75,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0AB9C818-E9DE-43DB-B3C4-F874BB6570A9} = {603F46C9-E723-4A05-A7AE-1ACA289FE1E0}
 		{80210788-10E8-4DF7-8D90-1D400B76F838} = {603F46C9-E723-4A05-A7AE-1ACA289FE1E0}
+		{4CDA6F2A-E3B5-47E1-A7B8-F7E7B92AB4BD} = {603F46C9-E723-4A05-A7AE-1ACA289FE1E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEA9840F-7460-4841-A84C-4CE8FCAAFC0C}
