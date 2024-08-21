@@ -8,6 +8,7 @@
         "lint": "eslint --fix . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
     },
     "dependencies": {
+        "@guolao/vue-monaco-editor": "^1.5.4",
         "@primevue/themes": "^4.0.0",
         "axios": "^1.7.4",
         "chart.js": "3.3.2",

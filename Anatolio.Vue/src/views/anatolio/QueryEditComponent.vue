@@ -19,7 +19,7 @@
                                key: 'Id',
                                value: 'DbName',
                              }"
-                                       :hideLabel="true" label="Data Source" fieldName="SourceId" v-model="model.SourceId" :errors="errors" />
+                                       :hideLabel="true" label="Data Source" fieldName="SourceId" v-model="model.SourceId"  v-model:selectedData="dataSource" />
                         </div>
 
                         <div v-if="model.SourceId" class="mb-4">
@@ -77,13 +77,14 @@
                         Query Editor
                     </template>
                     <template #content>
-                        <TextArea v-model="model.QueryString"></TextArea>
-                        <MonacoEditor width="800"
-                                      height="500"
-                                      theme="vs-dark"
-                                      language="javascript"
-                                      :options="cmOptions"
-                                      v-model="model.QueryString"></MonacoEditor>
+                        <div style="height:300px">
+                            <vue-monaco-editor v-model:value="model.QueryString"
+                                               theme="vs-dark"
+                                               :options="MONACO_EDITOR_OPTIONS"
+                                               @mount="handleMount"
+                                               :language="dataSource?.Language??'sql'"
+                                               />
+                        </div>
                     </template>
                 </Card>
 
@@ -104,29 +105,32 @@
                 </Card>
 
 
-                <Card class="mb-4" v-if="false">
+                <Card class="mb-4" v-if="model.QueryColumns.length">
                     <template #title>
                         Result Column Output Types
                     </template>
                     <template #content>
-                        <div v-for="column in model.QueryColumns" :key="column.Name" class="col-span-6 md:col-span-2 mb-2">
-                            <InputText v-model="column.Name" placeholder="Column Name" class="w-full p-2 border rounded" />
+                        <div v-for="column in model.QueryColumns" :key="column.Name">
+                            <div  class="col-span-6 md:col-span-2 mb-2">
+                                <InputText v-model="column.Name" placeholder="Column Name" class="w-full p-2 border rounded" />
+                            </div>
+                            <div  class="col-span-6 md:col-span-2 mb-2">
+                                <Select v-model="column.OutputType" :options="outputTypes" placeholder="Output Type" class="w-full p-2 border rounded" />
+                            </div>
+                            <div v-if="column.OutputType === 'Enum'" class="col-span-6 md:col-span-2 mb-2">
+                                <Select v-model="column.Enum" :options="enumTypes" placeholder="Enum" class="w-full p-2 border rounded" />
+                            </div>
+                            <div v-if="column.OutputType === 'Date'" class="col-span-6 md:col-span-2 mb-2">
+                                <Select v-model="column.DateFormat" :options="dateFormats" placeholder="Date Format" class="w-full p-2 border rounded" />
+                            </div>
+                            <div v-if="column.OutputType === 'Number'" class="col-span-6 md:col-span-1 mb-2">
+                                <InputNumber v-model="column.NumberOfDecimalPlace" placeholder="Decimal Place" class="w-full p-2 border rounded" />
+                            </div>
+                            <div v-if="column.OutputType === 'Number'" class="col-span-6 md:col-span-1 mb-2">
+                                <Checkbox v-model="column.ShowBrackets" label="Show Brackets" class="w-full p-2 border rounded" />
+                            </div>
                         </div>
-                        <div v-for="column in model.QueryColumns" :key="column.OutputType" class="col-span-6 md:col-span-2 mb-2">
-                            <Select v-model="column.OutputType" :options="outputTypes" placeholder="Output Type" class="w-full p-2 border rounded" />
-                        </div>
-                        <div v-if="column.OutputType === 'Enum'" class="col-span-6 md:col-span-2 mb-2">
-                            <Select v-model="column.Enum" :options="enumTypes" placeholder="Enum" class="w-full p-2 border rounded" />
-                        </div>
-                        <div v-if="column.OutputType === 'Date'" class="col-span-6 md:col-span-2 mb-2">
-                            <Select v-model="column.DateFormat" :options="dateFormats" placeholder="Date Format" class="w-full p-2 border rounded" />
-                        </div>
-                        <div v-if="column.OutputType === 'Number'" class="col-span-6 md:col-span-1 mb-2">
-                            <InputNumber v-model="column.NumberOfDecimalPlace" placeholder="Decimal Place" class="w-full p-2 border rounded" />
-                        </div>
-                        <div v-if="column.OutputType === 'Number'" class="col-span-6 md:col-span-1 mb-2">
-                            <Checkbox v-model="column.ShowBrackets" label="Show Brackets" class="w-full p-2 border rounded" />
-                        </div>
+                        
                     </template>
                 </Card>
 
@@ -138,8 +142,9 @@
 </template>
 
 <script setup>
-    import { ref, reactive, onMounted, watch } from 'vue'
+    import { ref, reactive, onMounted, watch, shallowRef } from 'vue'
     import axios from 'axios'
+    import { VueMonacoEditor } from '@guolao/vue-monaco-editor'
 
     const model = ref({
         Name: '',
@@ -154,16 +159,23 @@
     const queryResult = ref([])
     const loading = ref(false)
 
-    const dataSources = ref([]) // Bu, veri kaynağı seçenekleriyle doldurulmalıdır.
+    const dataSource = ref({ Language:"sql"}) // Bu, veri kaynağı seçenekleriyle doldurulmalıdır.
     const outputTypes = ref([]) // Bu, çıktı türü seçenekleriyle doldurulmalıdır.
     const enumTypes = ref([]) // Bu, enum seçenekleriyle doldurulmalıdır.
     const dateFormats = ref([]) // Bu, tarih formatı seçenekleriyle doldurulmalıdır.
-    const cmOptions = ref({
-        mode: 'sql', // Dil modu
-        theme: 'material', // Tema
-        lineNumbers: true, // Satır numaraları
-        tabSize: 2, // Tab genişliği
-    })
+    const MONACO_EDITOR_OPTIONS = {
+        automaticLayout: true,
+        formatOnType: true,
+        formatOnPaste: true
+    }
+    const editorRef = shallowRef()
+    const handleMount = editor => (editorRef.value = editor)
+
+    // your action
+    function formatCode() {
+        editorRef.value?.getAction('editor.action.formatDocument').run()
+    }
+
 
     watch(() => model.value.SourceId, // İzlenecek değer
         async (newSourceId) => { // Callback fonksiyon, newValue otomatik olarak buraya geçilir
