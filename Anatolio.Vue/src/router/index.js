@@ -14,7 +14,7 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard.vue')
                 },
                 {
-                    path: '/query',
+                    path: '/query/:id?',
                     name: 'query',
                     component: () => import('@/views/anatolio/QueryEditComponent.vue')
                 },

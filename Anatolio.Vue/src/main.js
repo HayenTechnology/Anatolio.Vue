@@ -12,17 +12,22 @@ import '@/assets/tailwind.css';
 
 import i18n from './helper/i18n';
 
-import OSelect from './components/OSelect.vue';
-import MenuButton from './components/MenuButton.vue';
-import OView from './components/OView.vue';
-import ErrorDisplay from './components/ErrorDisplay.vue';
 import Enum from './components/Enum.vue';
+import ErrorDisplay from './components/ErrorDisplay.vue';
 import FormField from './components/FormField.vue';
+import MenuButton from './components/MenuButton.vue';
 import ODataTable from './components/ODataTable.vue';
+import OSelect from './components/OSelect.vue';
+import OView from './components/OView.vue';
+import enums from './helper/enums';
 
 import { install as VueMonacoEditorPlugin } from '@guolao/vue-monaco-editor';
 
 const app = createApp(App);
+
+app.config.globalProperties.$enums = enums;
+
+
 app.use(VueMonacoEditorPlugin, {
     paths: {
         // The recommended CDN config
