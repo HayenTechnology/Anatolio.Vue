@@ -14,16 +14,16 @@ export default class QueryService {
 
     format(query, data) {
         try {
-            query.QueryColumns.forEach(col => {
+            query.queryColumns.forEach(col => {
                 try {
-                    const formatType = col.OutputType.toLowerCase()
+                    const formatType = col.outputType.toLowerCase()
 
-                    data[col.Name + this.postfix] = this.formatData(formatType, {
-                        enum: col.Enum,
-                        dateFormat: col.DateFormat,
-                        showBrackets: col.ShowBrackets,
-                        numberOfDecimalPlace: col.NumberOfDecimalPlace
-                    }, data[col.Name]) || data[col.Name]
+                    data[col.name + this.postfix] = this.formatData(formatType, {
+                        enum: col.enum,
+                        dateFormat: col.dateFormat,
+                        showBrackets: col.showBrackets,
+                        numberOfDecimalPlace: col.numberOfDecimalPlace
+                    }, data[col.name]) || data[col.name]
                 } catch (ex) {
                     console.log(ex)
                 }
@@ -46,7 +46,6 @@ export default class QueryService {
 
             if (formatType === 'date') {
                 return format(new Date(value), this.t(options.dateFormat))
-                return new Date(value).toLocaleDateString('en-US', this.t(options.dateFormat))
             }
 
             if (formatType === 'number') {
@@ -87,7 +86,7 @@ export default class QueryService {
 
             const result = response.data
 
-            if ((!result || !result.Data || !result.Data.length) && !result.Query) {
+            if ((!result || !result.data || !result.data.length) && !result.query) {
                 if (retryCount > 3) {
                     func([], 'Sorgu Sonucu Getirilemedi, Sorguyu Kontrol Edin')
                     return
@@ -101,13 +100,13 @@ export default class QueryService {
 
             result.Data = result.Data.map(d => this.format(result.Query, d))
 
-            this.results[options.id] = result.Data
-            this.queries[options.id] = result.Query
+            this.results[options.id] = result.data
+            this.queries[options.id] = result.query
             func(result.Data)
         } catch (e) {
             if (retryCount > 3) {
-                console.error(result.Query?.Name + ' Sorgusunda Hata Var Kontrol Edin')
-                func([], result.Query?.Name + ' Sorgusunda Hata Var Kontrol Edin')
+                console.error(result.query?.name + ' Sorgusunda Hata Var Kontrol Edin')
+                func([], result.query?.name + ' Sorgusunda Hata Var Kontrol Edin')
                 return
             }
 

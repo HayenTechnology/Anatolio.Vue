@@ -11,17 +11,19 @@
                     </template>
                     <template #content>
 
-                        <div class="mb-4">
-                            <FormField inputType="OSelect" :settings="{
-                                url: '/api/ODataSources?',
-                                key: 'Id',
-                                value: 'DbName',
-                            }" :hideLabel="true" label="Data Source" fieldName="SourceId" v-model="model.SourceId"
-                                v-model:selectedData="dataSource" />
-                        </div>
+                        <FormField class="mb-4" :hideLabel="true" label="Data Source" fieldName="sourceId">
+                            <template v-slot:default="prp">
+                                <OSelect :settings="{
+                            url: '/api/ODataSources?',
+                            key: 'Id',
+                            value: 'DbName',
+                        }" v-model="model.sourceId" v-model:selectedData="dataSource" :placeholder="prp.placeholder">
+                                </OSelect>
+                            </template>
+                        </FormField>
 
                         <div v-if="model.SourceId" class="mb-4">
-                            <InputText v-model="model.SearchTable" placeholder="Search in Tables"
+                            <InputText v-model="model.searchTable" placeholder="Search in Tables"
                                 class="w-full p-2 border rounded" />
                         </div>
                         <div class="text-center w-full" v-if="loading">
@@ -58,7 +60,7 @@
 
                 <Toolbar class="mb-4">
                     <template #start>
-                        <Button icon="pi pi-plus" class="mr-2" severity="secondary" text />
+                        <Button icon="pi pi-plus" @click="addDeclare" class="mr-2" severity="secondary" text />
                         <Button icon="pi pi-print" class="mr-2" severity="secondary" text />
                         <Button icon="pi pi-upload" severity="secondary" text />
                     </template>
@@ -68,7 +70,7 @@
                             <InputIcon>
                                 <i class="pi pi-file" />
                             </InputIcon>
-                            <InputText v-model="model.Name" placeholder="Query Name"
+                            <InputText v-model="model.name" placeholder="Query Name"
                                 class="w-full p-2 border rounded" />
                         </IconField>
                     </template>
@@ -85,11 +87,34 @@
                         Query Editor
                     </template>
                     <template #content>
-                        <div style="height:300px">
-                            <vue-monaco-editor v-model:value="model.QueryString" theme="vs-dark"
-                                :options="MONACO_EDITOR_OPTIONS" @mount="handleMount"
-                                :language="dataSource?.Language ?? 'sql'" />
-                        </div>
+                        <Tabs value="0">
+                            <TabList>
+                                <Tab value="0">Query</Tab>
+                                <Tab value="1">Declares</Tab>
+                            </TabList>
+                            <TabPanels>
+                                <TabPanel value="0">
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <div v-for="declare in model.declares">
+                                            <DeclareView :declare="declare"></DeclareView>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div style="height:300px">
+                                        <vue-monaco-editor v-model:value="model.queryString" theme="vs-dark"
+                                            :options="MONACO_EDITOR_OPTIONS" @mount="handleMount"
+                                            :language="dataSource?.language ?? 'sql'" />
+                                    </div>
+                                </TabPanel>
+                                <TabPanel value="1">
+                                    <div v-for="declare in model.declares">
+                                        <DeclareCreate class="mb-4" :declare="declare"></DeclareCreate>
+                                    </div>
+                                </TabPanel>
+
+                            </TabPanels>
+                        </Tabs>
+
                     </template>
                 </Card>
 
@@ -102,8 +127,8 @@
                                 class="pi pi-info-circle"></i> There is no query result</Message>
 
                         <DataTable v-else :value="queryResult" tableStyle="min-width: 50rem">
-                            <div v-for="column in model.QueryColumns">
-                                <Column :field="column.Name + '_formated_'" :header="column.Name"></Column>
+                            <div v-for="column in model.queryColumns">
+                                <Column :field="column.name + '_formated_'" :header="column.name"></Column>
                             </div>
                         </DataTable>
 
@@ -111,32 +136,32 @@
                 </Card>
 
 
-                <Card class="mb-4" v-if="model.QueryColumns.length">
+                <Card class="mb-4" v-if="model.queryColumns.length">
                     <template #title>
                         Result Column Output Types
                     </template>
                     <template #content>
-                        <div v-for="column in model.QueryColumns" :key="column.Name" class="grid grid-cols-6 gap-4">
+                        <div v-for="column in model.queryColumns" :key="column.name" class="grid grid-cols-6 gap-4">
                             <div class="col-span-6 md:col-span-2 mb-2">
-                                {{ column.Name }}
+                                {{ column.name }}
                             </div>
                             <div class="col-span-6 md:col-span-2 mb-2">
-                                <Enum class="w-full" v-model="column.OutputType" type="OutputType" />
+                                <Enum class="w-full" v-model="column.outputType" type="OutputType" />
                             </div>
-                            <div v-if="column.OutputType === 'Enum'" class="col-span-6 md:col-span-2 mb-2">
-                                <Enum placeholder="Enum Type" class="w-full" v-model="column.Enum" type="EnumTypes" />
+                            <div v-if="column.outputType === 'Enum'" class="col-span-6 md:col-span-2 mb-2">
+                                <Enum placeholder="Enum Type" class="w-full" v-model="column.enum" type="EnumTypes" />
                             </div>
-                            <div v-if="column.OutputType === 'Date'" class="col-span-6 md:col-span-2 mb-2">
-                                <Enum placeholder="Date Format" class="w-full" v-model="column.DateFormat"
+                            <div v-if="column.outputType === 'Date'" class="col-span-6 md:col-span-2 mb-2">
+                                <Enum placeholder="Date Format" class="w-full" v-model="column.dateFormat"
                                     type="DateFormat" />
                             </div>
-                            <div v-if="column.OutputType === 'Number'" class="col-span-6 md:col-span-2 mb-2">
+                            <div v-if="column.outputType === 'Number'" class="col-span-6 md:col-span-2 mb-2">
                                 <InputGroup>
                                     <InputGroupAddon>
-                                        <Checkbox :binary="true" v-model="column.ShowBrackets" label="Show Brackets"
+                                        <Checkbox :binary="true" v-model="column.showBrackets" label="Show Brackets"
                                             v-tooltip:top="'Show Brackets'" />
                                     </InputGroupAddon>
-                                    <InputNumber v-model="column.NumberOfDecimalPlace" placeholder="Decimal Place" />
+                                    <InputNumber v-model="column.numberOfDecimalPlace" placeholder="Decimal Place" />
                                 </InputGroup>
                             </div>
                         </div>
@@ -154,32 +179,35 @@
 <script setup>
 import { VueMonacoEditor } from '@guolao/vue-monaco-editor';
 import axios from 'axios';
-import { ref, shallowRef, watch } from 'vue';
+import { onBeforeMount, ref, shallowRef, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import QueryService from './QueryService';
+import DeclareCreate from './components/DeclareCreate.vue';
+import DeclareView from './components/DeclareView.vue';
 
 var route = useRoute();
 
-
-
 const model = ref({
-    Id: 0,
-    Name: '',
-    SourceId: null,
-    SearchTable: '',
-    QueryColumns: [],
-    Declares: [],
-    QueryString: 'SELECT * FROM "AnatolioQuery";'
+    id: 0,
+    name: '',
+    sourceId: null,
+    searchTable: '',
+    queryColumns: [],
+    declares: [],
+    queryString: 'SELECT * FROM "AnatolioQuery";'
+})
+
+onBeforeMount(() => {
+    if (route.params.id) {
+        axios.get("/api/oqueries(" + route.params.id + ")").then(response => {
+            const query = response.data.value[0];
+            console.log(query);
+            model.value = query;
+        })
+    }
 })
 
 
-if (route.params.id) {
-    axios.get("/api/oqueries(" + route.params.id + ")").then(response => {
-        const query = response.data.value[0];
-        console.log(query);
-        model.value = query;
-    })
-}
 
 const queryService = new QueryService();
 
@@ -188,10 +216,7 @@ const DataSourceTables = ref([])
 const queryResult = ref([])
 const loading = ref(false)
 
-const dataSource = ref({ Language: "sql" }) // Bu, veri kaynağı seçenekleriyle doldurulmalıdır.
-const outputTypes = ref([]) // Bu, çıktı türü seçenekleriyle doldurulmalıdır.
-const enumTypes = ref([]) // Bu, enum seçenekleriyle doldurulmalıdır.
-const dateFormats = ref([]) // Bu, tarih formatı seçenekleriyle doldurulmalıdır.
+const dataSource = ref({ language: "sql" }) // Bu, veri kaynağı seçenekleriyle doldurulmalıdır. 
 const MONACO_EDITOR_OPTIONS = {
     automaticLayout: true,
     formatOnType: true,
@@ -205,8 +230,37 @@ function formatCode() {
     editorRef.value?.getAction('editor.action.formatDocument').run()
 }
 
+const addDeclare = () => {
+    model.value.declares.push({
+        inputName: 'Field',
+        type: 'Text',
+        input: 'Text',
+        multiple: false,
+        visible: true,
+        showOnWidgets: true,
+        value1: {
+            model: '',
+            name: '',
+            periodValue: 0,
+            periodType: 'Second'
+        },
+        value2: {
+            model: '',
+            name: '',
+            periodValue: 0,
+            periodType: 'Second'
+        },
+        declareParentEntity: {
+            selector: '',
+            foreignKey: '',
+            secondSelector: '',
+            secondForeignKey: ''
+        }
+    });
+}
 
-watch(() => model.value.SourceId, // İzlenecek değer
+
+watch(() => model.value.sourceId, // İzlenecek değer
     async (newSourceId) => { // Callback fonksiyon, newValue otomatik olarak buraya geçilir
         if (newSourceId) {
             loading.value = true;
@@ -228,11 +282,11 @@ const runQuery = async () => {
     loading.value = true
     try {
         const response = await axios.post("/api/querybuilder/execute/new", model.value)
-        setColumns(response.data.Data.Data)
-        response.data.Data.Query.QueryColumns = response.data.Data.Query.QueryColumns.length == 0 ? model.value.QueryColumns : response.data.Data.Query.QueryColumns;
-        queryResult.value = response.data.Data.Data.map(dt => queryService.format(response.data.Data.Query, dt));
+        setColumns(response.data.data.data)
+        response.data.data.query.queryColumns = response.data.data.query.queryColumns.length == 0 ? model.value.queryColumns : response.data.data.query.queryColumns;
+        queryResult.value = response.data.data.data.map(dt => queryService.format(response.data.data.query, dt));
 
-        queryRunnded.value = response.data.Result.ResultStatus == "Undefined"
+        queryRunnded.value = response.data.result.resultStatus == "Undefined"
     } catch (error) {
         console.error('Error running query:', error)
     } finally {
@@ -245,7 +299,7 @@ const saveQuery = async () => {
     loading.value = true
     try {
         const response = await axios.post("/api/querybuilder/save", model.value)
-        model.value.Id = response.data.Data.Id
+        model.value.Id = response.data.data.id
     } catch (error) {
         console.error('Error saving query:', error)
     } finally {
@@ -259,10 +313,10 @@ const setColumns = (result) => {
     }
     const cols = []
     for (const c in result[0]) {
-        const existCol = model.value.QueryColumns.find(s => s.Name === c) || { Name: c, OutputType: 'Text' }
+        const existCol = model.value.queryColumns.find(s => s.name === c) || { name: c, outputType: 'Text' }
         cols.push(existCol)
     }
-    model.value.QueryColumns = cols
+    model.value.queryColumns = cols
 }
 
 

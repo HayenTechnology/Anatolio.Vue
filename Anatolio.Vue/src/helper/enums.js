@@ -1,5 +1,43 @@
 
 const enums = {
+    "PeriodType": [
+
+        {
+            "name": "Second",
+            "value": "Second",
+            "number": 1,
+        },
+        {
+            "name": "Minute",
+            "value": "Minute",
+            "number": 2,
+        },
+        {
+            "name": "Hour",
+            "value": "Hour",
+            "number": 3,
+        },
+        {
+            "name": "Day",
+            "value": "Day",
+            "number": 4,
+        },
+        {
+            "name": "Week",
+            "value": "Week",
+            "number": 5,
+        },
+        {
+            "name": "Month",
+            "value": "Month",
+            "number": 6,
+        },
+        {
+            "name": "Year",
+            "value": "Year",
+            "number": 7,
+        },
+    ],
     "DateFormat": [
         {
             "name": "Row",

@@ -1,218 +1,224 @@
 <template>
-    <div class="flex flex-col space-y-4">
-        <!-- First Row -->
-        <div class="flex space-x-4">
-            <div class="w-1/4">
-                <FormField inputType="InputText" label="Input Name" fieldName="InputName" v-model="ioDeclare.InputName"
-                    :errors="errors" />
-            </div>
-            <div class="w-1/6">
-                <FormField inputType="Enum" label="Data Type" fieldName="Type" v-model="ioDeclare.Type" :errors="errors"
-                    type="AnatolioDataType" />
-            </div>
-            <div class="w-1/4" v-if="ioDeclare.Type">
-                <FormField inputType="Enum" label="Input Type" fieldName="Input" v-model="ioDeclare.Input"
-                    :errors="errors" type="InputType" />
-            </div>
-            <div class="w-1/6" v-if="ioDeclare.Input === 'EnumSelect' || ioDeclare.Input === 'EntitySelect'">
-                <FormField inputType="Checkbox" label="Multiple" fieldName="Multiple" v-model="ioDeclare.Multiple"
-                    :binary="true" :errors="errors" />
-            </div>
-        </div>
-
-        <!-- Second Row -->
-        <div class="flex space-x-4">
-            <div class="w-1/6">
-                <FormField inputType="Checkbox" label="Visible" fieldName="Visible" v-model="ioDeclare.Visible"
-                    :binary="true" :errors="errors" />
-            </div>
-            <div class="w-1/6">
-                <FormField inputType="Checkbox" label="Show On Widgets" fieldName="ShowOnWidgets"
-                    v-model="ioDeclare.ShowOnWidgets" :binary="true" :errors="errors" />
-            </div>
-        </div>
-
-        <!-- Conditional Rows Based on Input Type -->
-        <div v-if="ioDeclare.Input === 'Text'">
-            <div class="w-1/2">
-                <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                    v-model="ioDeclare.Value1.Name" :errors="errors" />
-            </div>
-        </div>
-
-        <div v-if="ioDeclare.Input === 'Date'" class="flex space-x-4">
-            <div class="w-1/3">
-                <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                    v-model="ioDeclare.Value1.Name" :errors="errors" />
-            </div>
-            <div class="w-1/6">
-                <FormField inputType="InputText" label="Period" fieldName="Value1.PeriodValue"
-                    v-model="ioDeclare.Value1.PeriodValue" :errors="errors" />
-            </div>
-            <div class="w-1/6">
-                <FormField inputType="Enum" label="Period Type" fieldName="Value1.PeriodType"
-                    v-model="ioDeclare.Value1.PeriodType" :errors="errors" type="PeriodType" />
-            </div>
-        </div>
-
-        <!-- Similar structure for other input types (Month, Year, DateTime, etc.) -->
-        <div v-if="ioDeclare.Input === 'Month'" class="flex space-x-4">
-            <div class="w-1/3">
-                <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                    v-model="ioDeclare.Value1.Name" :errors="errors" />
-            </div>
-            <div class="w-1/6">
-                <FormField inputType="InputText" label="Period" fieldName="Value1.PeriodValue"
-                    v-model="ioDeclare.Value1.PeriodValue" :errors="errors" />
-            </div>
-        </div>
-
-        <div v-if="ioDeclare.Input === 'Year'" class="flex space-x-4">
-            <div class="w-1/3">
-                <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                    v-model="ioDeclare.Value1.Name" :errors="errors" />
-            </div>
-            <div class="w-1/6">
-                <FormField inputType="InputText" label="Period" fieldName="Value1.PeriodValue"
-                    v-model="ioDeclare.Value1.PeriodValue" :errors="errors" />
-            </div>
-        </div>
-
-        <div v-if="ioDeclare.Input === 'DateTime'" class="flex space-x-4">
-            <div class="w-1/3">
-                <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                    v-model="ioDeclare.Value1.Name" :errors="errors" />
-            </div>
-            <div class="w-1/6">
-                <FormField inputType="InputText" label="Period" fieldName="Value1.PeriodValue"
-                    v-model="ioDeclare.Value1.PeriodValue" :errors="errors" />
-            </div>
-            <div class="w-1/6">
-                <FormField inputType="Enum" label="Period Type" fieldName="Value1.PeriodType"
-                    v-model="ioDeclare.Value1.PeriodType" :errors="errors" type="PeriodType" />
-            </div>
-        </div>
-
-        <div v-if="ioDeclare.Input === 'DateRange'" class="flex flex-col space-y-4">
+    <Fieldset>
+        <template #legend>
+            <FormField :hideLabel="true" label="Input Name" fieldName="inputName" :errors="errors">
+                <template v-slot:default="prp">
+                    <InputGroup>
+                        <InputText v-model="declare.inputName" :invalid="prp.invalid" :placeholder="prp.placeholder">
+                        </InputText>
+                        <Button icon="pi pi-trash" class="p-button-danger " outlined />
+                    </InputGroup>
+                </template>
+            </FormField>
+        </template>
+        <div class="flex flex-col space-y-4">
+            <!-- First Row -->
             <div class="flex space-x-4">
-                <div class="w-1/3">
-                    <FormField inputType="InputText" label="Start Declare Name" fieldName="Value1.Name"
-                        v-model="ioDeclare.Value1.Name" :errors="errors" />
-                </div>
-                <div class="w-1/6">
-                    <FormField inputType="InputText" label="Start Period" fieldName="Value1.PeriodValue"
-                        v-model="ioDeclare.Value1.PeriodValue" :errors="errors" />
-                </div>
-                <div class="w-1/6">
-                    <FormField inputType="Enum" label="Start Period Type" fieldName="Value1.PeriodType"
-                        v-model="ioDeclare.Value1.PeriodType" :errors="errors" type="PeriodType" />
-                </div>
-            </div>
-            <div class="flex space-x-4">
-                <div class="w-1/3">
-                    <FormField inputType="InputText" label="End Declare Name" fieldName="Value2.Name"
-                        v-model="ioDeclare.Value2.Name" :errors="errors" />
-                </div>
-                <div class="w-1/6">
-                    <FormField inputType="InputText" label="End Period" fieldName="Value2.PeriodValue"
-                        v-model="ioDeclare.Value2.PeriodValue" :errors="errors" />
-                </div>
-                <div class="w-1/6">
-                    <FormField inputType="Enum" label="End Period Type" fieldName="Value2.PeriodType"
-                        v-model="ioDeclare.Value2.PeriodType" :errors="errors" type="PeriodType" />
-                </div>
-            </div>
-        </div>
 
-        <div v-if="ioDeclare.Input === 'EntitySelect'" class="flex flex-wrap space-x-4">
-            <div class="w-1/4">
-                <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                    v-model="ioDeclare.Value1.Name" :errors="errors" />
+                <FormField class="w-1/6" label="Data Type" fieldName="type" :errors="errors">
+                    <template v-slot:default="prp">
+                        <Enum v-model="declare.type" type="AnatolioDataType" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder">
+                        </Enum>
+                    </template>
+                </FormField>
+                <FormField class="w-1/4" label="Input Type" fieldName="input" :errors="errors">
+                    <template v-slot:default="prp">
+                        <Enum v-model="declare.input" type="InputType" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder">
+                        </Enum>
+                    </template>
+                </FormField>
+                <FormField class="w-1/6" label="Multiple" fieldName="multiple" :errors="errors"
+                    v-if="declare.input === 'EnumSelect' || declare.input === 'EntitySelect'">
+                    <template v-slot:default="prp">
+                        <Checkbox v-model="declare.multiple" :binary="true" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder">
+                        </Checkbox>
+                    </template>
+                </FormField>
+                <FormField class="w-1/6" label="Visible" fieldName="visible" :errors="errors">
+                    <template v-slot:default="prp">
+                        <Checkbox v-model="declare.visible" :binary="true" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder"></Checkbox>
+                    </template>
+                </FormField>
+                <FormField class="w-1/6" label="Show On Widgets" fieldName="showOnWidgets" :errors="errors">
+                    <template v-slot:default="prp">
+                        <Checkbox v-model="declare.showOnWidgets" :binary="true" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder"></Checkbox>
+                    </template>
+                </FormField>
             </div>
-            <div class="w-1/4">
-                <FormField inputType="OSelect" label="Search Table" fieldName="Value1.Model"
-                    v-model="ioDeclare.Value1.Model" :errors="errors"
-                    :settings="{ key: 'TypeName', url: '/odata/odatasources', values: ['TypeName'], selects: ['Url', 'Properties'] }" />
-            </div>
-            <div class="w-1/4" v-if="ioDeclare.Value1.Model">
-                <FormField inputType="OSelect" label="Filter Columns" fieldName="Value1.Filters"
-                    v-model="ioDeclare.Value1.Filters" :errors="errors"
-                    :settings="{ data: ioDeclare.Value1.ODataSource.Properties, multiple: true }" />
-            </div>
-            <div class="w-1/4">
-                <FormField inputType="InputText" label="Parent Entity Property Name"
-                    fieldName="DeclareParentEntity.Selector" v-model="ioDeclare.DeclareParentEntity.Selector"
-                    :errors="errors" />
-            </div>
-            <div class="w-1/4">
-                <FormField inputType="InputText" label="Parent Entity Foreign Key"
-                    fieldName="DeclareParentEntity.ForeignKey" v-model="ioDeclare.DeclareParentEntity.ForeignKey"
-                    :errors="errors" />
-            </div>
-            <div class="w-1/4">
-                <FormField inputType="InputText" label="Parent Entity Property Name"
-                    fieldName="DeclareParentEntity.SecondSelector"
-                    v-model="ioDeclare.DeclareParentEntity.SecondSelector" :errors="errors" />
-            </div>
-            <div class="w-1/4">
-                <FormField inputType="InputText" label="Parent Entity Foreign Key"
-                    fieldName="DeclareParentEntity.SecondForeignKey"
-                    v-model="ioDeclare.DeclareParentEntity.SecondForeignKey" :errors="errors" />
-            </div>
-        </div>
 
-        <div v-if="ioDeclare.Input === 'EnumSelect'" class="flex space-x-4">
-            <div class="w-1/3">
-                <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                    v-model="ioDeclare.Value1.Name" :errors="errors" />
-            </div>
-            <div class="w-1/4">
-                <FormField inputType="Enum" label="Enum" fieldName="Value1.Enum" v-model="ioDeclare.Value1.Enum"
-                    :errors="errors" type="EnumTypes" />
-            </div>
-        </div>
 
-        <div v-if="ioDeclare.Input === 'Checkbox'" class="w-1/2">
-            <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                v-model="ioDeclare.Value1.Name" :errors="errors" />
-        </div>
+            <!-- Conditional Rows Based on Input Type -->
+            <div v-if="declare.input === 'Text' || declare.input === 'Number' || declare.input === 'Checkbox'">
+                <FormField class="w-1/2" label="Declare Name" fieldName="value1.name" :errors="errors">
+                    <template v-slot:default="prp">
+                        <InputText v-model="declare.value1.name" :invalid="prp.invalid" :placeholder="prp.placeholder">
+                        </InputText>
+                    </template>
+                </FormField>
+            </div>
 
-        <div v-if="ioDeclare.Input === 'Number'" class="w-1/2">
-            <FormField inputType="InputText" label="Declare Name" fieldName="Value1.Name"
-                v-model="ioDeclare.Value1.Name" :errors="errors" />
+            <div v-if="declare.input === 'Date' || declare.input === 'DateTime'" class="flex space-x-4">
+                <FormField class="w-1/3" label="Declare Name" fieldName="value1.name" :errors="errors">
+                    <template v-slot:default="prp">
+                        <InputText v-model="declare.value1.name" :invalid="prp.invalid" :placeholder="prp.placeholder">
+                        </InputText>
+                    </template>
+                </FormField>
+                <FormField class="w-1/6" label="Period" fieldName="value1.periodValue" :errors="errors">
+                    <template v-slot:default="prp">
+                        <InputText v-model="declare.value1.periodValue" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder"></InputText>
+                    </template>
+                </FormField>
+                <FormField class="w-1/6" label="Period Type" fieldName="value1.periodType" :errors="errors">
+                    <template v-slot:default="prp">
+                        <Enum v-model="declare.value1.periodType" type="PeriodType" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder"></Enum>
+                    </template>
+                </FormField>
+            </div>
+
+            <!-- Similar structure for other input types (Month, Year, DateTime, etc.) -->
+            <div v-if="declare.input === 'Month' || declare.input === 'Year'" class="flex space-x-4">
+                <FormField class="w-1/3" label="Declare Name" fieldName="value1.name" :errors="errors">
+                    <template v-slot:default="prp">
+                        <InputText v-model="declare.value1.name" :invalid="prp.invalid" :placeholder="prp.placeholder">
+                        </InputText>
+                    </template>
+                </FormField>
+                <FormField class="w-1/6" label="Period" fieldName="value1.periodValue" :errors="errors">
+                    <template v-slot:default="prp">
+                        <InputText v-model="declare.value1.periodValue" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder"></InputText>
+                    </template>
+                </FormField>
+            </div>
+
+            <div v-if="declare.input === 'DateRange' || declare.input === 'DateTimeRange'"
+                class="flex flex-col space-y-4">
+                <div class="flex space-x-4">
+                    <FormField class="w-1/3" label="Start Declare Name" fieldName="value1.name" :errors="errors">
+                        <template v-slot:default="prp">
+                            <InputText v-model="declare.value1.name" :invalid="prp.invalid"
+                                :placeholder="prp.placeholder">
+                            </InputText>
+                        </template>
+                    </FormField>
+                    <FormField class="w-1/6" label="Start Period" fieldName="value1.periodValue" :errors="errors">
+                        <template v-slot:default="prp">
+                            <InputText v-model="declare.value1.periodValue" :invalid="prp.invalid"
+                                :placeholder="prp.placeholder"></InputText>
+                        </template>
+                    </FormField>
+                    <FormField class="w-1/6" label="Start Period Type" fieldName="value1.periodType" :errors="errors">
+                        <template v-slot:default="prp">
+                            <Enum v-model="declare.value1.periodType" type="PeriodType" :invalid="prp.invalid"
+                                :placeholder="prp.placeholder"></Enum>
+                        </template>
+                    </FormField>
+                </div>
+                <div class="flex space-x-4">
+                    <FormField class="w-1/3" label="End Declare Name" fieldName="value2.name" :errors="errors">
+                        <template v-slot:default="prp">
+                            <InputText v-model="declare.value2.name" :invalid="prp.invalid"
+                                :placeholder="prp.placeholder">
+                            </InputText>
+                        </template>
+                    </FormField>
+                    <FormField class="w-1/6" label="End Period" fieldName="value2.periodValue" :errors="errors">
+                        <template v-slot:default="prp">
+                            <InputText v-model="declare.value2.periodValue" :invalid="prp.invalid"
+                                :placeholder="prp.placeholder"></InputText>
+                        </template>
+                    </FormField>
+                    <FormField class="w-1/6" label="End Period Type" fieldName="value2.periodType" :errors="errors">
+                        <template v-slot:default="prp">
+                            <Enum v-model="declare.value2.periodType" type="PeriodType" :invalid="prp.invalid"
+                                :placeholder="prp.placeholder"></Enum>
+                        </template>
+                    </FormField>
+                </div>
+            </div>
+
+            <div v-if="declare.input === 'EntitySelect'" class="flex flex-wrap space-x-4">
+                <FormField class="w-1/4" label="Declare Name" fieldName="value1.name" :errors="errors">
+                    <template v-slot:default="prp">
+                        <InputText v-model="declare.value1.name" :invalid="prp.invalid" :placeholder="prp.placeholder">
+                        </InputText>
+                    </template>
+                </FormField>
+                <FormField class="w-1/4" label="Search Table" fieldName="value1.model" :errors="errors">
+                    <template v-slot:default="prp">
+                        <OSelect v-model="declare.value1.model" :invalid="prp.invalid" :placeholder="prp.placeholder"
+                            :settings="{
+                key: 'name',
+                url: '/api?',
+                value: 'url'
+            }">
+                        </OSelect>
+                    </template>
+                </FormField>
+                <FormField class="w-1/4" v-if="declare.value1.model">
+                    <template v-slot:default="prp">
+                        <OSelect v-model="declare.value1.filters" :invalid="prp.invalid" :placeholder="prp.placeholder"
+                            :settings="{ data: declare.value1.oDataSource.properties, multiple: true }"></OSelect>
+                    </template>
+                </FormField>
+            </div>
+            <div v-if="declare.input === 'EnumSelect'" class="flex space-x-4">
+                <FormField class="w-1/4" label="Declare Name" fieldName="value1.name" :errors="errors">
+                    <template v-slot:default="prp">
+                        <InputText v-model="declare.value1.name" :invalid="prp.invalid" :placeholder="prp.placeholder">
+                        </InputText>
+                    </template>
+                </FormField>
+                <FormField class="w-1/4" label="Enum" fieldName="value1.enum" :errors="errors">
+                    <template v-slot:default="prp">
+                        <Enum v-model="declare.value1.enum" type="EnumTypes" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder">
+                        </Enum>
+                    </template>
+                </FormField>
+            </div>
         </div>
-    </div>
+    </Fieldset>
+
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
 const props = defineProps({
-    ioDeclare: {
+    declare: {
         type: Object,
         required: true,
         default: {
-            InputName: '',
-            Type: null,
-            Input: null,
-            Multiple: false,
-            Visible: true,
-            ShowOnWidgets: true,
-            Value1: {
-                Name: '',
-                PeriodValue: '',
-                PeriodType: ''
+            inputName: '',
+            type: null,
+            input: null,
+            multiple: false,
+            visible: true,
+            showOnWidgets: true,
+            value1: {
+                name: '',
+                periodValue: '',
+                periodType: ''
             },
-            Value2: {
-                Name: '',
-                PeriodValue: '',
-                PeriodType: ''
+            value2: {
+                name: '',
+                periodValue: '',
+                periodType: ''
             },
-            DeclareParentEntity: {
-                Selector: '',
-                ForeignKey: '',
-                SecondSelector: '',
-                SecondForeignKey: ''
+            declareParentEntity: {
+                selector: '',
+                foreignKey: '',
+                secondSelector: '',
+                secondForeignKey: ''
             }
         }
     }
