@@ -28,7 +28,7 @@ export default class AxiosSettings {
     }
     handleSuccessResponse(response, toast, t) {
         var res = response.data;
-        const onlyData = !res.responseType || res.responseType == "OnlyData";
+        const onlyData = !res.responseType || res.responseType == "Data";
 
         if (!onlyData && !response.config.hideToast) {
             const message = JSON.stringify(res?.errors) ?? 'Completed successfully';

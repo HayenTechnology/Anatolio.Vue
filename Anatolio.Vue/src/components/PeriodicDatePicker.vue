@@ -7,9 +7,9 @@
 import { add } from 'date-fns';
 import { defineEmits, ref, watch } from 'vue';
 
-const emit = defineEmits({
-
-})
+const emit = defineEmits([
+    'update:modelValue'
+])
 const props = defineProps({
     modelValue: {
         type: [Date, Array],

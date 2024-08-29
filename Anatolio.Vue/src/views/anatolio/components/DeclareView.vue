@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     declare: {
@@ -115,6 +115,14 @@ const props = defineProps({
     }
 });
 
-const dateRange = ref([null, null]);
+const dateRange = ref([props.declare.value1.default, props.declare.value2.default]);
+
+watch(dateRange, (newValue) => {
+
+    props.declare.value1.default = newValue[0];
+    props.declare.value2.default = newValue[1];
+
+})
+
 const errors = ref({});
 </script>
