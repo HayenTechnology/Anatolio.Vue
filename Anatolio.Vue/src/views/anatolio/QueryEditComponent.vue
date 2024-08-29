@@ -1,5 +1,6 @@
 <template>
     <div>
+        <ErrorDisplay :error="error" :errors="errors" class="mb-4" />
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <!-- Sidebar Section -->
@@ -7,49 +8,22 @@
 
                 <Card class="mb-4">
                     <template #title>
-                        Query Data Source
+                        {{ $t('Query Data Source') }}
                     </template>
                     <template #content>
-
-                        <FormField class="mb-4" :hideLabel="true" label="Data Source" fieldName="sourceId">
+                        <FormField class="mb-4" :hideLabel="true" label="Data Source" fieldName="sourceId"
+                            :errors="errors">
                             <template v-slot:default="prp">
                                 <OSelect :settings="{
-                            url: '/api/ODataSources?',
-                            key: 'Id',
-                            value: 'DbName',
-                        }" v-model="model.sourceId" v-model:selectedData="dataSource" :placeholder="prp.placeholder">
+            url: '/api/ODataSources?',
+            key: 'Id',
+            value: 'DbName',
+        }" v-model="model.sourceId" v-model:selectedData="dataSource" :placeholder="prp.placeholder"
+                                    :invalid="prp.invalid">
                                 </OSelect>
                             </template>
                         </FormField>
-
-                        <div v-if="model.SourceId" class="mb-4">
-                            <InputText v-model="model.searchTable" placeholder="Search in Tables"
-                                class="w-full p-2 border rounded" />
-                        </div>
-                        <div class="text-center w-full" v-if="loading">
-                            <ProgressSpinner />
-                        </div>
-                        <div v-else>
-                            <Message v-if="!DataSourceTables.length" severity="secondary" class="text-center"><i
-                                    class="pi pi-info-circle"></i><br /> Data Source Tables Will Shown Here</Message>
-
-                            <Accordion v-if="DataSourceTables.length" multiple>
-                                <AccordionTab v-for="table in DataSourceTables" :key="table.TABLE_NAME"
-                                    :header="`${table.TABLE_SCHEMA}.${table.TABLE_NAME}`">
-                                    <ul>
-                                        <li v-for="col in table.Columns" :key="col.COLUMN_NAME">
-                                            <a @click="copyColumnName(col.COLUMN_NAME)" class="text-sm w-full">
-                                                <i class="pi pi-chevron-right mr-2"></i> {{ col.COLUMN_NAME }}
-                                                <span v-tooltip:top="col.DATA_TYPE" class="text-gray-500"
-                                                    style="float: right; max-width: 40px; overflow: hidden; height: 20px; white-space: nowrap;">
-                                                    {{ col.DATA_TYPE }}
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </AccordionTab>
-                            </Accordion>
-                        </div>
+                        <DataSource :sourceId="model.sourceId"></DataSource>
                     </template>
                 </Card>
 
@@ -57,40 +31,33 @@
 
             <!-- Main Content Section -->
             <div class="md:col-span-3">
-
-                <Toolbar class="mb-4">
-                    <template #start>
-                        <Button icon="pi pi-plus" @click="addDeclare" class="mr-2" severity="secondary" text />
-                        <Button icon="pi pi-print" class="mr-2" severity="secondary" text />
-                        <Button icon="pi pi-upload" severity="secondary" text />
+                <Card class="mb-4">
+                    <template #content>
+                        <FormField :hideLabel="true" label="Query Name" fieldName="name" :errors="errors">
+                            <template v-slot:default="prp">
+                                <InputGroup>
+                                    <Button icon="pi pi-plus" @click="addDeclare" severity="secondary" />
+                                    <InputText v-model="model.name" :placeholder="prp.placeholder"
+                                        :invalid="prp.invalid" class="w-full p-2 border rounded" />
+                                    <Button :loading="loading" label="Run Query" icon="pi pi-play" class="p-button-info"
+                                        @click="runQuery"></Button>
+                                    <Button :loading="loading" label="Save Query" icon="pi pi-save" v-if="queryRunnded"
+                                        @click="saveQuery"></Button>
+                                </InputGroup>
+                            </template>
+                        </FormField>
                     </template>
-
-                    <template #center>
-                        <IconField>
-                            <InputIcon>
-                                <i class="pi pi-file" />
-                            </InputIcon>
-                            <InputText v-model="model.name" placeholder="Query Name"
-                                class="w-full p-2 border rounded" />
-                        </IconField>
-                    </template>
-
-                    <template #end>
-                        <Button label="Run Query" icon="pi pi-play" class="p-button-success mr-2"
-                            @click="runQuery"></Button>
-                        <Button label="Save Query" icon="pi pi-save" v-if="queryRunnded" @click="saveQuery"></Button>
-                    </template>
-                </Toolbar>
+                </Card>
 
                 <Card class="mb-4">
                     <template #title>
-                        Query Editor
+                        {{ $t('Query Editor') }}
                     </template>
                     <template #content>
                         <Tabs value="0">
                             <TabList>
-                                <Tab value="0">Query</Tab>
-                                <Tab value="1">Declares</Tab>
+                                <Tab value="0"> {{ $t('Query') }}</Tab>
+                                <Tab value="1">{{ $t('Declares') }}</Tab>
                             </TabList>
                             <TabPanels>
                                 <TabPanel value="0">
@@ -100,10 +67,10 @@
                                         </div>
                                     </div>
                                     <br />
-                                    <div style="height:300px">
+                                    <div style="height:200px">
                                         <vue-monaco-editor v-model:value="model.queryString" theme="vs-dark"
                                             :options="MONACO_EDITOR_OPTIONS" @mount="handleMount"
-                                            :language="dataSource?.language ?? 'sql'" />
+                                            :language="dataSource?.Language ?? 'sql'" />
                                     </div>
                                 </TabPanel>
                                 <TabPanel value="1">
@@ -120,11 +87,12 @@
 
                 <Card class="mb-4">
                     <template #title>
-                        Query Result
+                        {{ $t('Query Result') }}
                     </template>
                     <template #content>
-                        <Message v-if="!queryResult.length" severity="secondary" class="text-center"><i
-                                class="pi pi-info-circle"></i> There is no query result</Message>
+                        <Message v-if="!queryResult.length" severity="secondary" class="text-center">
+                            <i class="pi pi-info-circle"></i>{{ $t('There is no query result yet') }}
+                        </Message>
 
                         <DataTable v-else :value="queryResult" tableStyle="min-width: 50rem">
                             <div v-for="column in model.queryColumns">
@@ -138,7 +106,7 @@
 
                 <Card class="mb-4" v-if="model.queryColumns.length">
                     <template #title>
-                        Result Column Output Types
+                        {{ $t('Result Column Output Types') }}
                     </template>
                     <template #content>
                         <div v-for="column in model.queryColumns" :key="column.name" class="grid grid-cols-6 gap-4">
@@ -179,9 +147,10 @@
 <script setup>
 import { VueMonacoEditor } from '@guolao/vue-monaco-editor';
 import axios from 'axios';
-import { onBeforeMount, ref, shallowRef, watch } from 'vue';
+import { onBeforeMount, ref, shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
 import QueryService from './QueryService';
+import DataSource from './components/DataSource.vue';
 import DeclareCreate from './components/DeclareCreate.vue';
 import DeclareView from './components/DeclareView.vue';
 
@@ -199,9 +168,9 @@ const model = ref({
 
 onBeforeMount(() => {
     if (route.params.id) {
-        axios.get("/api/oqueries(" + route.params.id + ")").then(response => {
-            const query = response.data.value[0];
-            console.log(query);
+        axios.get("/api/querybuilder/get/" + route.params.id).then(response => {
+            const query = response;
+            if (query == null) { return; }
             model.value = query;
         })
     }
@@ -212,11 +181,12 @@ onBeforeMount(() => {
 const queryService = new QueryService();
 
 const queryRunnded = ref(false)
-const DataSourceTables = ref([])
 const queryResult = ref([])
 const loading = ref(false)
+const errors = ref([])
+const error = ref("");
 
-const dataSource = ref({ language: "sql" }) // Bu, veri kaynağı seçenekleriyle doldurulmalıdır. 
+const dataSource = ref({})
 const MONACO_EDITOR_OPTIONS = {
     automaticLayout: true,
     formatOnType: true,
@@ -241,14 +211,14 @@ const addDeclare = () => {
         value1: {
             model: '',
             name: '',
-            periodValue: 0,
-            periodType: 'Second'
+            periodValue: -2,
+            periodType: 'Day'
         },
         value2: {
             model: '',
             name: '',
-            periodValue: 0,
-            periodType: 'Second'
+            periodValue: 2,
+            periodType: 'Day'
         },
         declareParentEntity: {
             selector: '',
@@ -260,51 +230,25 @@ const addDeclare = () => {
 }
 
 
-watch(() => model.value.sourceId, // İzlenecek değer
-    async (newSourceId) => { // Callback fonksiyon, newValue otomatik olarak buraya geçilir
-        if (newSourceId) {
-            loading.value = true;
-            try {
-                const response = await axios.get(`/api/otables(${newSourceId})`);
-                DataSourceTables.value = response.data.value;
-            } catch (error) {
-                console.error('Error fetching tables:', error);
-            } finally {
-                loading.value = false;
-            }
-        }
-    }
-);
 
 
 const runQuery = async () => {
+    queryRunnded.value = false;
 
-    loading.value = true
-    try {
-        const response = await axios.post("/api/querybuilder/execute/new", model.value)
-        setColumns(response.data.data.data)
-        response.data.data.query.queryColumns = response.data.data.query.queryColumns.length == 0 ? model.value.queryColumns : response.data.data.query.queryColumns;
-        queryResult.value = response.data.data.data.map(dt => queryService.format(response.data.data.query, dt));
+    const response = await axios.post("/api/querybuilder/execute/new", model.value, { loading, errors, error })
+    setColumns(response.data)
+    response.query.queryColumns = response.query.queryColumns.length == 0 ? model.value.queryColumns : response.query.queryColumns;
+    queryResult.value = response.data.map(dt => queryService.format(response.query, dt));
 
-        queryRunnded.value = response.data.result.resultStatus == "Undefined"
-    } catch (error) {
-        console.error('Error running query:', error)
-    } finally {
-        loading.value = false
-    }
+    queryRunnded.value = true;
+
 }
 
 const saveQuery = async () => {
 
-    loading.value = true
-    try {
-        const response = await axios.post("/api/querybuilder/save", model.value)
-        model.value.Id = response.data.data.id
-    } catch (error) {
-        console.error('Error saving query:', error)
-    } finally {
-        loading.value = false
-    }
+    const response = await axios.post("/api/querybuilder/save", model.value, { loading, errors, error })
+    model.value.Id = response.id
+
 }
 
 const setColumns = (result) => {
@@ -319,13 +263,4 @@ const setColumns = (result) => {
     model.value.queryColumns = cols
 }
 
-
-const copyColumnName = (columnName) => {
-    navigator.clipboard.writeText(columnName)
-}
-
 </script>
-
-<style scoped>
-/* Add any scoped styles here */
-</style>

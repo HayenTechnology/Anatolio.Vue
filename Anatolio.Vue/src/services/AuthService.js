@@ -8,7 +8,7 @@ export default class AuthService {
                 Password: password,
                 RememberMe: rememberMe
             });
-            this.authenticate(response.data);
+            this.authenticate(response);
         } catch (error) {
             return Promise.reject(error);
         }
@@ -20,7 +20,7 @@ export default class AuthService {
                 Email: email,
                 Password: password
             });
-            this.authenticate(response.data);
+            this.authenticate(response);
         } catch (error) {
             return Promise.reject(error);
         }
@@ -37,10 +37,10 @@ export default class AuthService {
     }
     reloadCache() {
         axios.get('/api/company').then((response) => {
-            this.setCompany(response.data.data);
+            this.setCompany(response);
         });
         axios.get('/api/auth/GeUserRole').then((response) => {
-            this.setRoles(response.data.data);
+            this.setRoles(response);
         });
     }
     logout(router) {

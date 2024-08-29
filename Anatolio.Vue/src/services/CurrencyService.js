@@ -6,7 +6,7 @@ export default class CurrencyService {
         this.currencies = {};
         this.cacheKey = 'currencies';
         this.cacheExpiryKey = 'currenciesExpiry';
-        this.cacheDuration = 24 * 60 * 60 * 1000; // 1 gün (milisaniye cinsinden)
+        this.cacheDuration = 24 * 60 * 60 * 1000; // 1 gÃ¼n (milisaniye cinsinden)
         this.loadCurrencies();
     }
 
@@ -18,8 +18,7 @@ export default class CurrencyService {
             this.currencies = JSON.parse(cachedCurrencies);
         } else {
             try {
-                const response = await axios.get("/api/Helper/GetCurrencies");
-                this.currencies = response.data;
+                this.currencies = await axios.get("/api/Helper/GetCurrencies");
                 localStorage.setItem(this.cacheKey, JSON.stringify(this.currencies));
                 localStorage.setItem(this.cacheExpiryKey, Date.now() + this.cacheDuration);
             } catch (error) {

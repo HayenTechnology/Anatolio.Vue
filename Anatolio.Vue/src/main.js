@@ -19,6 +19,7 @@ import MenuButton from './components/MenuButton.vue';
 import ODataTable from './components/ODataTable.vue';
 import OSelect from './components/OSelect.vue';
 import OView from './components/OView.vue';
+import PeriodicDatePicker from './components/PeriodicDatePicker.vue';
 import enums from './helper/enums';
 
 import { install as VueMonacoEditorPlugin } from '@guolao/vue-monaco-editor';
@@ -54,5 +55,6 @@ app.component('ErrorDisplay', ErrorDisplay);
 app.component('FormField', FormField);
 app.component('Enum', Enum);
 app.component('ODataTable', ODataTable);
+app.component('PeriodicDatePicker', PeriodicDatePicker);
 
 app.mount('#app');

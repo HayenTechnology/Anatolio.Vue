@@ -1,6 +1,8 @@
 <template>
     <!-- eslint-disable-next-line -->
-    <Select  showClear v-model="localValue" :options="selectOptions" :disabled="disabled" :class="class" :placeholder="placeholder" :optionLabel="'value'" :optionValue="'key'" @change="updateValue" :filter="true" @filter="filterData" filterLocale="tr-TR">
+    <Select showClear v-model="localValue" :options="selectOptions" :disabled="disabled" :class="class"
+        :invalid="invalid" :placeholder="placeholder" :optionLabel="'value'" :optionValue="'key'" @change="updateValue"
+        :filter="true" @filter="filterData" filterLocale="tr-TR">
         <template #option="slotProps">
             <div class="">
                 <b v-if="slotProps.option.header">{{ slotProps.option.header }}</b>
@@ -12,140 +14,133 @@
 </template>
 
 <script>
-    import axios from 'axios';
+import axios from 'axios';
+import { onMounted, ref, watch } from 'vue';
 
-    export default {
-        inheritAttrs: false,
-        inheritProps: false,
-        props: {
-            modelValue: null,
-            settings: Object,
-            selectedData: {
-                type: Object,
-                default: () => ({}),
-            },
-            disabled: { 
-                default: false // Varsayılan olarak 'InputText' kullan, ancak istenilen herhangi bir bileşeni destekler
-            },
-            class: String,
-            placeholder: String
+export default {
+    inheritAttrs: false,
+    inheritProps: false,
+    props: {
+        modelValue: null,
+        settings: Object,
+        selectedData: {
+            type: Object,
+            default: () => ({}),
         },
-        data() {
-            return {
-                localValue: null,
-                filterChanhed: false,
-                selectOptions: [],
-                foundedValue: [],
-                delayTimer: null
-            };
+        disabled: {
+            default: false
         },
-        created() {
-            this.localValue = this.modelValue;
-            this.InputInit();
+        invalid: {
+            default: false
         },
-        watch: {
-            modelValue(n, o) {
-                this.localValue = n;
+        class: String,
+        placeholder: String
+    },
+    setup(props, { emit }) {
+        const localValue = ref(null);
+        const filterChanged = ref(false);
+        const selectOptions = ref([]);
+        const foundedValue = ref([]);
+        let delayTimer = null;
 
-                this.InputInit();
-            },
-            'settings.filter': function (n, o) {
-                this.filterChanhed = true;
-                this.InputInit();
+        const InputInit = () => {
+            if (filterChanged.value || !selectOptions.value.find(s => s.key === props.modelValue)) {
+                let filter = '';
+                if (!filterChanged.value && props.modelValue) {
+                    let val = props.modelValue;
+                    if (typeof props.modelValue === 'string') {
+                        val = `'${props.modelValue}'`;
+                    }
+                    filter = `${props.settings.key} eq ${val}`;
+                }
+                filterChanged.value = false;
+                get(filter);
+            } else {
+                emit('update:selectedData', foundedValue.value.find(s => s[props.settings.key] === props.modelValue));
             }
-        },
-        methods: {
-            InputInit() {
-                if (this.filterChanhed == true || this.selectOptions.find((s) => s.key == this.modelValue) == null) {
-                    var filter = '';
-                    if (this.filterChanhed == false && this.modelValue) {
-                        var val = this.modelValue;
-                        if (typeof this.modelValue === 'string') {
-                            val = "'" + this.modelValue + "'";
-                        }
+        };
 
+        const updateValue = (event) => {
+            localValue.value = event.value;
+            emit('update:modelValue', event.value);
+            emit('update:selectedData', foundedValue.value.find(s => s[props.settings.key] === event.value));
+        };
 
-                        filter = this.settings.key + " eq " + val;
-                    }
+        const filterData = (event) => {
+            let filter = `(contains(tolower(${props.settings.value}),tolower('${event.value}')) 
+                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('ı', 'I')}')) 
+                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('İ', 'i')}')) 
+                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('ı', 'i')}')) 
+                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('I', 'ı')}')) 
+                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('I', 'i')}'))`;
 
-                    this.filterChanhed = false;
+            if (props.settings.header) {
+                filter += ` or contains(tolower(${props.settings.header}),tolower('${event.value}')) 
+                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('ı', 'I')}')) 
+                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('ı', 'i')}')) 
+                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('İ', 'i')}')) 
+                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('I', 'ı')}')) 
+                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('I', 'i')}'))`;
+            }
 
-                    this.get(filter);
-                } else {
-                    this.$emit('update:selectedData', this.foundedValue.find((s) => s[this.settings.key] == this.modelValue));
-                }
-            },
-            updateValue(event) {
-                this.localValue = event.value;
-                this.$emit('update:modelValue', event.value);
-                this.$emit(
-                    'update:selectedData',
-                    this.foundedValue.find((s) => s[this.settings.key] == event.value)
-                );
-            },
-            filterData(event) {
-                var filter =
-                    '(contains(tolower(' + this.settings.value + "),tolower('" + event.value + "')) "
-                    + "or contains(tolower(" + this.settings.value + "),tolower('" + event.value.replaceAll('ı', 'I') + "')) "
-                    + "or contains(tolower(" + this.settings.value + "),tolower('" + event.value.replaceAll('İ', 'i') + "')) "
-                    + "or contains(tolower(" + this.settings.value + "),tolower('" + event.value.replaceAll('ı', 'i') + "')) "
-                    + "or contains(tolower(" + this.settings.value + "),tolower('" + event.value.replaceAll('I', 'ı') + "')) "
-                    + "or contains(tolower(" + this.settings.value + "),tolower('" + event.value.replaceAll('I', 'i') + "')) ";
+            filter += ')';
 
-                if (this.settings.header) {
-                    filter +=
-                        ' or contains(tolower(' + this.settings.header + "),tolower('" + event.value + "'))"
-                        + " or contains(tolower(" + this.settings.header + "),tolower('" + event.value.replaceAll('ı', 'I') + "')) "
-                        + " or contains(tolower(" + this.settings.header + "),tolower('" + event.value.replaceAll('ı', 'i') + "')) "
-                        + " or contains(tolower(" + this.settings.header + "),tolower('" + event.value.replaceAll('İ', 'i') + "')) "
-                        + " or contains(tolower(" + this.settings.header + "),tolower('" + event.value.replaceAll('I', 'ı') + "')) "
-                        + " or contains(tolower(" + this.settings.header + "),tolower('" + event.value.replaceAll('I', 'i') + "')) )";
-                } else {
-                    filter += ')';
-                }
+            clearTimeout(delayTimer);
+            delayTimer = setTimeout(() => {
+                get(filter, true);
+            }, 350);
+        };
 
-                var getMethod = this.get;
-                clearTimeout(this.delayTimer);
-                this.delayTimer = setTimeout(function () {
-                    getMethod(filter, true);
-                }, 350);
-            },
-            resolve(path, obj = self, separator = '/') {
-                if (!path) {
-                    return null;
-                }
-                if (!obj) {
-                    return null;
-                }
-                var properties = Array.isArray(path) ? path : path.split(separator);
-                return properties.reduce((prev, curr) => prev?.[curr], obj);
-            },
-            get(filter, queried = false) {
-                if (this.settings.filter) {
-                    filter = filter == '' ? this.settings.filter : filter + ' and ' + this.settings.filter;
-                }
+        const resolve = (path, obj = self, separator = '/') => {
+            if (!path || !obj) return null;
+            const properties = Array.isArray(path) ? path : path.split(separator);
+            return properties.reduce((prev, curr) => prev?.[curr], obj);
+        };
 
-                filter = filter == '' ? '' : '&$filter= ' + filter;
+        const get = (filter, queried = false) => {
+            if (props.settings.filter) {
+                filter = filter ? `${filter} and ${props.settings.filter}` : props.settings.filter;
+            }
+            filter = filter ? `&$filter= ${filter}` : '';
+            const url = `${props.settings.url}$top=10&$orderby=${props.settings.value} asc${filter}`;
 
-                return axios.get(this.settings.url + '$top=10&$orderby=' + this.settings.value + ' asc' + filter).then((response) => {
-                    var result = response.data.value.find((s) => s[this.settings.key] == this.modelValue);
-                    if ((result == undefined || result == null) && this.modelValue && !queried) {
-                        return;
-                    }
-                    this.foundedValue = response.data.value;
-                    this.selectOptions = response.data.value.map((s) => {
-                        var value = this.resolve(this.settings.value, s) + ' ' + (this.settings.select ? '(' + (this.resolve(this.settings.select, s) ?? '') + ')' : '');
+            axios.get(url).then(response => {
+                const result = response.value.find(s => s[props.settings.key] === props.modelValue);
+                if ((!result && props.modelValue && !queried)) return;
 
-                        var header = this.settings.header ? s[this.settings.header] : null;
-
-                        return { key: s[this.settings.key], value: value, header: header };
-                    });
-
-                    this.$emit('update:selectedData', result);
-
-                    return response.data;
+                foundedValue.value = response.value;
+                selectOptions.value = response.value.map(s => {
+                    const value = resolve(props.settings.value, s) + ' ' +
+                        (props.settings.select ? `(${resolve(props.settings.select, s) ?? ''})` : '');
+                    const header = props.settings.header ? s[props.settings.header] : null;
+                    return { key: s[props.settings.key], value, header };
                 });
-            }
-        }
-    };
+
+                emit('update:selectedData', result);
+            });
+        };
+
+        watch(() => props.modelValue, () => {
+            localValue.value = props.modelValue;
+            InputInit();
+        });
+
+        watch(() => props.settings.filter, () => {
+            filterChanged.value = true;
+            InputInit();
+        });
+
+        onMounted(() => {
+            localValue.value = props.modelValue;
+            InputInit();
+        });
+
+        return {
+            localValue,
+            selectOptions,
+            updateValue,
+            filterData
+        };
+    }
+};
 </script>

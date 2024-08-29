@@ -1,12 +1,10 @@
 import axios from 'axios';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 export default class CrudService {
-
-    _apiPath = "";
+    _apiPath = '';
 
     constructor(path, settings) {
-
         this.router = useRouter();
         this._apiPath = `/api/${path}`;
         this._createPath = settings.createPath ?? `/api/${path}`;
@@ -16,22 +14,21 @@ export default class CrudService {
         this.data = settings.data;
         this.loading = settings.loading;
         this.dialog = settings.dialog ?? false;
-
     }
 
     get(id, fnc) {
-        if (id === null || id === undefined || id === "") {
+        if (id === null || id === undefined || id === '') {
             return;
         }
         axios.get(this.getUrl(id), { loading: this.loading, errors: this.errors, error: this.error }).then((response) => {
-            this.data.value = response.data.data;
+            this.data.value = response;
             if (fnc) {
-                fnc(response.data.data)
+                fnc(response);
             }
         });
     }
     delete(id, fnc) {
-        if (id === null || id === undefined || id === "") {
+        if (id === null || id === undefined || id === '') {
             return;
         }
         var message = 'Are you sure you want to delete?';
@@ -42,12 +39,12 @@ export default class CrudService {
 
         axios.delete(this.getUrl(id), { loading: this.loading, errors: this.errors, error: this.error }).then((response) => {
             if (fnc) {
-                fnc(response.data.data)
+                fnc(response);
             }
         });
     }
     archive(id, fnc) {
-        if (id === null || id === undefined || id === "") {
+        if (id === null || id === undefined || id === '') {
             return;
         }
         var message = 'Are you sure you want to add to archive?';
@@ -57,35 +54,33 @@ export default class CrudService {
         }
         axios.delete(this.getUrl(id), { loading: this.loading, errors: this.errors, error: this.error }).then((response) => {
             if (fnc) {
-                fnc(response.data.data)
+                fnc(response);
             }
         });
     }
 
     save(fnc) {
         if (!this.data.value.Id) {
-            axios.post(this._createPath, this.data.value, { loading: this.loading, errors: this.errors, error: this.error })
-                .then((res) => {
-                    //if (!this.dialog) {
-                    //    this.router.replace(`${this.route.path}${res.data.data.Id}`);
-                    //}
-                    if (fnc) {
-                        fnc(res.data.data ?? this.data.value)
-                    }
-                })
+            axios.post(this._createPath, this.data.value, { loading: this.loading, errors: this.errors, error: this.error }).then((res) => {
+                //if (!this.dialog) {
+                //    this.router.replace(`${this.route.path}${res.Id}`);
+                //}
+                if (fnc) {
+                    fnc(res ?? this.data.value);
+                }
+            });
             return;
         }
         axios.put(this.getUrl(this.data.value.Id), this.data.value, { loading: this.loading, errors: this.errors, error: this.error }).then((res) => {
             if (fnc) {
-                fnc(res.data.data ?? this.data.value)
+                fnc(res ?? this.data.value);
             }
-        })
-
+        });
     }
     getUrl(id) {
         var url = this._apiPath + '/' + id;
         if (!id || id == 0) {
-            url = this._apiPath
+            url = this._apiPath;
         }
         return url;
     }

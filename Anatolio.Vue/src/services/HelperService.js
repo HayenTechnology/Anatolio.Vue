@@ -92,7 +92,7 @@ export default class HelperService {
         axios.get(url + urlparams).then((response) => {
             try {
                 const filename = `file_${new Date().getTime()}.xlsx`;
-                const flattenMap = response.data.value.map((item) => new ExcelService().flatten(item, true, titles));
+                const flattenMap = response.value.map((item) => new ExcelService().flatten(item, true, titles));
                 const ws = XLSX.utils.json_to_sheet(flattenMap);
                 const wb = XLSX.utils.book_new();
 

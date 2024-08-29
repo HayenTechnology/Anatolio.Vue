@@ -3,7 +3,9 @@
         <div class="flex flex-col" v-if="fieldType == 'field'">
             <label v-if="!hideLabel" :for="fieldName">{{ $t(finalLabel()) }}</label>
             <slot :invalid="errors[fieldName]" :placeholder="$t(finalLabel())"></slot>
-            <small class="p-error" v-if="errors[fieldName]">{{ $t(errors[fieldName][0], { field: $t(finalLabel()) })
+            <small class="text-red-500" v-if="errors[fieldName]">{{ $t(errors[fieldName][0], {
+        field: $t(finalLabel())
+    })
                 }}</small>
         </div>
         <div v-else-if="fieldType == 'float'">
@@ -11,7 +13,9 @@
                 <slot :invalid="errors[fieldName]" :placeholder="$t(finalLabel())"></slot>
                 <label v-if="!hideLabel" :for="fieldName">{{ $t(finalLabel()) }}</label>
             </FloatLabel>
-            <small class="p-error" v-if="errors[fieldName]">{{ $t(errors[fieldName][0], { field: $t(finalLabel()) })
+            <small class="text-red-500" v-if="errors[fieldName]">{{ $t(errors[fieldName][0], {
+        field: $t(finalLabel())
+    })
                 }}</small>
         </div>
         <div class="grid grid-cols-12 gap-2" v-else>
@@ -21,7 +25,9 @@
             <div class="col-span-12 md:col-span-10">
                 <slot :invalid="errors[fieldName]" :placeholder="$t(finalLabel())"></slot>
             </div>
-            <small class="p-error" v-if="errors[fieldName]">{{ $t(errors[fieldName][0], { field: $t(finalLabel()) })
+            <small class="text-red-500" v-if="errors[fieldName]">{{ $t(errors[fieldName][0], {
+        field: $t(finalLabel())
+                })
                 }}</small>
         </div>
     </div>

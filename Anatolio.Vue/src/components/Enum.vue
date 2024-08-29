@@ -16,10 +16,13 @@
 
     <Select v-else :model-value="modelValue" :disabled="disabled"
         @update:model-value="$emit('update:modelValue', $event)" :class="class" :placeholder="placeholder"
-        @change="$emit('change')" :options="$enums[type]" :showClear="showClear" optionLabel="name" optionValue="value">
+        @change="$emit('change')" :options="$enums[type]" :showClear="showClear" optionLabel="name"
+        :optionValue="number ? 'number' : 'value'">
         <template #value="slotProps">
             <div v-if="slotProps.value" class="flex align-items-center">
-                <div>{{ $t(slotProps.value) }}</div>
+                <div>{{ $t($enums[type].find(s => s.value == slotProps.value || s.number ==
+        slotProps.value)?.name ?? slotProps.value) }}
+                </div>
             </div>
             <span v-else>
                 {{ slotProps.placeholder }}
@@ -51,6 +54,10 @@ export default {
         type: {
             type: String,
             required: true
+        },
+        number: {
+            type: Boolean,
+            default: false
         },
         placeholder: {
             type: String,

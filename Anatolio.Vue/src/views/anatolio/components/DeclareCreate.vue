@@ -71,8 +71,8 @@
                 </FormField>
                 <FormField class="w-1/6" label="Period" fieldName="value1.periodValue" :errors="errors">
                     <template v-slot:default="prp">
-                        <InputText v-model="declare.value1.periodValue" :invalid="prp.invalid"
-                            :placeholder="prp.placeholder"></InputText>
+                        <InputNumber v-model="declare.value1.periodValue" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder" fluid />
                     </template>
                 </FormField>
                 <FormField class="w-1/6" label="Period Type" fieldName="value1.periodType" :errors="errors">
@@ -93,8 +93,8 @@
                 </FormField>
                 <FormField class="w-1/6" label="Period" fieldName="value1.periodValue" :errors="errors">
                     <template v-slot:default="prp">
-                        <InputText v-model="declare.value1.periodValue" :invalid="prp.invalid"
-                            :placeholder="prp.placeholder"></InputText>
+                        <InputNumber v-model="declare.value1.periodValue" :invalid="prp.invalid"
+                            :placeholder="prp.placeholder"></InputNumber>
                     </template>
                 </FormField>
             </div>
@@ -111,8 +111,8 @@
                     </FormField>
                     <FormField class="w-1/6" label="Start Period" fieldName="value1.periodValue" :errors="errors">
                         <template v-slot:default="prp">
-                            <InputText v-model="declare.value1.periodValue" :invalid="prp.invalid"
-                                :placeholder="prp.placeholder"></InputText>
+                            <InputNumber v-model="declare.value1.periodValue" :invalid="prp.invalid"
+                                :placeholder="prp.placeholder" fluid />
                         </template>
                     </FormField>
                     <FormField class="w-1/6" label="Start Period Type" fieldName="value1.periodType" :errors="errors">
@@ -132,8 +132,8 @@
                     </FormField>
                     <FormField class="w-1/6" label="End Period" fieldName="value2.periodValue" :errors="errors">
                         <template v-slot:default="prp">
-                            <InputText v-model="declare.value2.periodValue" :invalid="prp.invalid"
-                                :placeholder="prp.placeholder"></InputText>
+                            <InputNumber v-model="declare.value2.periodValue" :invalid="prp.invalid"
+                                :placeholder="prp.placeholder" fluid />
                         </template>
                     </FormField>
                     <FormField class="w-1/6" label="End Period Type" fieldName="value2.periodType" :errors="errors">
@@ -206,12 +206,12 @@ const props = defineProps({
             showOnWidgets: true,
             value1: {
                 name: '',
-                periodValue: '',
+                periodValue: 0,
                 periodType: ''
             },
             value2: {
                 name: '',
-                periodValue: '',
+                periodValue: 0,
                 periodType: ''
             },
             declareParentEntity: {

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useToast } from 'primevue/usetoast';
-import AuthService from './AuthService';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import AuthService from './AuthService';
 export default class AxiosSettings {
     init(settings) {
         const auth = new AuthService();
@@ -27,16 +27,17 @@ export default class AxiosSettings {
         );
     }
     handleSuccessResponse(response, toast, t) {
-        // GET istekleri hariç, başarılı yanıtlar için bildirim göster
-        const isGetMethod = response.config.method.toLowerCase() === 'get';
-        if (!isGetMethod && !response.config.hideToast) {
-            const message = response.data?.message ?? 'Completed successfully';
-            toast.add({ severity: 'success', summary: t('Succeeded'), detail: t(message), life: 5000 });
+        var res = response.data;
+        const onlyData = !res.responseType || res.responseType == "OnlyData";
+
+        if (!onlyData && !response.config.hideToast) {
+            const message = JSON.stringify(res?.errors) ?? 'Completed successfully';
+            toast.add({ severity: res.responseType.toLowerCase(), summary: t(res.message), detail: t(message), life: 5000 });
         }
         if (response.config.loading) {
             response.config.loading.value = false;
         }
-        return response;
+        return res.data ?? res;
     }
     handleErrorResponse(error, toast, t, auth, router) {
         let errorMessage = this.getErrorMessage(error);
@@ -51,7 +52,7 @@ export default class AxiosSettings {
                 auth.logout(router);
                 break;
             default:
-                errorMessage = errorMessage ?? error ?? 'An unexpected error occurred';
+                errorMessage = errorMessage ?? error.message ?? 'An unexpected error occurred';
                 break;
         }
 

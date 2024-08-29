@@ -53,16 +53,15 @@ export default {
             filter = filter == '' ? '' : '&$filter= ' + filter;
 
             return axios.get(this.settings.url + '$select=' + this.settings.value + ',' + this.settings.key + '&$top=1' + filter).then((response) => {
-                console.log(response.data);
 
-                var result = response.data.value.find((s) => s[this.settings.key] == this.modelValue);
+                var result = response.value.find((s) => s[this.settings.key] == this.modelValue);
                 if ((result == undefined || result == null) && this.modelValue && !queried) {
                     return;
                 }
 
                 this.currentData = result ?? {};
 
-                return response.data;
+                return response;
             });
         }
     }

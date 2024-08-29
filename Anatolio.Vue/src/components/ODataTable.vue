@@ -156,8 +156,8 @@
         emits('changed', seachQuery);
 
         axios.get(props.settings.odataUrl + urlparams, { loading: loading }).then((response) => {
-            tableData.value = response.data.value;
-            totalCount.value = response.data['@odata.count'];
+            tableData.value = response.value;
+            totalCount.value = response['@odata.count'];
 
             if (!props.settings.ignoreParams) {
                 router.replace(`${route.path}?lazyParams=${encodeURIComponent(JSON.stringify(lazyParams.value))}`);
@@ -208,7 +208,7 @@
                 var filename = "file_" +
                     new Date().getTime() +
                     ".xlsx";
-                var flattenMap = response.data.value.map((s) =>
+                var flattenMap = response.value.map((s) =>
                     new ExportExcel().flatten(s, true, titles)
                 );
                 // eslint-disable-next-line no-undef
