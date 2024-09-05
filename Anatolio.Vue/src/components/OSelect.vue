@@ -1,5 +1,4 @@
 <template>
-    <!-- eslint-disable-next-line -->
     <Select showClear v-model="localValue" :options="selectOptions" :disabled="disabled" :class="class"
         :invalid="invalid" :placeholder="placeholder" :optionLabel="'value'" :optionValue="'key'" @change="updateValue"
         :filter="true" @filter="filterData" filterLocale="tr-TR">
@@ -67,20 +66,19 @@ export default {
         };
 
         const filterData = (event) => {
-            let filter = `(contains(tolower(${props.settings.value}),tolower('${event.value}'))` +
-                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('ı', 'I')}'))` +
-                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('İ', 'i')}'))` +
-                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('ı', 'i')}'))` +
-                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('I', 'ı')}'))` +
-                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('I', 'i')}'))`;
+            const filterValue = event.value.toLowerCase();
+
+            // Eğer props.settings.value bir array ise, her alanı kontrol et
+            const filterConditions = Array.isArray(props.settings.value)
+                ? props.settings.value
+                    .map(v => `contains(tolower(${v}), '${filterValue}')`)
+                    .join(' or ')
+                : `contains(tolower(${props.settings.value}), '${filterValue}')`;
+
+            let filter = `(${filterConditions}`;
 
             if (props.settings.header) {
-                filter += ` or contains(tolower(${props.settings.header}),tolower('${event.value}'))` +
-                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('ı', 'I')}'))` +
-                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('ı', 'i')}'))` +
-                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('İ', 'i')}'))` +
-                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('I', 'ı')}'))` +
-                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('I', 'i')}'))`;
+                filter += ` or contains(tolower(${props.settings.header}), '${filterValue}')`;
             }
 
             filter += ')';
@@ -103,7 +101,7 @@ export default {
             }
             filter = filter ? `&$filter= ${filter}` : '';
 
-            var select = props.settings.onlySelect ? `&$select=${props.settings.key},${props.settings.value}` : '';
+            var select = props.settings.onlySelect ? `&$select=${props.settings.key},${Array.isArray(props.settings.value) ? props.settings.value.join(',') : props.settings.value}` : '';
 
             const url = `${props.settings.url}$top=10&$orderby=${props.settings.value} asc${filter}${select}`;
 
@@ -113,8 +111,9 @@ export default {
 
                 foundedValue.value = response.value;
                 selectOptions.value = response.value.map(s => {
-                    const value = resolve(props.settings.value, s) + ' ' +
-                        (props.settings.select ? `(${resolve(props.settings.select, s) ?? ''})` : '');
+                    const value = Array.isArray(props.settings.value)
+                        ? props.settings.value.map(v => resolve(v, s)).join(' / ')
+                        : resolve(props.settings.value, s);
                     const header = props.settings.header ? s[props.settings.header] : null;
                     return { key: s[props.settings.key], value, header };
                 });

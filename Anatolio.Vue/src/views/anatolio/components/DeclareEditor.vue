@@ -164,7 +164,7 @@
                         <template v-slot:default="prp">
                             <OSelect v-model="declare.value1.model" :invalid="prp.invalid"
                                 :placeholder="prp.placeholder" :settings="{
-        key: 'TypeName',
+        key: 'Url',
         url: '/api/ODataEntities?',
         value: 'Url'
     }" v-model:selectedData="declare.value1.oDataSource">
@@ -173,9 +173,9 @@
                     </FormField>
                     <FormField class="w-1/4" v-if="declare.value1.model" label="Filter Columns">
                         <template v-slot:default="prp">
-                            <Select v-model="declare.value1.filters" :invalid="prp.invalid"
+                            <MultiSelect v-model="declare.value1.filters" :invalid="prp.invalid"
                                 :options="declare.value1.oDataSource?.Properties ?? []" :placeholder="prp.placeholder"
-                                :multiple="true"></Select>
+                                :multiple="true"></MultiSelect>
                         </template>
                     </FormField>
                 </div>

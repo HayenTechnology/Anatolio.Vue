@@ -37,8 +37,8 @@
             <OSelect v-else-if="declare.input === 'EntitySelect' && declare.value1.model"
                 v-model="declare.value1.default" :settings="{
         key: 'Id',
-        url: '/api/' + declare.value1.model + '?',
-        value: 'Name',
+        url: '/api/' + declare.value1.model + '?$select=Name,Id&',
+        value: declare.value1.filters ?? 'Name',
         onlySelect: true
     }" :invalid="prp.invalid" :placeholder="prp.placeholder"></OSelect>
             <Enum v-else-if="declare.input === 'EnumSelect'" v-model="declare.value1.default"
