@@ -15,7 +15,7 @@
                             :errors="errors">
                             <template v-slot:default="prp">
                                 <OSelect :settings="{
-            url: '/api/ODataSources?',
+            url: '/api/osources?',
             key: 'Id',
             value: 'DbName',
         }" v-model="model.sourceId" v-model:selectedData="dataSource" :placeholder="prp.placeholder"
@@ -36,7 +36,6 @@
                         <FormField :hideLabel="true" label="Query Name" fieldName="name" :errors="errors">
                             <template v-slot:default="prp">
                                 <InputGroup>
-                                    <Button icon="pi pi-plus" @click="addDeclare" severity="secondary" />
                                     <InputText v-model="model.name" :placeholder="prp.placeholder"
                                         :invalid="prp.invalid" class="w-full p-2 border rounded" />
                                     <Button :loading="loading" label="Run Query" icon="pi pi-play" class="p-button-info"
@@ -57,7 +56,8 @@
                         <Tabs value="0">
                             <TabList>
                                 <Tab value="0"> {{ $t('Query') }}</Tab>
-                                <Tab value="1">{{ $t('Declares') }}</Tab>
+                                <Tab value="1">{{ $t('Filters') }}</Tab>
+                                <Tab value="2" v-if="model.queryColumns.length">{{ $t('Result') }}</Tab>
                             </TabList>
                             <TabPanels>
                                 <TabPanel value="0">
@@ -74,11 +74,39 @@
                                     </div>
                                 </TabPanel>
                                 <TabPanel value="1">
-                                    <div v-for="declare in model.declares">
-                                        <DeclareCreate class="mb-4" :declare="declare"></DeclareCreate>
+                                    <DeclareEditor :declares="model.declares"></DeclareEditor>
+
+                                </TabPanel>
+                                <TabPanel value="2">
+                                    <div v-for="column in model.queryColumns" :key="column.name"
+                                        class="grid grid-cols-6 gap-4">
+                                        <div class="col-span-6 md:col-span-2 mb-2">
+                                            {{ column.name }}
+                                        </div>
+                                        <div class="col-span-6 md:col-span-2 mb-2">
+                                            <Enum class="w-full" v-model="column.outputType" type="OutputType" />
+                                        </div>
+                                        <div v-if="column.outputType === 'Enum'" class="col-span-6 md:col-span-2 mb-2">
+                                            <Enum placeholder="Enum Type" class="w-full" v-model="column.enum"
+                                                type="EnumTypes" />
+                                        </div>
+                                        <div v-if="column.outputType === 'Date'" class="col-span-6 md:col-span-2 mb-2">
+                                            <Enum placeholder="Date Format" class="w-full" v-model="column.dateFormat"
+                                                type="DateFormat" />
+                                        </div>
+                                        <div v-if="column.outputType === 'Number'"
+                                            class="col-span-6 md:col-span-2 mb-2">
+                                            <InputGroup>
+                                                <InputGroupAddon>
+                                                    <Checkbox :binary="true" v-model="column.showBrackets"
+                                                        label="Show Brackets" v-tooltip:top="'Show Brackets'" />
+                                                </InputGroupAddon>
+                                                <InputNumber v-model="column.numberOfDecimalPlace"
+                                                    placeholder="Decimal Place" />
+                                            </InputGroup>
+                                        </div>
                                     </div>
                                 </TabPanel>
-
                             </TabPanels>
                         </Tabs>
 
@@ -103,40 +131,6 @@
                     </template>
                 </Card>
 
-
-                <Card class="mb-4" v-if="model.queryColumns.length">
-                    <template #title>
-                        {{ $t('Result Column Output Types') }}
-                    </template>
-                    <template #content>
-                        <div v-for="column in model.queryColumns" :key="column.name" class="grid grid-cols-6 gap-4">
-                            <div class="col-span-6 md:col-span-2 mb-2">
-                                {{ column.name }}
-                            </div>
-                            <div class="col-span-6 md:col-span-2 mb-2">
-                                <Enum class="w-full" v-model="column.outputType" type="OutputType" />
-                            </div>
-                            <div v-if="column.outputType === 'Enum'" class="col-span-6 md:col-span-2 mb-2">
-                                <Enum placeholder="Enum Type" class="w-full" v-model="column.enum" type="EnumTypes" />
-                            </div>
-                            <div v-if="column.outputType === 'Date'" class="col-span-6 md:col-span-2 mb-2">
-                                <Enum placeholder="Date Format" class="w-full" v-model="column.dateFormat"
-                                    type="DateFormat" />
-                            </div>
-                            <div v-if="column.outputType === 'Number'" class="col-span-6 md:col-span-2 mb-2">
-                                <InputGroup>
-                                    <InputGroupAddon>
-                                        <Checkbox :binary="true" v-model="column.showBrackets" label="Show Brackets"
-                                            v-tooltip:top="'Show Brackets'" />
-                                    </InputGroupAddon>
-                                    <InputNumber v-model="column.numberOfDecimalPlace" placeholder="Decimal Place" />
-                                </InputGroup>
-                            </div>
-                        </div>
-
-                    </template>
-                </Card>
-
             </div>
         </div>
 
@@ -151,7 +145,7 @@ import { onBeforeMount, ref, shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
 import QueryService from './QueryService';
 import DataSource from './components/DataSource.vue';
-import DeclareCreate from './components/DeclareCreate.vue';
+import DeclareEditor from './components/DeclareEditor.vue';
 import DeclareView from './components/DeclareView.vue';
 
 var route = useRoute();
@@ -198,35 +192,6 @@ const handleMount = editor => (editorRef.value = editor)
 // your action
 function formatCode() {
     editorRef.value?.getAction('editor.action.formatDocument').run()
-}
-
-const addDeclare = () => {
-    model.value.declares.push({
-        inputName: 'Field',
-        type: 'Text',
-        input: 'Text',
-        multiple: false,
-        visible: true,
-        showOnWidgets: true,
-        value1: {
-            model: '',
-            name: '',
-            periodValue: -2,
-            periodType: 'Day'
-        },
-        value2: {
-            model: '',
-            name: '',
-            periodValue: 2,
-            periodType: 'Day'
-        },
-        declareParentEntity: {
-            selector: '',
-            foreignKey: '',
-            secondSelector: '',
-            secondForeignKey: ''
-        }
-    });
 }
 
 

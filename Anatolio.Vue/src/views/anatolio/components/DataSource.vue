@@ -14,20 +14,23 @@
         </Message>
 
         <Accordion v-show="filteredTables.length" multiple>
-            <AccordionTab v-for="table in filteredTables" :key="table.TABLE_NAME"
-                :header="`${table.TABLE_SCHEMA}.${table.TABLE_NAME}`">
-                <ul>
-                    <li v-for="col in table.Columns" :key="col.COLUMN_NAME">
-                        <a @click="copyColumnName(col.COLUMN_NAME)" class="text-sm w-full">
-                            <i class="pi pi-chevron-right mr-2"></i> {{ col.COLUMN_NAME }}
-                            <span v-tooltip:top="col.DATA_TYPE" class="text-gray-500"
-                                style="float: right; max-width: 40px; overflow: hidden; height: 20px; white-space: nowrap;">
-                                {{ col.DATA_TYPE }}
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </AccordionTab>
+            <AccordionPanel v-for="table in filteredTables" :value="table.TABLE_NAME">
+                <AccordionHeader>{{ table.TABLE_SCHEMA }}.{{ table.TABLE_NAME }}</AccordionHeader>
+                <AccordionContent>
+                    <ul>
+                        <li v-for="col in table.Columns" :key="col.COLUMN_NAME">
+                            <a @click="copyColumnName(col.COLUMN_NAME)" class="text-sm w-full">
+                                <i class="pi pi-chevron-right mr-2"></i> {{ col.COLUMN_NAME }}
+                                <span v-tooltip:top="col.DATA_TYPE" class="text-gray-500"
+                                    style="float: right; max-width: 40px; overflow: hidden; height: 20px; white-space: nowrap;">
+                                    {{ col.DATA_TYPE }}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </AccordionContent>
+
+            </AccordionPanel>
         </Accordion>
     </div>
 </template>

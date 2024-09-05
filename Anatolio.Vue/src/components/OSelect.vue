@@ -67,20 +67,20 @@ export default {
         };
 
         const filterData = (event) => {
-            let filter = `(contains(tolower(${props.settings.value}),tolower('${event.value}')) 
-                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('ı', 'I')}')) 
-                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('İ', 'i')}')) 
-                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('ı', 'i')}')) 
-                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('I', 'ı')}')) 
-                    or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('I', 'i')}'))`;
+            let filter = `(contains(tolower(${props.settings.value}),tolower('${event.value}'))` +
+                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('ı', 'I')}'))` +
+                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('İ', 'i')}'))` +
+                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('ı', 'i')}'))` +
+                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('I', 'ı')}'))` +
+                ` or contains(tolower(${props.settings.value}),tolower('${event.value.replaceAll('I', 'i')}'))`;
 
             if (props.settings.header) {
-                filter += ` or contains(tolower(${props.settings.header}),tolower('${event.value}')) 
-                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('ı', 'I')}')) 
-                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('ı', 'i')}')) 
-                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('İ', 'i')}')) 
-                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('I', 'ı')}')) 
-                        or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('I', 'i')}'))`;
+                filter += ` or contains(tolower(${props.settings.header}),tolower('${event.value}'))` +
+                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('ı', 'I')}'))` +
+                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('ı', 'i')}'))` +
+                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('İ', 'i')}'))` +
+                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('I', 'ı')}'))` +
+                    ` or contains(tolower(${props.settings.header}),tolower('${event.value.replaceAll('I', 'i')}'))`;
             }
 
             filter += ')';
@@ -102,7 +102,10 @@ export default {
                 filter = filter ? `${filter} and ${props.settings.filter}` : props.settings.filter;
             }
             filter = filter ? `&$filter= ${filter}` : '';
-            const url = `${props.settings.url}$top=10&$orderby=${props.settings.value} asc${filter}`;
+
+            var select = props.settings.onlySelect ? `&$select=${props.settings.key},${props.settings.value}` : '';
+
+            const url = `${props.settings.url}$top=10&$orderby=${props.settings.value} asc${filter}${select}`;
 
             axios.get(url).then(response => {
                 const result = response.value.find(s => s[props.settings.key] === props.modelValue);
