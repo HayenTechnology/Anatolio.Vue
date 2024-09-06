@@ -1,6 +1,6 @@
 <template>
     <!-- Text input örneği sabit kaldı -->
-    <FormField :label="declare.inputName" fieldName="value1.default" :errors="errors">
+    <FormField v-if="declare.visible" :label="declare.inputName" fieldName="value1.default" :errors="errors">
         <template v-slot:default="prp">
 
             <PeriodicDatePicker v-if="declare.input === 'Date'" v-model="date"
@@ -8,11 +8,11 @@
                 :invalid="prp.invalid" :placeholder="prp.placeholder">
             </PeriodicDatePicker>
             <PeriodicDatePicker v-else-if="declare.input === 'Month'" v-model="date" view="month" dateFormat="mm/yy"
-                :options="{ periodValue: declare.value1.periodValue }" :invalid="prp.invalid"
+                :options="{ periodValue: declare.value1.periodValue, periodType: 'Month' }" :invalid="prp.invalid"
                 :placeholder="prp.placeholder">
             </PeriodicDatePicker>
             <PeriodicDatePicker v-else-if="declare.input === 'Year'" v-model="date" view="year" dateFormat="yy"
-                :options="{ periodValue: declare.value1.periodValue }" :invalid="prp.invalid"
+                :options="{ periodValue: declare.value1.periodValue, periodType: 'Year' }" :invalid="prp.invalid"
                 :placeholder="prp.placeholder">
             </PeriodicDatePicker>
             <PeriodicDatePicker v-else-if="declare.input === 'DateTime'" v-model="date" showTime hourFormat="24"
@@ -37,11 +37,11 @@
             <OSelect v-else-if="declare.input === 'EntitySelect' && declare.value1.model"
                 v-model="declare.value1.default" :settings="{
         key: 'Id',
-        url: '/api/' + declare.value1.model + '?$select=Name,Id&',
+        url: '/api/' + declare.value1.model + '?',
         value: declare.value1.filters ?? 'Name',
         onlySelect: true
     }" :invalid="prp.invalid" :placeholder="prp.placeholder"></OSelect>
-            <Enum v-else-if="declare.input === 'EnumSelect'" v-model="declare.value1.default"
+            <Enum v-else-if="declare.input === 'EnumSelect' && declare.value1.enum" v-model="declare.value1.default"
                 :type="declare.value1.enum || 'EnumTypes'" :multiple="declare.multiple" :invalid="prp.invalid"
                 :placeholder="prp.placeholder"></Enum>
             <Checkbox v-else-if="declare.input === 'Checkbox'" v-model="declare.value1.default" :binary="true"
@@ -52,6 +52,7 @@
             </InputNumber>
             <InputText v-else v-model="declare.value1.default" :invalid="prp.invalid" :placeholder="prp.placeholder">
             </InputText>
+            <small v-if="showName">{{ declare.value1.name }}</small>
         </template>
     </FormField>
 
@@ -81,8 +82,19 @@ const props = defineProps({
                 periodType: ''
             }
         })
+    },
+    showName: {
+        type: Boolean,
+        default: true
     }
 });
+
+
+watch(props.declare.input, (newValue) => {
+    props.declare.value1.default = null;
+    props.declare.value2.default = null;
+})
+
 
 const dateRange = ref([new Date(props.declare.value1.default), new Date(props.declare.value2.default)]);
 const date = ref(new Date(props.declare.value1.default));
