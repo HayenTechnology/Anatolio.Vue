@@ -14,8 +14,13 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard.vue')
                 },
                 {
-                    path: '/dashboard/:id?',
-                    name: 'dashboard',
+                    path: '/dashboard/view/:id',
+                    name: 'dashboard view',
+                    component: () => import('@/views/anatolio/dashboard/ViewDashboard.vue')
+                },
+                {
+                    path: '/dashboard/edit/:id?',
+                    name: 'dashboard edit',
                     component: () => import('@/views/anatolio/dashboard/EditDashboard.vue')
                 },
                 {

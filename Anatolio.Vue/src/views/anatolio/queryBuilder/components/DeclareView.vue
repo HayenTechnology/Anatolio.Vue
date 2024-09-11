@@ -1,6 +1,7 @@
 <template>
     <!-- Text input örneği sabit kaldı -->
-    <FormField v-if="declare.visible" :label="declare.inputName" fieldName="value1.default" :errors="errors">
+    <FormField v-if="declare.visible" :label="declare.inputName" :fieldType="showName ? 'field' : 'float'"
+        fieldName="value1.default" :errors="errors">
         <template v-slot:default="prp">
 
             <PeriodicDatePicker v-if="declare.input === 'Date'" v-model="date"
@@ -20,27 +21,27 @@
                 :invalid="prp.invalid" :placeholder="prp.placeholder">
             </PeriodicDatePicker>
             <PeriodicDatePicker v-else-if="declare.input === 'DateRange'" v-model="dateRange" range :options="{
-        startPeriodValue: declare.value1.periodValue,
-        startPeriodType: declare.value1.periodType,
-        endPeriodValue: declare.value2.periodValue,
-        endPeriodType: declare.value2.periodType
-    }" :invalid="prp.invalid" :placeholder="prp.placeholder">
+                startPeriodValue: declare.value1.periodValue,
+                startPeriodType: declare.value1.periodType,
+                endPeriodValue: declare.value2.periodValue,
+                endPeriodType: declare.value2.periodType
+            }" :invalid="prp.invalid" :placeholder="prp.placeholder">
             </PeriodicDatePicker>
             <PeriodicDatePicker v-else-if="declare.input === 'DateTimeRange'" v-model="dateRange" range showTime
                 hourFormat="24" :options="{
-        startPeriodValue: declare.value1.periodValue,
-        startPeriodType: declare.value1.periodType,
-        endPeriodValue: declare.value2.periodValue,
-        endPeriodType: declare.value2.periodType
-    }" :invalid="prp.invalid" :placeholder="prp.placeholder">
+                    startPeriodValue: declare.value1.periodValue,
+                    startPeriodType: declare.value1.periodType,
+                    endPeriodValue: declare.value2.periodValue,
+                    endPeriodType: declare.value2.periodType
+                }" :invalid="prp.invalid" :placeholder="prp.placeholder">
             </PeriodicDatePicker>
             <OSelect v-else-if="declare.input === 'EntitySelect' && declare.value1.model"
                 v-model="declare.value1.default" :settings="{
-        key: 'Id',
-        url: '/api/' + declare.value1.model + '?',
-        value: declare.value1.filters ?? 'Name',
-        onlySelect: true
-    }" :invalid="prp.invalid" :placeholder="prp.placeholder"></OSelect>
+                    key: 'Id',
+                    url: '/api/' + declare.value1.model + '?',
+                    value: declare.value1.filters ?? 'Name',
+                    onlySelect: true
+                }" :invalid="prp.invalid" :placeholder="prp.placeholder"></OSelect>
             <Enum v-else-if="declare.input === 'EnumSelect' && declare.value1.enum" :number="true"
                 v-model="declare.value1.default" :type="declare.value1.enum || 'EnumTypes'" :multiple="declare.multiple"
                 :invalid="prp.invalid" :placeholder="prp.placeholder"></Enum>

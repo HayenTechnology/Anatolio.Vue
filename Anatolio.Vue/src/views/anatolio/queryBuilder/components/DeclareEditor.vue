@@ -164,10 +164,10 @@
                         <template v-slot:default="prp">
                             <OSelect v-model="declare.value1.model" :invalid="prp.invalid"
                                 :placeholder="prp.placeholder" :settings="{
-        key: 'Url',
-        url: '/api/ODataEntities?',
-        value: 'Url'
-    }" v-model:selectedData="declare.value1.oDataSource">
+                                    key: 'Url',
+                                    url: '/api/ODataEntities?',
+                                    value: 'Url'
+                                }" v-model:selectedData="declare.value1.oDataSource">
                             </OSelect>
                         </template>
                     </FormField>
@@ -201,12 +201,13 @@
 
 
     <div class="flex mt-4 justify-center items-center">
-        <div @click="addDeclare" class="border-2 border-dashed border-blue-300 rounded-lg p-10 text-center max-w-lg">
+        <div @click="addDeclare"
+            class="border-2 border-dashed border-primary-300 rounded-lg p-10 text-center max-w-lg  hover:bg-primary-100">
             <h2 v-if="!props.declares.length" class="text-lg font-semibold text-gray-600 mb-4">{{ $t(
-        'No filters added yet') }}</h2>
+                'No filters added yet') }}</h2>
             <p class="text-gray-600 mb-4">{{ $t('Click to add new filter') }}
             </p>
-            <i class="pi pi-search-plus text-blue-300" style="font-size: 2.5rem"></i>
+            <i class="pi pi-search-plus text-primary-300" style="font-size: 2.5rem"></i>
         </div>
     </div>
 
