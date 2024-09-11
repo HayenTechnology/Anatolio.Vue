@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { format } from 'date-fns';
 import { useI18n } from 'vue-i18n';
-import enums from '../../helper/enums';
+import enums from '../../../helper/enums';
 
 export default class QueryService {
     constructor() {
@@ -60,7 +60,7 @@ export default class QueryService {
                 }
                 return number;
             }
-        } catch {}
+        } catch { }
         return value;
     }
 
@@ -108,8 +108,8 @@ export default class QueryService {
             func(result.Data);
         } catch (e) {
             if (retryCount > 3) {
-                console.error( ' Sorgusunda Hata Var Kontrol Edin');
-                func([],' Sorgusunda Hata Var Kontrol Edin');
+                console.error(' Sorgusunda Hata Var Kontrol Edin');
+                func([], ' Sorgusunda Hata Var Kontrol Edin');
                 return;
             }
 

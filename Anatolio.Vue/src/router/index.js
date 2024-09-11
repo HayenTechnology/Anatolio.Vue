@@ -14,9 +14,14 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard.vue')
                 },
                 {
+                    path: '/dashboard/:id?',
+                    name: 'dashboard',
+                    component: () => import('@/views/anatolio/dashboard/EditDashboard.vue')
+                },
+                {
                     path: '/query/:id?',
                     name: 'query',
-                    component: () => import('@/views/anatolio/QueryEditComponent.vue')
+                    component: () => import('@/views/anatolio/queryBuilder/EditQuery.vue')
                 },
                 {
                     path: '/uikit/formlayout',

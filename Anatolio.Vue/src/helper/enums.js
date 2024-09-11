@@ -1,5 +1,29 @@
 
 const enums = {
+    "DashboardType": [
+        {
+            "name": "PageDashboard",
+            "value": "PageDashboard",
+            "number": 0,
+        },
+        {
+            "name": "WidgetDetailDashboard",
+            "value": "WidgetDetailDashboard",
+            "number": 1,
+        }
+    ],
+    "AccessType": [
+        {
+            "name": "Public",
+            "value": "Public",
+            "number": 1,
+        },
+        {
+            "name": "Private",
+            "value": "Private",
+            "number": 2,
+        }
+    ],
     "PeriodType": [
 
         {

@@ -15,11 +15,11 @@
                             :errors="errors">
                             <template v-slot:default="prp">
                                 <OSelect :settings="{
-            url: '/api/osources?',
-            key: 'Id',
-            value: 'DbName',
-        }" v-model="model.sourceId" v-model:selectedData="dataSource" :placeholder="prp.placeholder"
-                                    :invalid="prp.invalid">
+                                    url: '/api/osources?',
+                                    key: 'Id',
+                                    value: 'DbName',
+                                }" v-model="model.sourceId" v-model:selectedData="dataSource"
+                                    :placeholder="prp.placeholder" :invalid="prp.invalid">
                                 </OSelect>
                             </template>
                         </FormField>
@@ -162,7 +162,7 @@ const model = ref({
 
 onBeforeMount(() => {
     if (route.params.id) {
-        axios.get("/api/querybuilder/get/" + route.params.id).then(response => {
+        axios.get("/api/querybuilder/get/" + route.params.id, { loading, errors, error }).then(response => {
             const query = response;
             if (query == null) { return; }
             model.value = query;
