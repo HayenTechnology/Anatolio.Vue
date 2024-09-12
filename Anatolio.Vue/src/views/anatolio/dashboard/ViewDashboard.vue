@@ -45,6 +45,7 @@
                     :gs-y="item.y" :gs-w="item.w" :gs-h="item.h">
                     <div class="grid-stack-item-content">
                         Card x:{{ item.x }} - y:{{ item.y }}
+                        <Widget :widget="item.widgetId"></Widget>
                     </div>
                 </div>
             </div>
@@ -59,6 +60,7 @@ import axios from 'axios';
 import { onBeforeMount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DeclareView from '../queryBuilder/components/DeclareView.vue';
+import Widget from '../widget/ViewWidget.vue';
 
 var route = useRoute();
 const model = ref({

@@ -26,10 +26,10 @@
                             </template>
                         </FormField>
 
-                        <FormField class="mb-4" :hideLabel="true" label="Access Type" fieldName="acccessType"
+                        <FormField class="mb-4" :hideLabel="true" label="Access Type" fieldName="accessType"
                             :errors="errors">
                             <template v-slot:default="prp">
-                                <Enum v-model="model.acccessType" type="AccessType" :invalid="prp.invalid"
+                                <Enum v-model="model.accessType" type="AccessType" :invalid="prp.invalid"
                                     :placeholder="prp.placeholder" />
                             </template>
                         </FormField>
@@ -75,7 +75,7 @@ const model = ref({
     id: 0,
     name: null,
     description: '',
-    acccessType: 'Public',
+    accessType: 'Public',
     dashboardType: 'PageDashboard',
     declares: []
 })

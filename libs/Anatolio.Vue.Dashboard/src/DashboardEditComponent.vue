@@ -15,7 +15,7 @@
                         <div class="card-body">
                             <InputText v-model="model.Name" placeholder="Menüde görüntüleneceði ismi girin" />
                             <InputText v-model="model.Description" placeholder="Unutmamak için dashboardýn ne içereceðini açýklayýn" />
-                            <SelectButton v-model="model.AcccessType" :options="accessTypeOptions" optionLabel="label" optionValue="value" placeholder="Diðer kullanýcýlara görünüp görünmeyeceðini seçin" />
+                            <SelectButton v-model="model.AccessType" :options="accessTypeOptions" optionLabel="label" optionValue="value" placeholder="Diðer kullanýcýlara görünüp görünmeyeceðini seçin" />
                             <SelectButton v-model="model.DashboardType" :options="dashboardTypeOptions" optionLabel="label" optionValue="value" placeholder="Dashboardýn kullaným amacýný seçin" />
                         </div>
                     </form>
@@ -76,7 +76,7 @@
             const model = reactive({
                 Name: '',
                 Description: '',
-                AcccessType: '',
+                AccessType: '',
                 DashboardType: '',
                 Declares: []
             })
@@ -90,7 +90,7 @@
             onMounted(() => {
                 // Initialize model and options
                 Object.assign(model, JSON.parse(document.getElementById('app').dataset.model))
-                accessTypeOptions.value = getEnums('AcccessType')
+                accessTypeOptions.value = getEnums('AccessType')
                 dashboardTypeOptions.value = getEnums('DashboardType')
             })
 

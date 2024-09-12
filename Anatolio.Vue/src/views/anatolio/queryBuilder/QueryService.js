@@ -101,11 +101,11 @@ export default class QueryService {
                 return;
             }
 
-            result.data = result.data.map((d) => this.format(result.Query, d));
+            result.data = result.data.map((d) => this.format(result.query, d));
 
             this.results[options.id] = result.data;
             this.queries[options.id] = result.query;
-            func(result.Data);
+            func(result.data);
         } catch (e) {
             if (retryCount > 3) {
                 console.error(' Sorgusunda Hata Var Kontrol Edin');
