@@ -16,7 +16,7 @@ const router = createRouter({
                 {
                     path: '/widget/edit/:id?',
                     name: 'widget edit',
-                    component: () => import('@/views/anatolio/widget/EditWidget.vue')
+                    component: () => import('@/views/anatolio/widget/editor/EditWidget.vue')
                 },
                 {
                     path: '/dashboard/view/:id',

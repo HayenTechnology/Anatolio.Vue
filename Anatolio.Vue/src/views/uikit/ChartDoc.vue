@@ -228,7 +228,7 @@ watch(
 </script>
 
 <template>
-    <Fluid class="grid grid-cols-12 gap-8">
+    <div class="grid grid-cols-12 gap-8">
         <div class="col-span-12 xl:col-span-6">
             <div class="card">
                 <div class="font-semibold text-xl mb-4">Linear</div>
@@ -265,5 +265,5 @@ watch(
                 <Chart type="radar" :data="radarData" :options="radarOptions"></Chart>
             </div>
         </div>
-    </Fluid>
+    </div>
 </template>

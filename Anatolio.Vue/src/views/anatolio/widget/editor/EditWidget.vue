@@ -123,104 +123,14 @@
                             </FormField>
                         </div>
                         <div v-if="content.queryId" class="col-span-12 mt-4">
-                            <div v-if="content.contentType == 'StatusContent'" class="grid grid-cols-12 gap-4">
-                                <!-- simge -->
-                                <div class="col-span-3">
-                                    <FormField label="Icon" fieldName="statusIcon" :errors="errors">
-                                        <template #default="prp">
-                                            <InputGroup>
-                                                <Enum v-model="content.statusContent.icon"
-                                                    :placeholder="prp.placeholder" :invalid="prp.invalid"
-                                                    type="PrimeIcon" />
-                                                <Enum v-model="content.statusContent.contentColorString"
-                                                    type="PrimeColor" :invalid="prp.invalid" />
-                                            </InputGroup>
+                            <EditStatusContent v-if="content.contentType == 'StatusContent'" :content="content"
+                                :errors="errors">
+                            </EditStatusContent>
 
-                                        </template>
-                                    </FormField>
-                                </div>
-                                <!-- değer -->
-                                <div class="col-span-4">
-                                    <FormField label="Value Column" fieldName="valueColumn" :errors="errors">
-                                        <template #default="prp">
-                                            <InputGroup>
-                                                <InputGroupAddon @click="togglePrefix">
-                                                    {{ content.statusContent.prefix ?? 'pre' }}
-                                                </InputGroupAddon>
-                                                <Popover ref="prefix_pop">
-                                                    <div class="flex flex-col gap-4">
-                                                        <FormField label="Enter Prefix" fieldName="prefix"
-                                                            :errors="errors">
-                                                            <template #default="prp">
-                                                                <InputText v-model="content.statusContent.prefix"
-                                                                    :placeholder="prp.placeholder"
-                                                                    :invalid="prp.invalid" />
-                                                            </template>
-                                                        </FormField>
-                                                    </div>
-                                                </Popover>
-                                                <Select v-model="content.statusContent.valueColumn" optionValue="name"
-                                                    optionLabel="name" :options="content.query?.queryColumns ?? []"
-                                                    :placeholder="prp.placeholder" :invalid="prp.invalid" />
-                                                <InputGroupAddon @click="togglePostfix">
-                                                    {{ content.statusContent.postfix ?? 'pos' }}
-                                                </InputGroupAddon>
-                                                <Popover ref="postfix_pop">
-                                                    <div class="flex flex-col gap-4">
-                                                        <FormField label="Enter Postfix" fieldName="postfix"
-                                                            :errors="errors">
-                                                            <template #default="prp">
-                                                                <InputText v-model="content.statusContent.postfix"
-                                                                    :placeholder="prp.placeholder"
-                                                                    :invalid="prp.invalid" />
-                                                            </template>
-                                                        </FormField>
-                                                    </div>
-                                                </Popover>
-                                            </InputGroup>
-                                        </template>
-                                    </FormField>
-                                </div>
-                                <!-- açıklama -->
-                                <div class="col-span-5">
-                                    <FormField label="Description" fieldName="statusDescription" :errors="errors">
-                                        <template #default="prp">
-                                            <InputText v-model="content.statusContent.description"
-                                                :placeholder="prp.placeholder" :invalid="prp.invalid" />
-                                        </template>
-                                    </FormField>
-                                </div>
-                            </div>
+                            <EditChartContent v-if="content.contentType == 'ChartContent'" :content="content"
+                                :errors="errors">
+                            </EditChartContent>
 
-                            <div v-if="content.contentType == 'ChartContent'" class="grid grid-cols-12 gap-4">
-                                <div class="col-span-4">
-                                    <FormField label="X Axis Column" fieldName="xAxisColumn" :errors="errors">
-                                        <template #default="prp">
-                                            <Select v-model="content.chartContent.xColumn"
-                                                :placeholder="prp.placeholder" :invalid="prp.invalid" />
-                                        </template>
-                                    </FormField>
-                                </div>
-                                <div class="col-span-6 grid grid-cols-6 gap-4">
-                                    <div class="col-span-3">
-                                        <FormField label="Show Axes" fieldName="showAxes" :errors="errors">
-                                            <template #default="prp">
-                                                <Checkbox v-model="content.chartContent.showAxes"
-                                                    :placeholder="prp.placeholder" :invalid="prp.invalid" />
-                                            </template>
-                                        </FormField>
-                                    </div>
-                                    <div class="col-span-3">
-                                        <FormField label="Stacked" fieldName="stacked" :errors="errors">
-                                            <template #default="prp">
-                                                <Checkbox v-model="content.chartContent.stacked"
-                                                    :placeholder="prp.placeholder" :invalid="prp.invalid" />
-                                            </template>
-                                        </FormField>
-                                    </div>
-                                </div>
-                                <!-- diğer ChartContent alanları burada benzer şekilde eklenebilir -->
-                            </div>
                         </div>
                     </div>
                 </Panel>
@@ -231,14 +141,13 @@
 
 <script setup>
 import axios from 'axios';
-import Popover from 'primevue/popover';
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import HelperService from '../../../services/HelperService';
-import Widget from './ViewWidget.vue';
+import HelperService from '../../../../services/HelperService';
+import Widget from '../ViewWidget.vue';
+import EditChartContent from './EditChartContent.vue';
+import EditStatusContent from './EditStatusContent.vue';
 
-const prefix_pop = ref(null);
-const postfix_pop = ref(null);
 
 const helper = new HelperService();
 
@@ -290,7 +199,7 @@ const addContent = (contentType) => {
         fields: [], // content-specific fields
         contentType: contentType,
         chartContent: { yColumns: [] },
-        statusContent: { contentColorString: "primary", icon: 'pi pi-pencil' },
+        statusContent: { contentColorString: "blue", icon: 'pi pi-pencil' },
         pieContent: {},
         gaugeContent: {},
         mapContent: { mapType: 'Marker', descriptionColumns: [], colorRanges: [] },
@@ -322,13 +231,6 @@ const saveWidget = async () => {
 const loadWidget = async () => {
     // Loading widget logic
 };
-
-const togglePrefix = (event) => {
-    prefix_pop.value[0].toggle(event);
-}
-const togglePostfix = (event) => {
-    postfix_pop.value[0].toggle(event);
-}
 
 
 </script>

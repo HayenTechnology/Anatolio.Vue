@@ -11,7 +11,7 @@
             <Skeleton width="100%" height="75px"></Skeleton>
         </div>
     </div>
-    <div v-else class="card"
+    <div v-else class="card p-0"
         :class="'bg-' + widget.backgroundColor + '-200 dark:bg-' + widget.backgroundColor + '-900'">
         <div v-if="widget.hasHeader" class="font-semibold text-xl mb-4"> {{ widget.name || 'No Header' }}</div>
         <div v-for="(content, index) in widget.contents" :key="index">

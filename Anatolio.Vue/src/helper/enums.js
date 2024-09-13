@@ -654,6 +654,23 @@ const enums = {
         }
     ]
     ,
+    "AnatolioChartType": [
+        {
+            "name": "line",
+            "value": "line",
+            "number": 1,
+        },
+        {
+            "name": "area",
+            "value": "area",
+            "number": 2,
+        },
+        {
+            "name": "bar",
+            "value": "bar",
+            "number": 2,
+        }
+    ],
     "DashboardType": [
         {
             "name": "PageDashboard",

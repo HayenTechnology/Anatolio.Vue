@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between mb-4">
+    <div class="flex justify-between mb-4 px-10 pt-10">
         <div>
             <span class="block text-muted-color font-medium mb-4">{{ content.statusContent.description ||
                 'No Description' }}</span>
@@ -36,15 +36,11 @@ onBeforeMount(() => {
         id: props.content.queryId,
         declares: []
     }, (response) => {
-
         data.value = response[0] ?? {};
-
     })
 
 
 })
 
-
-console.log(props.content)
 
 </script>

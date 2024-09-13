@@ -20,8 +20,8 @@
         <template #value="slotProps">
             <div v-if="slotProps.value" class="flex align-items-center">
                 <i v-if="getEnum(slotProps.value)?.color" :class="getColor(getEnum(slotProps.value)?.color)"
-                    class="pi pi-circle-fill"></i>
-                <i v-if="getEnum(slotProps.value)?.icon" :class="getEnum(slotProps.value)?.icon"></i>
+                    class="pi pi-circle-fill mt-1"></i>
+                <i v-if="getEnum(slotProps.value)?.icon" :class="getEnum(slotProps.value)?.icon" class="mt-1"></i>
 
                 <div> &nbsp;&nbsp;
                     {{ $t(getEnum(slotProps.value)?.name ?? slotProps.value) }}
