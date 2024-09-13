@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'px-10': props.content.chartContent.showAxes }">
+    <div :class="{ 'px-10': props.content.chartContent.showAxes, }">
         <Chart type="line" :data="lineData" :options="lineOptions">
         </Chart>
     </div>
@@ -12,17 +12,8 @@ import QueryService from '../queryBuilder/QueryService';
 
 const { getPrimary, getSurface, isDarkTheme } = useLayout();
 const lineData = ref(null);
-const pieData = ref(null);
-const polarData = ref(null);
-const barData = ref(null);
-const radarData = ref(null);
 
 const lineOptions = ref(null);
-const pieOptions = ref(null);
-const polarOptions = ref(null);
-const barOptions = ref(null);
-const radarOptions = ref(null);
-
 
 const queryService = new QueryService();
 

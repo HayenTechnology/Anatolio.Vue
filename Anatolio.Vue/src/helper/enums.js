@@ -654,6 +654,18 @@ const enums = {
         }
     ]
     ,
+    "PieType": [
+        {
+            "name": "pie",
+            "value": "pie",
+            "number": 1,
+        },
+        {
+            "name": "doughnut",
+            "value": "doughnut",
+            "number": 2,
+        }
+    ],
     "AnatolioChartType": [
         {
             "name": "line",

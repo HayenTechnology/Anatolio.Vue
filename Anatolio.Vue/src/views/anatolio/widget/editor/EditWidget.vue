@@ -78,8 +78,7 @@
 
             <!-- Widget Editor -->
             <div class="md:col-span-3">
-                <Widget :widget="model"></Widget>
-                <Panel>
+                <Panel class="pb-4">
                     <div class="widget-buttons text-center">
                         <Button v-for="contentType in contentTypes" :key="contentType"
                             @click="addContent(contentType.type)" :icon="contentType.icon" :label="$t(contentType.type)"
@@ -89,6 +88,8 @@
                         <p>{{ $t('There is no widget content. Please select.') }}</p>
                     </div>
                 </Panel>
+                <Widget :widget="model" class="mt-4"></Widget>
+
                 <Panel toggleable class="mt-4" v-for="(content, index) in sortedContents" :key="content.id">
                     <template #header>
 
@@ -130,6 +131,9 @@
                             <EditChartContent v-if="content.contentType == 'ChartContent'" :content="content"
                                 :errors="errors">
                             </EditChartContent>
+                            <EditPieContent v-if="content.contentType == 'PieContent'" :content="content"
+                                :errors="errors">
+                            </EditPieContent>
 
                         </div>
                     </div>
@@ -146,8 +150,8 @@ import { useRoute, useRouter } from 'vue-router';
 import HelperService from '../../../../services/HelperService';
 import Widget from '../ViewWidget.vue';
 import EditChartContent from './EditChartContent.vue';
+import EditPieContent from './EditPieContent.vue';
 import EditStatusContent from './EditStatusContent.vue';
-
 
 const helper = new HelperService();
 

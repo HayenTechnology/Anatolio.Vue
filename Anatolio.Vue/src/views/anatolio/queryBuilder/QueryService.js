@@ -80,7 +80,7 @@ export default class QueryService {
         this.post(options, func, 0);
     }
 
-    async post(options, func, retryCount = 0) {
+    async post(options, func) {
         try {
             const response = await axios.post('/api/querybuilder/execute/exist', {
                 Id: options.id,
@@ -90,14 +90,7 @@ export default class QueryService {
             const result = response;
 
             if ((!result || !result.data || !result.data.length) && !result.query) {
-                if (retryCount > 3) {
-                    func([], 'Sorgu Sonucu Getirilemedi, Sorguyu Kontrol Edin');
-                    return;
-                }
-
-                setTimeout(() => {
-                    this.post(options, func, retryCount + 1);
-                }, 200);
+                func([], 'Sorgu Sonucu Getirilemedi, Sorguyu Kontrol Edin');
                 return;
             }
 
@@ -107,15 +100,9 @@ export default class QueryService {
             this.queries[options.id] = result.query;
             func(result.data);
         } catch (e) {
-            if (retryCount > 3) {
-                console.error(' Sorgusunda Hata Var Kontrol Edin');
-                func([], ' Sorgusunda Hata Var Kontrol Edin');
-                return;
-            }
-
-            setTimeout(() => {
-                this.post(options, func, retryCount + 1);
-            }, 200);
+            console.error(' Sorgusunda Hata Var Kontrol Edin');
+            func([], ' Sorgusunda Hata Var Kontrol Edin');
+            return;
         }
     }
 }

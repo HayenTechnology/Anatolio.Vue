@@ -2,8 +2,7 @@
     <Toolbar>
         <!-- Sol Kısım (Widget, Save, Edit) -->
         <template #start>
-            <Button icon="pi pi-plus" class="mr-2" v-tooltip.top="$t('Add New Widget')" severity="secondary" text
-                @click="addWidget" v-if="editable" />
+            <AddWidgetToDashboard @widget-selected="handleWidgetSelected"></AddWidgetToDashboard>
             <Button icon="pi pi-save" class="mr-2" v-tooltip.top="$t('Save Dashboard')" severity="secondary" text
                 @click="save" v-if="editable" />
             <Button icon="pi pi-pencil" class="mr-2" v-tooltip.top="$t('Edit Dashboard')" severity="secondary" text
@@ -43,9 +42,8 @@
             <div class="grid-stack" ref="gridStackRef" :gs-editable="editable">
                 <div class="grid-stack-item" v-for="item in model.widgetPlaces" :gs-id="item.id" :gs-x="item.x"
                     :gs-y="item.y" :gs-w="item.w" :gs-h="item.h">
-                    <div class="grid-stack-item-content">
-                        Card x:{{ item.x }} - y:{{ item.y }}
-                        <Widget :widget="item.widgetId"></Widget>
+                    <div class="grid-stack-item-content" style="overflow: hidden;">
+                        <Widget :widgetId="item.widgetId"></Widget>
                     </div>
                 </div>
             </div>
@@ -61,13 +59,14 @@ import { onBeforeMount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import DeclareView from '../queryBuilder/components/DeclareView.vue';
 import Widget from '../widget/ViewWidget.vue';
+import AddWidgetToDashboard from './components/AddWidgetToDashboard.vue';
+
 
 var route = useRoute();
 const model = ref({
     widgetPlaces: [
-        { id: 1, x: 0, y: 0, w: 4, h: 2 },
-        { id: 2, x: 4, y: 0, w: 4, h: 2 },
-        { id: 3, x: 8, y: 0, w: 4, h: 2 },
+        { id: 1, x: 0, y: 0, w: 4, h: 3, widgetId: 2 },
+
     ],
     declares: []
 })
@@ -151,11 +150,10 @@ const save = () => {
     editDashboard(false)
 }
 
-const newWidget = () => {
-    // Add new widget logic
-}
+const handleWidgetSelected = (widgetId) => {
+    model.value.widgetPlaces.push({ id: 1, x: 0, y: 0, w: 4, h: 3, widgetId: widgetId });
 
-
+};
 
 </script>
 
