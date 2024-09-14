@@ -54,6 +54,7 @@
 import { GridStack } from 'gridstack';
 import 'gridstack/dist/gridstack.min.css';
 
+import HelperService from '@/services/HelperService';
 import axios from 'axios';
 import { onBeforeMount, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -61,12 +62,10 @@ import DeclareView from '../queryBuilder/components/DeclareView.vue';
 import Widget from '../widget/ViewWidget.vue';
 import AddWidgetToDashboard from './components/AddWidgetToDashboard.vue';
 
-
+var helper = new HelperService();
 var route = useRoute();
 const model = ref({
     widgetPlaces: [
-        { id: 1, x: 0, y: 0, w: 4, h: 3, widgetId: 2 },
-
     ],
     declares: []
 })
@@ -74,12 +73,14 @@ const loading = ref(false)
 const errors = ref([])
 const error = ref("");
 
-
 onBeforeMount(() => {
     if (route.params.id) {
         axios.get("/api/dashboard/get/" + route.params.id, { loading, errors, error }).then(response => {
             const query = response;
             if (query == null) { return; }
+
+            query.widgetPlaces.forEach(addToDashboard)
+
             model.value = query;
         })
     }
@@ -145,15 +146,24 @@ const editDashboard = (change) => {
     grid.movable('.grid-stack-item', editable.value);
 }
 
-const save = () => {
+const save = async () => {
     // Save logic
-    editDashboard(false)
+    editDashboard(false);
+    const response = await axios.post('/api/dashboard/save', model.value, { loading, errors, error })
+
 }
 
 const handleWidgetSelected = (widgetId) => {
-    model.value.widgetPlaces.push({ id: 1, x: 0, y: 0, w: 4, h: 3, widgetId: widgetId });
-
+    const node = { x: 0, y: 0, w: 4, h: 3, widgetId: widgetId };
+    addToDashboard(node);
+    model.value.widgetPlaces.push(node);
 };
+
+const addToDashboard = (node) => {
+    node.id = helper.guid();
+    grid.addWidget(node);
+};
+
 
 </script>
 
