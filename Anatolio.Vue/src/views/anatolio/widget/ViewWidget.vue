@@ -11,73 +11,75 @@
             <Skeleton width="100%" height="65px"></Skeleton>
         </div>
     </div>
-    <div v-else class="card p-0 h-full"
-        :class="'bg-' + widget.backgroundColor + '-200 dark:bg-' + widget.backgroundColor + '-900'">
-        <div v-if="widget.hasHeader" class="font-semibold text-xl mb-4"> {{ widget.name || 'No Header' }}</div>
+    <div v-else class="card p-0 "
+         :class="'bg-' + widget.backgroundColor + '-200 dark:bg-' + widget.backgroundColor + '-900'">
+        <div v-if="widget.hasHeader" class="font-semibold text-xl mb-4 px-8 pt-8"> {{ widget.name || 'No Header' }}</div>
         <div v-for="(content, index) in sortedContents" :key="index">
 
             <StatusContent v-if="content.contentType == 'StatusContent'" :content="content"></StatusContent>
-            <ChartContent style="width: 100%; height: 100%;" v-if="content.contentType == 'ChartContent'"
-                :content="content"></ChartContent>
+            <ChartContent v-if="content.contentType == 'ChartContent'" :content="content"></ChartContent>
             <PieContent v-if="content.contentType == 'PieContent'" :content="content"></PieContent>
-            <HtmlContent v-if="content.contentType == 'HtmlContent'" :content="content"></HtmlContent>
-            <InfoContent v-if="content.contentType == 'InfoContent'" :content="content"></InfoContent>
-            <PageContent v-if="content.contentType == 'PageContent'" :content="content"></PageContent>
+            <GaugeContent v-if="content.contentType == 'GaugeContent'" :content="content"></GaugeContent>
+            <HeatmapContent v-if="content.contentType == 'HeatmapContent'" :content="content"></HeatmapContent>
             <TableContent v-if="content.contentType == 'TableContent'" :content="content"></TableContent>
+            <InfoContent v-if="content.contentType == 'InfoContent'" :content="content"></InfoContent>
+            <HtmlContent v-if="content.contentType == 'HtmlContent'" :content="content"></HtmlContent>
+
         </div>
     </div>
 
 </template>
 
 <script setup>
-import axios from 'axios';
-import { computed, onBeforeMount, ref, watch } from 'vue';
-import ChartContent from './ChartWidget.vue';
-import HtmlContent from './HtmlWidget.vue';
-import InfoContent from './InfoWidget.vue';
-import PageContent from './PageWidget.vue';
-import PieContent from './PieWidget.vue';
-import StatusContent from './StatusWidget.vue';
-import TableContent from './TableWidget.vue';
+    import axios from 'axios';
+    import { computed, onBeforeMount, ref, watch } from 'vue';
 
+    import StatusContent from './StatusWidget.vue';
+    import ChartContent from './ChartWidget.vue';
+    import PieContent from './PieWidget.vue';
+    import GaugeContent from './GaugeWidget.vue'
+    import HeatmapContent from './HeatmapWidget.vue';
+    import TableContent from './TableWidget.vue';
+    import InfoContent from './InfoWidget.vue';
+    import HtmlContent from './HtmlWidget.vue';
 
-const loading = ref(false)
-const errors = ref([])
-const error = ref("");
+    const loading = ref(false)
+    const errors = ref([])
+    const error = ref("");
 
-const widget = ref(null)
+    const widget = ref(null)
 
-const props = defineProps({
-    widgetId: [String, Number, Object],
-    widget: Object
-})
-
-onBeforeMount(() => {
-    if (props.widget) {
-        runWidget(props.widget)
-        return;
-    }
-    axios.get("/api/widget/get/" + props.widgetId, { loading, errors, error }).then(response => {
-        runWidget(response)
+    const props = defineProps({
+        widgetId: [String, Number, Object],
+        widget: Object
     })
 
-})
+    onBeforeMount(() => {
+        if (props.widget) {
+            runWidget(props.widget)
+            return;
+        }
+        axios.get("/api/widget/get/" + props.widgetId, { loading, errors, error }).then(response => {
+            runWidget(response)
+        })
 
-watch(() => props.widget, (newWidget) => {
-    if (props.widgetId) {
-        return;
+    })
+
+    watch(() => props.widget, (newWidget) => {
+        if (props.widgetId) {
+            return;
+        }
+        runWidget(newWidget)
+    }, { deep: true })
+
+
+    const runWidget = (data) => {
+
+        widget.value = data;
     }
-    runWidget(newWidget)
-}, { deep: true })
 
-
-const runWidget = (data) => {
-
-    widget.value = data;
-}
-
-const sortedContents = computed(() => {
-    return [...widget.value.contents].sort((a, b) => a.order - b.order);
-});
+    const sortedContents = computed(() => {
+        return [...widget.value.contents].sort((a, b) => a.order - b.order);
+    });
 
 </script>

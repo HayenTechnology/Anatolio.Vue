@@ -90,10 +90,10 @@ const postfix_pop = ref(null);
 
 
 const togglePrefix = (event) => {
-    prefix_pop.value[0].toggle(event);
+    prefix_pop.value.toggle(event);
 }
 const togglePostfix = (event) => {
-    postfix_pop.value[0].toggle(event);
+    postfix_pop.value.toggle(event);
 }
 
 </script>

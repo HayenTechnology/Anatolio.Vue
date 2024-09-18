@@ -1,106 +1,127 @@
 <script setup>
-import { useLayout } from '@/layout/composables/layout';
-import { ProductService } from '@/service/ProductService';
-import { onMounted, ref, watch } from 'vue';
+    import { useLayout } from '@/layout/composables/layout';
+    import { ProductService } from '@/service/ProductService';
+    import { onMounted, ref, watch } from 'vue';
 
-const { getPrimary, getSurface, isDarkTheme } = useLayout();
+    const { getPrimary, getSurface, isDarkTheme } = useLayout();
 
-const products = ref(null);
-const chartData = ref(null);
-const chartOptions = ref(null);
+    const products = ref(null);
+    const chartData = ref(null);
+    const chartOptions = ref(null);
 
-const items = ref([
-    { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-    { label: 'Remove', icon: 'pi pi-fw pi-trash' }
-]);
+    const items = ref([
+        { label: 'Add New', icon: 'pi pi-fw pi-plus' },
+        { label: 'Remove', icon: 'pi pi-fw pi-trash' }
+    ]);
 
-onMounted(() => {
-    ProductService.getProductsSmall().then((data) => (products.value = data));
-    chartData.value = setChartData();
-    chartOptions.value = setChartOptions();
-});
+    onMounted(() => {
+        ProductService.getProductsSmall().then((data) => (products.value = data));
+        chartData.value = setChartData();
+        chartOptions.value = setChartOptions();
+    });
 
-function setChartData() {
-    const documentStyle = getComputedStyle(document.documentElement);
+    function setChartData() {
+        const documentStyle = getComputedStyle(document.documentElement);
 
-    return {
-        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-        datasets: [
-            {
-                type: 'bar',
-                label: 'Subscriptions',
-                backgroundColor: documentStyle.getPropertyValue('--p-primary-400'),
-                data: [4000, 10000, 15000, 4000],
-                barThickness: 32
-            },
-            {
-                type: 'bar',
-                label: 'Advertising',
-                backgroundColor: documentStyle.getPropertyValue('--p-primary-300'),
-                data: [2100, 8400, 2400, 7500],
-                barThickness: 32
-            },
-            {
-                type: 'bar',
-                label: 'Affiliate',
-                backgroundColor: documentStyle.getPropertyValue('--p-primary-200'),
-                data: [4100, 5200, 3400, 7400],
-                borderRadius: {
-                    topLeft: 8,
-                    topRight: 8
+        return {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [
+                {
+                    type: 'bar',
+                    label: 'Subscriptions',
+                    backgroundColor: documentStyle.getPropertyValue('--p-primary-400'),
+                    data: [4000, 10000, 15000, 4000],
+                    barThickness: 32
                 },
-                borderSkipped: true,
-                barThickness: 32
+                {
+                    type: 'bar',
+                    label: 'Advertising',
+                    backgroundColor: documentStyle.getPropertyValue('--p-primary-300'),
+                    data: [2100, 8400, 2400, 7500],
+                    barThickness: 32
+                },
+                {
+                    type: 'bar',
+                    label: 'Affiliate',
+                    backgroundColor: documentStyle.getPropertyValue('--p-primary-200'),
+                    data: [4100, 5200, 3400, 7400],
+                    borderRadius: {
+                        topLeft: 8,
+                        topRight: 8
+                    },
+                    borderSkipped: true,
+                    barThickness: 32
+                }
+            ]
+        };
+    }
+
+    function setChartOptions() {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const borderColor = documentStyle.getPropertyValue('--surface-border');
+        const textMutedColor = documentStyle.getPropertyValue('--text-color-secondary');
+
+        return {
+            maintainAspectRatio: false,
+            aspectRatio: 0.8,
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: {
+                        color: textMutedColor
+                    },
+                    grid: {
+                        color: 'transparent',
+                        borderColor: 'transparent'
+                    }
+                },
+                y: {
+                    stacked: true,
+                    ticks: {
+                        color: textMutedColor
+                    },
+                    grid: {
+                        color: borderColor,
+                        borderColor: 'transparent',
+                        drawTicks: false
+                    }
+                }
+            }
+        };
+    }
+
+    const formatCurrency = (value) => {
+        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    };
+
+    watch([getPrimary, getSurface, isDarkTheme], () => {
+        chartData.value = setChartData();
+        chartOptions.value = setChartOptions();
+    });
+
+
+    const chartOptionsx = ref({
+        xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                data: [120, 200, 150, 80, 70, 110, 130],
+                type: 'bar'
             }
         ]
-    };
-}
+    });
+    console.log(chartOptionsx.value);
 
-function setChartOptions() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const borderColor = documentStyle.getPropertyValue('--surface-border');
-    const textMutedColor = documentStyle.getPropertyValue('--text-color-secondary');
-
-    return {
-        maintainAspectRatio: false,
-        aspectRatio: 0.8,
-        scales: {
-            x: {
-                stacked: true,
-                ticks: {
-                    color: textMutedColor
-                },
-                grid: {
-                    color: 'transparent',
-                    borderColor: 'transparent'
-                }
-            },
-            y: {
-                stacked: true,
-                ticks: {
-                    color: textMutedColor
-                },
-                grid: {
-                    color: borderColor,
-                    borderColor: 'transparent',
-                    drawTicks: false
-                }
-            }
-        }
-    };
-}
-
-const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-};
-
-watch([getPrimary, getSurface, isDarkTheme], () => {
-    chartData.value = setChartData();
-    chartOptions.value = setChartOptions();
-});
 </script>
 
 <template>
+    <v-chart :options="chartOptionsx" style="width: 100%; height: 400px;" />
+
     <div class="grid grid-cols-12 gap-8">
         <div class="col-span-12 lg:col-span-6 xl:col-span-3">
             <div class="card mb-0">
@@ -116,6 +137,7 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                 <span class="text-primary font-medium">24 new </span>
                 <span class="text-muted-color">since last visit</span>
             </div>
+
         </div>
         <div class="col-span-12 lg:col-span-6 xl:col-span-3">
             <div class="card mb-0">
@@ -289,8 +311,8 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                         <div class="w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-400/10 rounded-full mr-4 shrink-0">
                             <i class="pi pi-dollar !text-xl text-blue-500"></i>
                         </div>
-                        <span class="text-surface-900 dark:text-surface-0 leading-normal"
-                            >Richard Jones
+                        <span class="text-surface-900 dark:text-surface-0 leading-normal">
+                            Richard Jones
                             <span class="text-surface-700 dark:text-surface-100">has purchased a blue t-shirt for <span class="text-primary font-bold">$79.00</span></span>
                         </span>
                     </li>
@@ -308,8 +330,8 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                         <div class="w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-400/10 rounded-full mr-4 shrink-0">
                             <i class="pi pi-dollar !text-xl text-blue-500"></i>
                         </div>
-                        <span class="text-surface-900 dark:text-surface-0 leading-normal"
-                            >Keyser Wick
+                        <span class="text-surface-900 dark:text-surface-0 leading-normal">
+                            Keyser Wick
                             <span class="text-surface-700 dark:text-surface-100">has purchased a black jacket for <span class="text-primary font-bold">$59.00</span></span>
                         </span>
                     </li>
@@ -317,8 +339,8 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
                         <div class="w-12 h-12 flex items-center justify-center bg-pink-100 dark:bg-pink-400/10 rounded-full mr-4 shrink-0">
                             <i class="pi pi-question !text-xl text-pink-500"></i>
                         </div>
-                        <span class="text-surface-900 dark:text-surface-0 leading-normal"
-                            >Jane Davis
+                        <span class="text-surface-900 dark:text-surface-0 leading-normal">
+                            Jane Davis
                             <span class="text-surface-700 dark:text-surface-100">has posted a new questions about your product.</span>
                         </span>
                     </li>
@@ -341,4 +363,6 @@ watch([getPrimary, getSurface, isDarkTheme], () => {
             </div>
         </div>
     </div>
+
 </template>
+

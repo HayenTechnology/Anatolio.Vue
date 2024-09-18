@@ -43,7 +43,7 @@
                 <div class="grid-stack-item" v-for="item in model.widgetPlaces" :gs-id="item.id" :gs-x="item.x"
                     :gs-y="item.y" :gs-w="item.w" :gs-h="item.h">
                     <div class="grid-stack-item-content" style="overflow: hidden;">
-                        <Widget :widgetId="item.widgetId"></Widget>
+                        <Widget :widgetId="item.widgetId" class="h-full"></Widget>
                     </div>
                 </div>
             </div>
