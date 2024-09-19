@@ -1,6 +1,6 @@
 <template>
     <div :class="{'p-8':content.chartContent.showAxes}">
-        <v-chart class="chart" :option="option" autoresize />
+        <v-chart :class="{'chart':content.chartContent.showAxes,'chart-min':!content.chartContent.showAxes}" :option="option" autoresize />
     </div>
     
 </template>
@@ -145,7 +145,6 @@
                 axisTick: { show: true },
                 axisLabel: { color: textColorSecondary },
                 splitLine: { show: chartContent.showAxes },
-                min: 0,
                 position: index % 2 === 0 ? 'left' : 'right', // Her ekseni sol ve sağ tarafa yerleştiriyoruz
             }));
         } else {
@@ -155,12 +154,11 @@
                 axisTick: { show: true },
                 axisLabel: { color: textColorSecondary },
                 splitLine: { show: chartContent.showAxes },
-                min: 0,
             }];
         }
 
         if (!chartContent.showAxes) {
-            option.value.grid.top = 50;
+            option.value.grid.top = -10;
             option.value.grid.bottom = -20;
             option.value.grid.left = -120;
             option.value.grid.right = -100;
@@ -185,11 +183,8 @@
                 option.value.yAxis[index].type = 'category';
                 option.value.yAxis[index].data = labels;
             });
-            option.value.yAxis.forEach(axis => (axis.min = 0));
-            option.value.xAxis.min = 0;
         } else {
             option.value.xAxis.type = 'category';
-            option.value.yAxis.forEach(axis => (axis.min = 0));
         }
     }
 
@@ -201,7 +196,9 @@
 
 <style scoped>
     .chart {
-        min-height: 200px;
-        max-height:500px;
+        min-height: 300px;
+    }
+    .chart-min {
+        min-height: 110px;
     }
 </style>

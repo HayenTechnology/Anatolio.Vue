@@ -104,7 +104,7 @@ export default class QueryService {
             const response = await axios.post('/api/querybuilder/execute/exist', {
                 Id: options.id,
                 Declares: options.declares
-            });
+            }, { hideToast :true});
 
             const result = response;
 

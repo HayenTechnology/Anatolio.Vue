@@ -12,7 +12,7 @@
         </div>
     </div>
     <div v-else class="card p-0 "
-         :class="'bg-' + widget.backgroundColor + '-200 dark:bg-' + widget.backgroundColor + '-900'">
+         :class="'bg-' + widget.backgroundColor + '-200 dark:bg-' + widget.backgroundColor + '-900'" >
         <div v-if="widget.hasHeader" class="font-semibold text-xl px-8 pt-8"> {{ widget.name || 'No Header' }}</div>
         <div v-for="(content, index) in sortedContents" :key="index">
 

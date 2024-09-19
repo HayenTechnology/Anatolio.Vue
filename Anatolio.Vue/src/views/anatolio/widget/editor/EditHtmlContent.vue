@@ -1,9 +1,16 @@
 <template>
+    <FormField class="mb-4"  label="Show Space"   >
+        <template v-slot:default="prp">
+            <Checkbox v-model="content.htmlContent.showSpace" :binary="true" >
+            </Checkbox>
+        </template>
+    </FormField>
+    
     <div v-if="content.contentType === 'HtmlContent'" style="height:200px">
         <vue-monaco-editor v-model:value="content.htmlContent.html" theme="vs-dark"
                            :options="MONACO_EDITOR_OPTIONS" @mount="handleMount"
                            :language="'html'" />
-       
+
     </div>
 </template>
 

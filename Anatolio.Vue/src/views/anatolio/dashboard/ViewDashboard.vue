@@ -42,8 +42,8 @@
             <div class="grid-stack" ref="gridStackRef" :gs-editable="editable">
                 <div class="grid-stack-item" v-for="item in model.widgetPlaces" :gs-id="item.id" :gs-x="item.x"
                     :gs-y="item.y" :gs-w="item.w" :gs-h="item.h">
-                    <div class="grid-stack-item-content" style="overflow: hidden;">
-                        <Widget :widgetId="item.widgetId" class="h-full"></Widget>
+                    <div class="grid-stack-item-content" style="overflow: hidden;" :class="{'editable':!editable}"  >
+                        <Widget :widgetId="item.widgetId" class="h-full" ></Widget>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@ let grid = null;
 onMounted(() => {
     grid = GridStack.init({
         disableDrag: !editable.value,
-        cellHeight: 80,
+        cellHeight: 40,
         verticalMargin: 10,
         disableResize: !editable.value, // Allow resizing
     });
@@ -168,5 +168,7 @@ const addToDashboard = (node) => {
 </script>
 
 <style scoped>
-/* Add any scoped styles here */
+    .editable {
+        z-index: 9999;
+    }
 </style>

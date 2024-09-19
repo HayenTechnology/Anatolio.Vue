@@ -1,5 +1,5 @@
 <template>
-    <div class="p-10">
+    <div :class="{'p-8':props.content.htmlContent.showSpace}">
         <!-- Dinamik bileşeni render et veya hata mesajını göster -->
         <component v-if="!hasError && dynamicComponent" :is="dynamicComponent" :data="data" />
         <div v-else>
@@ -10,77 +10,91 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, watch, markRaw } from 'vue';
-import QueryService from '../queryBuilder/QueryService';
-import { compile } from '@vue/compiler-dom'; // Vue'nun derleyicisini ekleyin
+    import { ref, onMounted, watch, markRaw } from 'vue';
+    import QueryService from '../queryBuilder/QueryService';
+    import { compile } from '@vue/compiler-dom'; // Vue'nun derleyicisini ekleyin
 
-const queryService = new QueryService();
-const data = ref([]);
-const hasError = ref(false); // Hata durumunu kontrol etmek için değişken
-const errorMessage = ref(''); // Hata mesajını saklamak için değişken
-const props = defineProps({
-    content: Object,
-});
+    const queryService = new QueryService();
+    const data = ref([]);
+    const hasError = ref(false); // Hata durumunu kontrol etmek için değişken
+    const errorMessage = ref(''); // Hata mesajını saklamak için değişken
+    const props = defineProps({
+        content: Object,
+    });
 
-const dynamicComponent = ref(null);
+    const dynamicComponent = ref(null);
 
-// İlk sorguyu yapma
-onBeforeMount(() => {
-    getQuery();
-    loadComponent(); // Bileşeni yüklemeyi buraya taşıdık
-});
+    // İlk sorguyu yapma
+    onMounted(() => {
+        getQuery();
+    });
 
-const getQuery = () => {
-    if (!props.content.queryId) {
-        return;
-    }
+    const getQuery = async () => {
+        if (!props.content.queryId) {
+            return;
+        }
 
-    queryService.get(
-        {
-            id: props.content.queryId,
-            declares: [],
-        },
-        (response) => {
-            data.value = response ?? [];
+        try {
+            await queryService.get({
+                id: props.content.queryId,
+                declares: [],
+            }, (response) => {
+                data.value = response ?? [];
+                loadComponent();
+            });
+
+        } catch (error) {
+            console.error('Query failed:', error);
+        }
+    };
+
+    watch(() => props.content.queryId, () => {
+        getQuery();
+    });
+    let debounceTimeout = null; // Debounce için bir zamanlayıcı tanımlandı
+
+    watch(
+        () => props.content.htmlContent.html,
+        () => {
+            // Eğer bir önceki zamanlayıcı varsa temizle
+            if (debounceTimeout) {
+                clearTimeout(debounceTimeout);
+            }
+
+            // Yeni bir zamanlayıcı başlat ve 2 saniye sonra işlemi yap
+            debounceTimeout = setTimeout(() => {
+                loadComponent();
+            }, 1000); // 2 saniye bekler
         }
     );
-};
 
-watch(() => props.content.queryId, () => {
-    getQuery();
-});
+    // Dinamik bileşeni güvenli bir şekilde yükleme
+    const loadComponent = () => {
+        try {
+            hasError.value = false; // Hata durumunu sıfırla
+            errorMessage.value = ''; // Hata mesajını sıfırla
 
-watch(() => props.content, () => {
-    loadComponent();
-}, { deep: true });
+            // Kullanıcı tarafından sağlanan HTML'yi derleyerek bir bileşen oluştur
+            const template = props.content.htmlContent.html ?? '<div>Your code will be shown here</div>';
 
-// Dinamik bileşeni güvenli bir şekilde yükleme
-const loadComponent = () => {
-    try {
-        hasError.value = false; // Hata durumunu sıfırla
-        errorMessage.value = ''; // Hata mesajını sıfırla
+            // Bileşeni derle ve dinamik olarak oluştur
+            const compiledTemplate = compile(template);
 
-        // Kullanıcı tarafından sağlanan HTML'yi derleyerek bir bileşen oluştur
-        const template = props.content.htmlContent.html ?? '<div>Your code will be shown here</div>';
-
-        // Bileşeni derle ve dinamik olarak oluştur
-        const compiledTemplate = compile(template);
-
-        // Vue bileşeni olarak tanımla
-        dynamicComponent.value = markRaw({
-            template: template,
-            props: ['data'],
-            methods: {
-                alertMessage() {
-                    alert('Button clicked!');
+            // Vue bileşeni olarak tanımla
+            dynamicComponent.value = markRaw({
+                template: template,
+                props: ['data'],
+                methods: {
+                    alertMessage() {
+                        alert('Button clicked!');
+                    },
                 },
-            },
-        });
-    } catch (error) {
-        // Hata oluştuğunda kullanıcıya bilgi ver
-        console.error('Bileşen oluşturulurken hata oluştu:', error);
-        hasError.value = true;
-        errorMessage.value = error.message; // Hata mesajını kaydet
-    }
-};
+            });
+        } catch (error) {
+            // Hata oluştuğunda kullanıcıya bilgi ver
+            console.error('Bileşen oluşturulurken hata oluştu:', error);
+            hasError.value = true;
+            errorMessage.value = error.message; // Hata mesajını kaydet
+        }
+    };
 </script>
