@@ -13,7 +13,7 @@
     </div>
     <div v-else class="card p-0 "
          :class="'bg-' + widget.backgroundColor + '-200 dark:bg-' + widget.backgroundColor + '-900'">
-        <div v-if="widget.hasHeader" class="font-semibold text-xl mb-4 px-8 pt-8"> {{ widget.name || 'No Header' }}</div>
+        <div v-if="widget.hasHeader" class="font-semibold text-xl px-8 pt-8"> {{ widget.name || 'No Header' }}</div>
         <div v-for="(content, index) in sortedContents" :key="index">
 
             <StatusContent v-if="content.contentType == 'StatusContent'" :content="content"></StatusContent>
@@ -21,6 +21,7 @@
             <PieContent v-if="content.contentType == 'PieContent'" :content="content"></PieContent>
             <GaugeContent v-if="content.contentType == 'GaugeContent'" :content="content"></GaugeContent>
             <HeatmapContent v-if="content.contentType == 'HeatmapContent'" :content="content"></HeatmapContent>
+            <MapContent v-if="content.contentType == 'MapContent'" :content="content"></MapContent>
             <TableContent v-if="content.contentType == 'TableContent'" :content="content"></TableContent>
             <InfoContent v-if="content.contentType == 'InfoContent'" :content="content"></InfoContent>
             <HtmlContent v-if="content.contentType == 'HtmlContent'" :content="content"></HtmlContent>
@@ -39,6 +40,7 @@
     import PieContent from './PieWidget.vue';
     import GaugeContent from './GaugeWidget.vue'
     import HeatmapContent from './HeatmapWidget.vue';
+    import MapContent from './MapWidget.vue';
     import TableContent from './TableWidget.vue';
     import InfoContent from './InfoWidget.vue';
     import HtmlContent from './HtmlWidget.vue';

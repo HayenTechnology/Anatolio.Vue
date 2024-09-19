@@ -138,8 +138,20 @@
                                               :errors="errors">
                             </EditGaugeContent>
                             <EditHeatmapContent v-if="content.contentType == 'HeatmapContent'" :content="content"
-                                              :errors="errors">
+                                                :errors="errors">
                             </EditHeatmapContent>
+                            <EditMapContent v-if="content.contentType == 'MapContent'" :content="content"
+                                            :errors="errors">
+                            </EditMapContent>
+                            <EditTableContent v-if="content.contentType == 'TableContent'" :content="content"
+                                              :errors="errors">
+                            </EditTableContent>
+                            <EditInfoContent v-if="content.contentType == 'InfoContent'" :content="content"
+                                             :errors="errors">
+                            </EditInfoContent>
+                            <EditHtmlContent v-if="content.contentType == 'HtmlContent'" :content="content"
+                                             :errors="errors">
+                            </EditHtmlContent>
                         </div>
                     </div>
                 </Panel>
@@ -159,6 +171,10 @@
     import EditStatusContent from './EditStatusContent.vue';
     import EditGaugeContent from './EditGaugeContent.vue';
     import EditHeatmapContent from './EditHeatmapContent.vue';
+    import EditMapContent from './EditMapContent.vue';
+    import EditTableContent from './EditTableContent.vue';
+    import EditInfoContent from './EditInfoContent.vue';
+    import EditHtmlContent from './EditHtmlContent.vue';
 
     const helper = new HelperService();
 
@@ -219,8 +235,7 @@
             mapContent: { mapType: 'Marker', descriptionColumns: [], colorRanges: [] },
             dataContent: { columns: [] },
             heatmapContent: { colorRanges: [{ contentColorString: 'ffffff' }, { contentColorString: 'ff9100' }] },
-            htmlContent: { html: '' },
-            pageContent: { pageUrl: '' },
+            htmlContent: {  }
         });
     };
 

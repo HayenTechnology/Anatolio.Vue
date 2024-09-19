@@ -8,17 +8,18 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
     optimizeDeps: {
-        noDiscovery: true
+        noDiscovery: true,
     },
     plugins: [
         vue(),
         Components({
-            resolvers: [PrimeVueResolver()]
-        })
+            resolvers: [PrimeVueResolver()],
+        }),
     ],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
-        }
-    }
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
+            vue: 'vue/dist/vue.esm-bundler.js', // Vue için çalışma zamanı derlemeyi etkinleştirir
+        },
+    },
 });
