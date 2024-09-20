@@ -666,6 +666,23 @@ const enums = {
             "number": 2,
         }
     ],
+    "MapType": [
+        {
+            "name": "Marker",
+            "value": "Marker",
+            "number": 1,
+        },
+        {
+            "name": "Polygon",
+            "value": "Polygon",
+            "number": 2,
+        },
+        {
+            "name": "Polyline",
+            "value": "Polyline",
+            "number": 3,
+        }
+    ],
     "AnatolioChartType": [
         {
             "name": "line",

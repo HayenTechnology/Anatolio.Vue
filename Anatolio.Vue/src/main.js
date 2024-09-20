@@ -24,8 +24,6 @@ import enums from './helper/enums';
 
 import { install as VueMonacoEditorPlugin } from '@guolao/vue-monaco-editor';
 
-
-
 const app = createApp(App);
 
 app.config.globalProperties.$enums = enums;

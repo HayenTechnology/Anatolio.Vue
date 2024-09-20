@@ -12,7 +12,7 @@
         </div>
     </div>
     <div v-else class="card p-0 "
-         :class="'bg-' + widget.backgroundColor + '-200 dark:bg-' + widget.backgroundColor + '-900'" >
+        :class="'bg-' + widget.backgroundColor + '-200 dark:bg-' + widget.backgroundColor + '-900'">
         <div v-if="widget.hasHeader" class="font-semibold text-xl px-8 pt-8"> {{ widget.name || 'No Header' }}</div>
         <div v-for="(content, index) in sortedContents" :key="index">
 
@@ -21,67 +21,68 @@
             <PieContent v-if="content.contentType == 'PieContent'" :content="content"></PieContent>
             <GaugeContent v-if="content.contentType == 'GaugeContent'" :content="content"></GaugeContent>
             <HeatmapContent v-if="content.contentType == 'HeatmapContent'" :content="content"></HeatmapContent>
-            <MapContent v-if="content.contentType == 'MapContent'" :content="content"></MapContent>
             <TableContent v-if="content.contentType == 'TableContent'" :content="content"></TableContent>
             <InfoContent v-if="content.contentType == 'InfoContent'" :content="content"></InfoContent>
             <HtmlContent v-if="content.contentType == 'HtmlContent'" :content="content"></HtmlContent>
 
         </div>
+        <MapContent v-if="widget.contents.some(s => s.contentType == 'MapContent')" :widget="widget"></MapContent>
+
     </div>
 
 </template>
 
 <script setup>
-    import axios from 'axios';
-    import { computed, onBeforeMount, ref, watch } from 'vue';
+import axios from 'axios';
+import { computed, onBeforeMount, ref, watch } from 'vue';
 
-    import StatusContent from './StatusWidget.vue';
-    import ChartContent from './ChartWidget.vue';
-    import PieContent from './PieWidget.vue';
-    import GaugeContent from './GaugeWidget.vue'
-    import HeatmapContent from './HeatmapWidget.vue';
-    import MapContent from './MapWidget.vue';
-    import TableContent from './TableWidget.vue';
-    import InfoContent from './InfoWidget.vue';
-    import HtmlContent from './HtmlWidget.vue';
+import ChartContent from './ChartWidget.vue';
+import GaugeContent from './GaugeWidget.vue';
+import HeatmapContent from './HeatmapWidget.vue';
+import HtmlContent from './HtmlWidget.vue';
+import InfoContent from './InfoWidget.vue';
+import MapContent from './MapWidget.vue';
+import PieContent from './PieWidget.vue';
+import StatusContent from './StatusWidget.vue';
+import TableContent from './TableWidget.vue';
 
-    const loading = ref(false)
-    const errors = ref([])
-    const error = ref("");
+const loading = ref(false)
+const errors = ref([])
+const error = ref("");
 
-    const widget = ref(null)
+const widget = ref(null)
 
-    const props = defineProps({
-        widgetId: [String, Number, Object],
-        widget: Object
-    })
+const props = defineProps({
+    widgetId: [String, Number, Object],
+    widget: Object
+})
 
-    onBeforeMount(() => {
-        if (props.widget) {
-            runWidget(props.widget)
-            return;
-        }
-        axios.get("/api/widget/get/" + props.widgetId, { loading, errors, error }).then(response => {
-            runWidget(response)
-        })
-
-    })
-
-    watch(() => props.widget, (newWidget) => {
-        if (props.widgetId) {
-            return;
-        }
-        runWidget(newWidget)
-    }, { deep: true })
-
-
-    const runWidget = (data) => {
-
-        widget.value = data;
+onBeforeMount(() => {
+    if (props.widget) {
+        runWidget(props.widget)
+        return;
     }
+    axios.get("/api/widget/get/" + props.widgetId, { loading, errors, error }).then(response => {
+        runWidget(response)
+    })
 
-    const sortedContents = computed(() => {
-        return [...widget.value.contents].sort((a, b) => a.order - b.order);
-    });
+})
+
+watch(() => props.widget, (newWidget) => {
+    if (props.widgetId) {
+        return;
+    }
+    runWidget(newWidget)
+}, { deep: true })
+
+
+const runWidget = (data) => {
+
+    widget.value = data;
+}
+
+const sortedContents = computed(() => {
+    return [...widget.value.contents.filter(s => s.contentType != 'MapContent')].sort((a, b) => a.order - b.order);
+});
 
 </script>

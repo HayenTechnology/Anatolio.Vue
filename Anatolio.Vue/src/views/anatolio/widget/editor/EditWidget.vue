@@ -17,12 +17,12 @@
                             <InputGroup>
                                 <InputGroupAddon>
                                     <Checkbox v-model="model.hasHeader" :invalid="props.invalid" :binary="true"
-                                              v-tooltip.top="$t('Show on Header')" />
+                                        v-tooltip.top="$t('Show on Header')" />
                                 </InputGroupAddon>
 
 
                                 <InputText v-model="model.name" :placeholder="props.placeholder"
-                                           :invalid="props.invalid" />
+                                    :invalid="props.invalid" />
                             </InputGroup>
 
                         </template>
@@ -31,7 +31,7 @@
                     <FormField class="mb-4" label="Description" :field-name="'description'" :errors="errors">
                         <template v-slot:default="props">
                             <InputText v-model="model.description" :placeholder="props.placeholder"
-                                       :invalid="props.invalid" />
+                                :invalid="props.invalid" />
                         </template>
                     </FormField>
 
@@ -42,24 +42,24 @@
                     </FormField>
 
                     <FormField v-if="model.autoReload" class="mb-4" label="Reload Minute" :field-name="'reloadMinute'"
-                               :errors="errors">
+                        :errors="errors">
                         <template v-slot:default="props">
                             <InputText v-model="model.autoReloadMinute" :placeholder="props.placeholder"
-                                       :invalid="props.invalid" />
+                                :invalid="props.invalid" />
                         </template>
                     </FormField>
 
                     <FormField class="mb-4" label="Access Type" :field-name="'accessType'" :errors="errors">
                         <template v-slot:default="props">
                             <Enum v-model="model.accessType" type="AccessType" :invalid="props.invalid"
-                                  :placeholder="props.placeholder" />
+                                :placeholder="props.placeholder" />
                         </template>
                     </FormField>
 
                     <FormField class="mb-4" label="Background Color" :field-name="'backgroundColor'" :errors="errors">
                         <template v-slot:default="props">
                             <Enum v-model="model.backgroundColor" type="PrimeColor" :invalid="props.invalid"
-                                  :placeholder="props.placeholder" />
+                                :placeholder="props.placeholder" />
                         </template>
                     </FormField>
                     <template #footer>
@@ -77,8 +77,8 @@
                 <Panel class="pb-4">
                     <div class="widget-buttons text-center">
                         <Button v-for="contentType in contentTypes" :key="contentType"
-                                @click="addContent(contentType.type)" :icon="contentType.icon" :label="$t(contentType.type)"
-                                iconPos="top" class="mr-1 p-button-primary" />
+                            @click="addContent(contentType.type)" :icon="contentType.icon" :label="$t(contentType.type)"
+                            iconPos="top" class="mr-1 p-button-primary" />
                     </div>
                     <div v-if="!model.contents.length" class="text-center mt-10">
                         <p>{{ $t('There is no widget content. Please select.') }}</p>
@@ -95,7 +95,7 @@
 
                         <h1 class="font-bold">
                             <input type="number" v-model="content.order"
-                                   style="width: 45px; border: 0; text-align: center;" />
+                                style="width: 45px; border: 0; text-align: center;" />
                             <input type="text" v-model="content.name" style="width: 200px; border: 0;" />
                         </h1>
                     </template>
@@ -115,42 +115,42 @@
                                         }" :invalid="prp.invalid" v-model:selectedData="content.query" />
 
                                         <Button icon="pi pi-pen-to-square" label="Edit" class="p-button-info"
-                                                v-if="content.queryId" @click="router.push('/query/' + content.queryId)" />
+                                            v-if="content.queryId" @click="router.push('/query/' + content.queryId)" />
 
                                         <Button v-else icon="pi pi-plus" label="Create" class="p-button-help"
-                                                @click="router.push('/query')" />
+                                            @click="router.push('/query')" />
                                     </InputGroup>
                                 </template>
                             </FormField>
                         </div>
                         <div v-if="content.queryId" class="col-span-12 mt-4">
                             <EditStatusContent v-if="content.contentType == 'StatusContent'" :content="content"
-                                               :errors="errors">
+                                :errors="errors">
                             </EditStatusContent>
 
                             <EditChartContent v-if="content.contentType == 'ChartContent'" :content="content"
-                                              :errors="errors">
+                                :errors="errors">
                             </EditChartContent>
                             <EditPieContent v-if="content.contentType == 'PieContent'" :content="content"
-                                            :errors="errors">
+                                :errors="errors">
                             </EditPieContent>
                             <EditGaugeContent v-if="content.contentType == 'GaugeContent'" :content="content"
-                                              :errors="errors">
+                                :errors="errors">
                             </EditGaugeContent>
                             <EditHeatmapContent v-if="content.contentType == 'HeatmapContent'" :content="content"
-                                                :errors="errors">
+                                :errors="errors">
                             </EditHeatmapContent>
                             <EditMapContent v-if="content.contentType == 'MapContent'" :content="content"
-                                            :errors="errors">
+                                :errors="errors">
                             </EditMapContent>
                             <EditTableContent v-if="content.contentType == 'TableContent'" :content="content"
-                                              :errors="errors">
+                                :errors="errors">
                             </EditTableContent>
                             <EditInfoContent v-if="content.contentType == 'InfoContent'" :content="content"
-                                             :errors="errors">
+                                :errors="errors">
                             </EditInfoContent>
                             <EditHtmlContent v-if="content.contentType == 'HtmlContent'" :content="content"
-                                             :errors="errors">
+                                :errors="errors">
                             </EditHtmlContent>
                         </div>
                     </div>
@@ -161,108 +161,108 @@
 </template>
 
 <script setup>
-    import axios from 'axios';
-    import { computed, onBeforeMount, ref } from 'vue';
-    import { useRoute, useRouter } from 'vue-router';
-    import HelperService from '../../../../services/HelperService';
-    import Widget from '../ViewWidget.vue';
-    import EditChartContent from './EditChartContent.vue';
-    import EditPieContent from './EditPieContent.vue';
-    import EditStatusContent from './EditStatusContent.vue';
-    import EditGaugeContent from './EditGaugeContent.vue';
-    import EditHeatmapContent from './EditHeatmapContent.vue';
-    import EditMapContent from './EditMapContent.vue';
-    import EditTableContent from './EditTableContent.vue';
-    import EditInfoContent from './EditInfoContent.vue';
-    import EditHtmlContent from './EditHtmlContent.vue';
+import axios from 'axios';
+import { computed, onBeforeMount, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import HelperService from '../../../../services/HelperService';
+import Widget from '../ViewWidget.vue';
+import EditChartContent from './EditChartContent.vue';
+import EditGaugeContent from './EditGaugeContent.vue';
+import EditHeatmapContent from './EditHeatmapContent.vue';
+import EditHtmlContent from './EditHtmlContent.vue';
+import EditInfoContent from './EditInfoContent.vue';
+import EditMapContent from './EditMapContent.vue';
+import EditPieContent from './EditPieContent.vue';
+import EditStatusContent from './EditStatusContent.vue';
+import EditTableContent from './EditTableContent.vue';
 
-    const helper = new HelperService();
+const helper = new HelperService();
 
-    var route = useRoute();
-    var router = useRouter();
+var route = useRoute();
+var router = useRouter();
 
-    const model = ref({
-        name: '',
-        description: '',
-        hasHeader: false,
-        autoReload: false,
-        autoReloadMinute: 0,
-        accessType: 'Public',
-        backgroundColor: 'white',
-        PreviewImagePath: '',
-        contents: [],
+const model = ref({
+    name: '',
+    description: '',
+    hasHeader: false,
+    autoReload: false,
+    autoReloadMinute: 0,
+    accessType: 'Public',
+    backgroundColor: 'white',
+    PreviewImagePath: '',
+    contents: [],
+});
+
+const loading = ref(false)
+const errors = ref([])
+const error = ref("");
+
+onBeforeMount(() => {
+    if (route.params.id) {
+        axios.get("/api/widget/get/" + route.params.id, { loading, errors, error }).then(response => {
+            const query = response;
+            if (query == null) { return; }
+            model.value = query;
+        })
+    }
+})
+
+
+
+const contentTypes = [
+    { type: 'StatusContent', icon: 'pi pi-info-circle' },
+    { type: 'ChartContent', icon: 'pi pi-chart-line' },
+    { type: 'PieContent', icon: 'pi pi-chart-pie' },
+    { type: 'GaugeContent', icon: 'pi pi-gauge' },
+    { type: 'HeatmapContent', icon: 'pi pi-chart-scatter' },
+    { type: 'MapContent', icon: 'pi pi-map' },
+    { type: 'TableContent', icon: 'pi pi-table' },
+    { type: 'InfoContent', icon: 'pi pi-info-circle' },
+    { type: 'HtmlContent', icon: 'pi pi-code' },
+];
+
+const addContent = (contentType) => {
+    model.value.contents.push({
+        id: helper.guid(),
+        order: model.value.contents.length + 1,
+        name: contentType,
+        fields: [], // content-specific fields
+        contentType: contentType,
+        chartContent: { yColumns: [] },
+        statusContent: { contentColorString: "blue", icon: 'pi pi-pencil' },
+        pieContent: { pieType: 'pie' },
+        gaugeContent: { colorRanges: [{ contentColorString: 'ffffff', to: 50 }, { contentColorString: 'ff9100', to: 100 }] },
+        mapContent: { mapType: 'Marker', descriptionColumns: [], colorRanges: [], markerIcon: 'pi pi-plus', markerColorString: 'ff0000' },
+        dataContent: { columns: [] },
+        heatmapContent: { colorRanges: [{ contentColorString: 'ffffff' }, { contentColorString: 'ff9100' }] },
+        htmlContent: {}
     });
+};
 
-    const loading = ref(false)
-    const errors = ref([])
-    const error = ref("");
+const deleteContent = (index) => {
+    const itemToDelete = sortedContents.value[index];
 
-    onBeforeMount(() => {
-        if (route.params.id) {
-            axios.get("/api/widget/get/" + route.params.id, { loading, errors, error }).then(response => {
-                const query = response;
-                if (query == null) { return; }
-                model.value = query;
-            })
-        }
-    })
+    // Orijinal modelde o öğenin indeksini bul
+    const originalIndex = model.value.contents.findIndex(item => item === itemToDelete);
 
+    if (originalIndex !== -1) {
+        // Orijinal modelden doğru öğeyi siliyoruz
+        model.value.contents.splice(originalIndex, 1);
+    }
+};
 
-
-    const contentTypes = [
-        { type: 'StatusContent', icon: 'pi pi-info-circle' },
-        { type: 'ChartContent', icon: 'pi pi-chart-line' },
-        { type: 'PieContent', icon: 'pi pi-chart-pie' },
-        { type: 'GaugeContent', icon: 'pi pi-gauge' },
-        { type: 'HeatmapContent', icon: 'pi pi-chart-scatter' },
-        { type: 'MapContent', icon: 'pi pi-map' },
-        { type: 'TableContent', icon: 'pi pi-table' },
-        { type: 'InfoContent', icon: 'pi pi-info-circle' },
-        { type: 'HtmlContent', icon: 'pi pi-code' },
-    ];
-
-    const addContent = (contentType) => {
-        model.value.contents.push({
-            id: helper.guid(),
-            order: model.value.contents.length + 1,
-            name: contentType,
-            fields: [], // content-specific fields
-            contentType: contentType,
-            chartContent: { yColumns: [] },
-            statusContent: { contentColorString: "blue", icon: 'pi pi-pencil' },
-            pieContent: { pieType: 'pie' },
-            gaugeContent: { colorRanges: [{ contentColorString: 'ffffff',to:50 },{ contentColorString:'ff9100',to:100}] },
-            mapContent: { mapType: 'Marker', descriptionColumns: [], colorRanges: [] },
-            dataContent: { columns: [] },
-            heatmapContent: { colorRanges: [{ contentColorString: 'ffffff' }, { contentColorString: 'ff9100' }] },
-            htmlContent: {  }
-        });
-    };
-
-    const deleteContent = (index) => {
-        const itemToDelete = sortedContents.value[index];
-
-        // Orijinal modelde o öğenin indeksini bul
-        const originalIndex = model.value.contents.findIndex(item => item === itemToDelete);
-
-        if (originalIndex !== -1) {
-            // Orijinal modelden doğru öğeyi siliyoruz
-            model.value.contents.splice(originalIndex, 1);
-        }
-    };
-
-    const sortedContents = computed(() => {
-        return [...model.value.contents].sort((a, b) => a.order - b.order);
-    });
+const sortedContents = computed(() => {
+    return [...model.value.contents].sort((a, b) => a.order - b.order);
+});
 
 
-    const saveWidget = async () => {
-        try {
-            await axios.post('/api/widget/save', model.value);
-            // Success handling
-        } catch (error) {
-            // Error handling
-        }
-    };
+const saveWidget = async () => {
+    try {
+        await axios.post('/api/widget/save', model.value);
+        // Success handling
+    } catch (error) {
+        // Error handling
+    }
+};
 
 </script>

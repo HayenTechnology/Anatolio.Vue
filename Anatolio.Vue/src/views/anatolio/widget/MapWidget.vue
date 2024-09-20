@@ -1,26 +1,50 @@
 <template>
-    <div class="p-7 bg-white">
-        <div class="grid grid-cols-2 gap-4">
-            <div v-for="(col, colIndex) in content.dataContent.columns" :key="colIndex" class="flex items-center">
-                <div class="symbol symbol-45 mr-4" :style="{ backgroundColor: col.contentColorString }">
-                    <i :class="col.icon"></i>
-                </div>
-                <div>
-                    <div class="text-lg font-bold">{{ content.dataContent.data[col.name] }} {{ col.postfix }}</div>
-                    <div class="text-muted text-sm">{{ $t(col.name) }}</div>
-                </div>
-            </div>
-        </div>
+    <div style="height:400px; width:100%">
+        <l-map ref="map" :zoom="zoom" :center="center" @ready="onMapReady">
+            <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
+            <MapItemComponent v-for="content in mapContents" :key="content.id" :content="content" />
+        </l-map>
     </div>
 </template>
 
-<script>
-export default {
-    props: {
-        content: Object
-    },
-    methods: {
+<script setup>
+import { LMap, LTileLayer } from "@vue-leaflet/vue-leaflet";
+import * as L from 'leaflet';
+import "leaflet/dist/leaflet.css";
+import { computed, onMounted, ref, watch } from 'vue';
+import MapItemComponent from './MapItemComponent.vue';
+const props = defineProps({
+    widget: Object
+});
 
-    }
+const map = ref(null);
+const zoom = ref(13);
+const center = ref([0, 0]);
+
+const mapContents = computed(() => {
+    return props.widget.contents.filter(s => s.contentType == 'MapContent');
+});
+
+const onMapReady = (mapObject) => {
+    L;
+    map.value = mapObject;
+    fitMapToContents();
 };
+
+const fitMapToContents = () => {
+
+};
+
+watch(() => props.widget.contents, fitMapToContents, { deep: true });
+
+onMounted(() => {
+    if (map.value) fitMapToContents();
+});
 </script>
+
+<style scoped>
+.leaflet-container {
+    height: 100%;
+    width: 100%;
+}
+</style>

@@ -20,6 +20,7 @@ export default defineConfig({
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
             vue: 'vue/dist/vue.esm-bundler.js', // Vue için çalışma zamanı derlemeyi etkinleştirir
+
         },
     },
 });
