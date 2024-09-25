@@ -40,8 +40,10 @@
             </div>
             <!-- Dashboard content will go here -->
             <div class="grid-stack" ref="gridStackRef" :gs-editable="editable">
-                <div class="grid-stack-item" v-for="item in model.widgetPlaces" :gs-id="item.id" :gs-x="item.x"
-                    :gs-y="item.y" :gs-w="item.w" :gs-h="item.h">
+                <div class="grid-stack-item" v-for="(item, index) in model.widgetPlaces" :id="item.id" :gs-id="item.id"
+                    :key="item.id" :gs-x="item.x" :gs-y="item.y" :gs-w="item.w" :gs-h="item.h"
+                    @contextmenu="onImageRightClick($event, index)">
+                    <ContextMenu ref="menu" :model="items(item, index)" />
                     <div class="grid-stack-item-content" style="overflow: hidden;" :class="{ 'editable': !editable }">
                         <Widget :widgetId="item.widgetId" class="h-full"></Widget>
                     </div>
@@ -73,6 +75,31 @@ const loading = ref(false)
 const errors = ref([])
 const error = ref("");
 
+const menu = ref([]);
+const items = (place, index) => {
+    return [
+        {
+            label: 'Edit',
+            icon: 'pi pi-copy',
+            command: () => {
+                window.location = '/widget/edit/' + place.widgetId
+            }
+        },
+        {
+            label: 'Delete',
+            icon: 'pi pi-trash',
+            command: () => {
+                model.value.widgetPlaces.splice(index, 1);
+                const selector = `#${place.id}`;
+                grid.removeWidget(selector, false);
+
+            }
+        }
+    ]
+
+
+};
+
 onBeforeMount(() => {
     if (route.params.id) {
         axios.get("/api/dashboard/get/" + route.params.id, { loading, errors, error }).then(response => {
@@ -86,7 +113,9 @@ onBeforeMount(() => {
     }
 })
 
-
+const onImageRightClick = (event, index) => {
+    menu.value[index].show(event);
+};
 
 
 const gridStackRef = ref(null);
