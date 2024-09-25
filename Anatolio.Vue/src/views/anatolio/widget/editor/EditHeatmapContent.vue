@@ -4,10 +4,11 @@
         <div class="col-span-4">
             <FormField label="Key Column">
                 <InputGroup>
-                    <InputGroupAddon  v-tooltip.top="$t('horizontal')">
+                    <InputGroupAddon v-tooltip.top="$t('horizontal')">
                         <Checkbox v-model="content.heatmapContent.horizontal" :binary="true" />
                     </InputGroupAddon>
-                    <Select v-model="content.heatmapContent.keyColumn" optionValue="name" optionLabel="name" :options="content.query.queryColumns" />
+                    <Select v-model="content.heatmapContent.keyColumn" optionValue="name" optionLabel="name"
+                        :options="content.query.queryColumns" />
                     <InputGroupAddon @click="togglePostfix">
                         {{ content.heatmapContent.postfix ?? 'pos' }}
                     </InputGroupAddon>
@@ -15,8 +16,8 @@
                         <div class="flex flex-col gap-4">
                             <FormField label="Enter Postfix" fieldName="postfix" :errors="errors">
                                 <template #default="prp">
-                                    <InputText v-model="content.heatmapContent.postfix"
-                                               :placeholder="prp.placeholder" :invalid="prp.invalid" />
+                                    <InputText v-model="content.heatmapContent.postfix" :placeholder="prp.placeholder"
+                                        :invalid="prp.invalid" />
                                 </template>
                             </FormField>
                         </div>
@@ -40,9 +41,8 @@
                             <InputGroupAddon>
                                 <ColorPicker v-model="col.contentColorString" />
                             </InputGroupAddon>
-                            <InputGroupAddon>
-                                <Button @click="deleteColorRange(index)" class="p-button-danger" text
-                                        icon="pi pi-trash" />
+                            <InputGroupAddon @click="deleteColorRange(index)">
+                                <i class="pi pi-trash text-red-500"></i>
                             </InputGroupAddon>
                         </InputGroup>
                     </FormField>
@@ -54,22 +54,35 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+import { ref } from 'vue';
 
-    const props = defineProps({
-        content: {
-            type: Object,
-            required: true
-        }
-    });
-    const prefix_pop = ref(null);
-    const postfix_pop = ref(null);
-
-
-    const togglePrefix = (event) => {
-        prefix_pop.value.toggle(event);
+const props = defineProps({
+    content: {
+        type: Object,
+        required: true
     }
-    const togglePostfix = (event) => {
-        postfix_pop.value.toggle(event);
-    }
+});
+
+
+const addColorRange = () => {
+    props.content.heatmapContent.colorRanges.push({ name: '', from: 0, to: 100, contentColorString: 'FF0000' });
+};
+
+// Delete a color range by index
+const deleteColorRange = (index) => {
+    props.content.heatmapContent.colorRanges.splice(index, 1);
+};
+
+
+
+const prefix_pop = ref(null);
+const postfix_pop = ref(null);
+
+
+const togglePrefix = (event) => {
+    prefix_pop.value.toggle(event);
+}
+const togglePostfix = (event) => {
+    postfix_pop.value.toggle(event);
+}
 </script>

@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editchartcontent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editchartcontent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editstatuscontent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editstatuscontent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editinfocontent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editinfocontent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editwidget.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editwidget.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\views\\anatolio\\widget\\mapwidget.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\src\\views\\anatolio\\widget\\mapwidget.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -17,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editmapcontent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editmapcontent.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editwidget.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\src\\views\\anatolio\\widget\\editor\\editwidget.vue||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\helper\\enums.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -94,59 +110,108 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "vite.config.mjs",
-              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\vite.config.mjs",
-              "RelativeDocumentMoniker": "Anatolio.Vue\\vite.config.mjs",
-              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\vite.config.mjs",
-              "RelativeToolTip": "Anatolio.Vue\\vite.config.mjs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-20T09:12:19.167Z",
+              "DocumentIndex": 1,
+              "Title": "EditStatusContent.vue",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditStatusContent.vue",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditStatusContent.vue",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditStatusContent.vue",
+              "RelativeToolTip": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditStatusContent.vue",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABkAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2024-09-25T10:29:46.721Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "main.js",
-              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\main.js",
-              "RelativeDocumentMoniker": "Anatolio.Vue\\src\\main.js",
-              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\main.js",
-              "RelativeToolTip": "Anatolio.Vue\\src\\main.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-20T09:02:32.489Z",
+              "DocumentIndex": 2,
+              "Title": "EditInfoContent.vue",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditInfoContent.vue",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditInfoContent.vue",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditInfoContent.vue",
+              "RelativeToolTip": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditInfoContent.vue",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2024-09-25T10:27:29.244Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "EditChartContent.vue",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditChartContent.vue",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditChartContent.vue",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditChartContent.vue",
+              "RelativeToolTip": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditChartContent.vue",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
+              "WhenOpened": "2024-09-25T10:25:21.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "package.json",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\package.json",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\package.json",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\package.json",
+              "RelativeToolTip": "Anatolio.Vue\\package.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-20T09:22:22.026Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "vite.config.mjs",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\vite.config.mjs",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\vite.config.mjs",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\vite.config.mjs",
+              "RelativeToolTip": "Anatolio.Vue\\vite.config.mjs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-09-20T09:12:19.167Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "main.js",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\main.js",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\src\\main.js",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\main.js",
+              "RelativeToolTip": "Anatolio.Vue\\src\\main.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-09-20T09:02:32.489Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "MapWidget.vue",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\MapWidget.vue",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\widget\\MapWidget.vue",
               "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\MapWidget.vue",
               "RelativeToolTip": "Anatolio.Vue\\src\\views\\anatolio\\widget\\MapWidget.vue",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwCMAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
               "WhenOpened": "2024-09-20T08:30:44.035Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "EditWidget.vue",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditWidget.vue",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditWidget.vue",
               "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditWidget.vue",
               "RelativeToolTip": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditWidget.vue",
-              "ViewState": "AgIAAMMAAAAAAAAAAAAnwOoAAACJAAAAAAAAAA==",
+              "ViewState": "AgIAAM0AAAAAAAAAAAAnwPQAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
               "WhenOpened": "2024-09-20T08:20:10.268Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "enums.js",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\helper\\enums.js",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\helper\\enums.js",
@@ -154,12 +219,11 @@
               "RelativeToolTip": "Anatolio.Vue\\src\\helper\\enums.js",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAKoCAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-20T08:10:07.93Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-20T08:10:07.93Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "EditMapContent.vue",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditMapContent.vue",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditMapContent.vue",
@@ -167,12 +231,11 @@
               "RelativeToolTip": "Anatolio.Vue\\src\\views\\anatolio\\widget\\editor\\EditMapContent.vue",
               "ViewState": "AgIAABAAAAAAAAAAAAAnwBoAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
-              "WhenOpened": "2024-09-20T08:03:20.119Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-20T08:03:20.119Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "ViewWidget.vue",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\ViewWidget.vue",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\widget\\ViewWidget.vue",
@@ -184,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "ChartWidget.vue",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\widget\\ChartWidget.vue",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\widget\\ChartWidget.vue",
@@ -196,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "QueryService.js",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\queryBuilder\\QueryService.js",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\queryBuilder\\QueryService.js",
@@ -208,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "ViewDashboard.vue",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\dashboard\\ViewDashboard.vue",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\dashboard\\ViewDashboard.vue",
@@ -220,7 +283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "EditDashboard.vue",
               "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\views\\anatolio\\dashboard\\EditDashboard.vue",
               "RelativeDocumentMoniker": "Anatolio.Vue\\src\\views\\anatolio\\dashboard\\EditDashboard.vue",
@@ -228,8 +291,7 @@
               "RelativeToolTip": "Anatolio.Vue\\src\\views\\anatolio\\dashboard\\EditDashboard.vue",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003491|",
-              "WhenOpened": "2024-09-19T14:00:53.641Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T14:00:53.641Z"
             }
           ]
         }

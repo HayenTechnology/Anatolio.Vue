@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Result Message -->
-        <ErrorDisplay :errors="errors" />
+        <ErrorDisplay :errors="errors" :error="error" />
 
         <!-- Save and Run Buttons -->
         <!-- Edit / Create Widget -->
@@ -258,7 +258,13 @@ const sortedContents = computed(() => {
 
 const saveWidget = async () => {
     try {
-        await axios.post('/api/widget/save', model.value);
+        if (!model.value.contents.length) {
+            error.value = "There is no widget content. Please add.";
+            return;
+        }
+        error.value = null;
+        var result = await axios.post('/api/widget/save', model.value);
+        model.value.id = result.id;
         // Success handling
     } catch (error) {
         // Error handling

@@ -1,5 +1,5 @@
 <template>
-    <v-chart class="chart" :option="option" autoresize />
+    <v-chart class="chart pt-5" :option="option" autoresize />
 </template>
 
 <script setup>
@@ -44,7 +44,7 @@ const option = ref({
             radius: '100%',
             pointer: {
                 show: true,
-                length: '70%',
+                length: '60%',
                 width: 5,
             },
             detail: {
@@ -131,6 +131,6 @@ watch([getPrimary, getSurface, isDarkTheme, props.content], () => {
 
 <style scoped>
 .chart {
-    min-height: 250px;
+    min-height: 300px;
 }
 </style>

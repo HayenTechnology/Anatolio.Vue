@@ -1,10 +1,11 @@
 <template>
     <div v-if="content.contentType === 'PieContent'" class="grid grid-cols-12 gap-4">
+        <div class="col-span-2"></div>
         <!-- Key Column -->
         <div class="col-span-3">
             <FormField label="Key Column">
                 <Select v-model="content.pieContent.keyColumn" optionValue="name" optionLabel="name"
-                        :options="content.query?.queryColumns ?? []" />
+                    :options="content.query?.queryColumns ?? []" />
             </FormField>
         </div>
 
@@ -19,7 +20,7 @@
             <FormField label="Value Column">
                 <InputGroup>
                     <Select v-model="content.pieContent.valueColumn" optionValue="name" optionLabel="name"
-                            :options="content.query?.queryColumns ?? []" />
+                        :options="content.query?.queryColumns ?? []" />
                     <InputGroupAddon @click="togglePostfix">
                         {{ content.pieContent.postfix ?? 'pos' }}
                     </InputGroupAddon>
@@ -27,8 +28,8 @@
                         <div class="flex flex-col gap-4">
                             <FormField label="Enter Postfix" fieldName="postfix" :errors="errors">
                                 <template #default="prp">
-                                    <InputText v-model="content.pieContent.postfix"
-                                               :placeholder="prp.placeholder" :invalid="prp.invalid" />
+                                    <InputText v-model="content.pieContent.postfix" :placeholder="prp.placeholder"
+                                        :invalid="prp.invalid" />
                                 </template>
                             </FormField>
                         </div>
@@ -51,31 +52,31 @@
             </FormField>
         </div>-->
         <!-- Pie Type -->
-        <div class="col-span-3">
+        <div class="col-span-2">
             <FormField label="Pie Type">
-                <Enum v-model="content.pieContent.pieType" type="PieType" />
+                <Enum v-model="content.pieContent.pieType" type="PieType" :showClear="false" />
             </FormField>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+import { ref } from 'vue';
 
-    const props = defineProps({
-        content: {
-            type: Object,
-            required: true
-        }
-    });
-    const prefix_pop = ref(null);
-    const postfix_pop = ref(null);
-
-
-    const togglePrefix = (event) => {
-        prefix_pop.value.toggle(event);
+const props = defineProps({
+    content: {
+        type: Object,
+        required: true
     }
-    const togglePostfix = (event) => {
-        postfix_pop.value.toggle(event);
-    }
+});
+const prefix_pop = ref(null);
+const postfix_pop = ref(null);
+
+
+const togglePrefix = (event) => {
+    prefix_pop.value.toggle(event);
+}
+const togglePostfix = (event) => {
+    postfix_pop.value.toggle(event);
+}
 </script>

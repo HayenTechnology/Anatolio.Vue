@@ -1,21 +1,13 @@
 <template>
     <div v-if="content.contentType === 'StatusContent'" class="grid grid-cols-12 gap-4">
-        <!-- Icon -->
-        <div class="col-span-2">
-            <FormField label="Icon" fieldName="icon" :errors="errors">
-                <template #default="prp">
-                    <Enum v-model="content.statusContent.icon" :placeholder="prp.placeholder" :invalid="prp.invalid"
-                        :showClear=false type="PrimeIcon" />
-                </template>
-            </FormField>
-        </div>
 
-        <!-- Color -->
-        <div class="col-span-2">
-            <FormField label="Color" fieldName="contentColorString" :errors="errors">
+
+        <!-- Description -->
+        <div class="col-span-4">
+            <FormField label="Description" fieldName="statusDescription" :errors="errors">
                 <template #default="prp">
-                    <Enum v-model="content.statusContent.contentColorString" type="PrimeColor" :invalid="prp.invalid"
-                        :showClear=false />
+                    <InputText v-model="content.statusContent.description" :placeholder="prp.placeholder"
+                               :invalid="prp.invalid" />
                 </template>
             </FormField>
         </div>
@@ -33,14 +25,14 @@
                                 <FormField label="Enter Prefix" fieldName="prefix" :errors="errors">
                                     <template #default="prp">
                                         <InputText v-model="content.statusContent.prefix" :placeholder="prp.placeholder"
-                                            :invalid="prp.invalid" />
+                                                   :invalid="prp.invalid" />
                                     </template>
                                 </FormField>
                             </div>
                         </Popover>
                         <Select v-model="content.statusContent.valueColumn" optionValue="name" optionLabel="name"
-                            :options="content.query?.queryColumns ?? []" :placeholder="prp.placeholder"
-                            :invalid="prp.invalid" />
+                                :options="content.query?.queryColumns ?? []" :placeholder="prp.placeholder"
+                                :invalid="prp.invalid" />
                         <InputGroupAddon @click="togglePostfix">
                             {{ content.statusContent.postfix ?? 'pos' }}
                         </InputGroupAddon>
@@ -49,7 +41,7 @@
                                 <FormField label="Enter Postfix" fieldName="postfix" :errors="errors">
                                     <template #default="prp">
                                         <InputText v-model="content.statusContent.postfix"
-                                            :placeholder="prp.placeholder" :invalid="prp.invalid" />
+                                                   :placeholder="prp.placeholder" :invalid="prp.invalid" />
                                     </template>
                                 </FormField>
                             </div>
@@ -59,15 +51,24 @@
             </FormField>
         </div>
 
-        <!-- Description -->
+        <!-- Icon -->
         <div class="col-span-4">
-            <FormField label="Description" fieldName="statusDescription" :errors="errors">
+            <FormField label="Icon" fieldName="icon" :errors="errors">
                 <template #default="prp">
-                    <InputText v-model="content.statusContent.description" :placeholder="prp.placeholder"
-                        :invalid="prp.invalid" />
+                    <InputGroup>
+                        <Enum v-model="content.statusContent.icon" :placeholder="prp.placeholder" :invalid="prp.invalid"
+                              :showClear=false type="PrimeIcon" />
+                        <Enum v-model="content.statusContent.contentColorString" type="PrimeColor" :invalid="prp.invalid"
+                              :showClear=false />
+                    </InputGroup>
+
                 </template>
             </FormField>
         </div>
+
+
+
+
     </div>
 </template>
 

@@ -77,38 +77,47 @@
         <div class="col-span-12" v-for="(col, index) in content.mapContent.descriptionColumns" :key="index">
             <div class="grid grid-cols-12 gap-4">
                 <!-- Prefix -->
-                <div class="col-span-2">
-                    <FormField label="Prefix">
-                        <InputText v-model="col.prefix" />
-                    </FormField>
+                <div class="col-span-3">
                 </div>
-
-                <!-- Column Name -->
-                <div class="col-span-4">
-                    <FormField label="Column">
+                <div class="col-span-6">
+                    <InputGroup>
+                        <InputGroupAddon>
+                            <ColorPicker v-model="col.contentColorString" />
+                        </InputGroupAddon>
+                        <InputGroupAddon @click="togglePrefix($event, index)">
+                            {{ col.prefix ?? 'pre' }}
+                        </InputGroupAddon>
+                        <Popover ref="prefix_pop">
+                            <div class="flex flex-col gap-4">
+                                <FormField label="Enter Prefix" fieldName="prefix" :errors="errors">
+                                    <template #default="prp">
+                                        <InputText v-model="col.prefix" :placeholder="prp.placeholder"
+                                            :invalid="prp.invalid" />
+                                    </template>
+                                </FormField>
+                            </div>
+                        </Popover>
                         <Select v-model="col.name" optionValue="name" optionLabel="name"
                             :options="content.query?.queryColumns ?? []" />
-                    </FormField>
+                        <InputGroupAddon @click="togglePostfix($event, index)">
+                            {{ col.postfix ?? 'pos' }}
+                        </InputGroupAddon>
+                        <Popover ref="postfix_pop">
+                            <div class="flex flex-col gap-4">
+                                <FormField label="Enter Postfix" fieldName="postfix" :errors="errors">
+                                    <template #default="prp">
+                                        <InputText v-model="col.postfix" :placeholder="prp.placeholder"
+                                            :invalid="prp.invalid" />
+                                    </template>
+                                </FormField>
+                            </div>
+                        </Popover>
+                        <InputGroupAddon @click="deleteDescriptionColumn(index)">
+                            <i class="pi pi-trash text-red-500"></i>
+                        </InputGroupAddon>
+                    </InputGroup>
                 </div>
 
-                <!-- Postfix -->
-                <div class="col-span-2">
-                    <FormField label="Postfix">
-                        <InputText v-model="col.postfix" />
-                    </FormField>
-                </div>
-
-                <!-- Content Color -->
-                <div class="col-span-2">
-                    <FormField label="Content Color">
-                        <ColorPicker v-model="col.contentColorString" />
-                    </FormField>
-                </div>
-
-                <!-- Delete Button -->
-                <div class="col-span-2 text-center">
-                    <button @click="deleteDescriptionColumn(index)" class="btn btn-danger">{{ $t('Delete') }}</button>
-                </div>
             </div>
         </div>
 
@@ -122,38 +131,42 @@
         <div class="col-span-12" v-for="(col, index) in content.mapContent.colorRanges" :key="index"
             v-if="content.mapContent.isUserDefinedColor">
             <div class="grid grid-cols-12 gap-4">
+                <div class="col-span-3">
+                </div>
                 <!-- Name -->
                 <div class="col-span-2">
                     <FormField label="Name">
-                        <InputText v-model="col.name" />
+                        <InputGroup>
+                            <InputGroupAddon>
+                                <ColorPicker v-model="col.contentColorString" />
+                            </InputGroupAddon>
+                            <InputText v-model="col.name" />
+
+                        </InputGroup>
                     </FormField>
                 </div>
 
                 <!-- Start Value -->
                 <div class="col-span-2">
                     <FormField label="Start Value">
-                        <InputText v-model="col.from" />
+                        <InputGroup>
+                            <InputNumber v-model="col.from" />
+                        </InputGroup>
                     </FormField>
                 </div>
 
                 <!-- End Value -->
                 <div class="col-span-2">
                     <FormField label="End Value">
-                        <InputText v-model="col.to" />
+                        <InputGroup>
+                            <InputNumber v-model="col.to" :min="col.from" />
+                            <InputGroupAddon @click="deleteColorRange(index)">
+                                <i class="pi pi-trash text-red-500"></i>
+                            </InputGroupAddon>
+                        </InputGroup>
                     </FormField>
                 </div>
 
-                <!-- Content Color -->
-                <div class="col-span-2">
-                    <FormField label="Content Color">
-                        <ColorPicker v-model="col.contentColorString" />
-                    </FormField>
-                </div>
-
-                <!-- Delete Button -->
-                <div class="col-span-2 text-center">
-                    <button @click="deleteColorRange(index)" class="btn btn-danger">{{ $t('Delete') }}</button>
-                </div>
             </div>
         </div>
     </div>
@@ -183,7 +196,7 @@ const mapIcons = ref([
 ]);
 
 const addTableColumn = () => {
-    props.content.mapContent.descriptionColumns.push({ prefix: '', name: '', postfix: '', contentColorString: 'ff0000' });
+    props.content.mapContent.descriptionColumns.push({ prefix: null, name: '', postfix: null, contentColorString: 'ff0000' });
 };
 
 const deleteDescriptionColumn = (index) => {
@@ -191,10 +204,23 @@ const deleteDescriptionColumn = (index) => {
 };
 
 const addColorRange = () => {
-    props.content.mapContent.colorRanges.push({ name: '', from: '', to: '', contentColorString: 'ff0000' });
+    props.content.mapContent.colorRanges.push({ name: '', from: 0, to: 10, contentColorString: 'ff0000' });
 };
 
 const deleteColorRange = (index) => {
     props.content.mapContent.colorRanges.splice(index, 1);
 };
+
+const prefix_pop = ref([]);
+const postfix_pop = ref([]);
+
+
+const togglePrefix = (event, index) => {
+    prefix_pop.value[index].toggle(event);
+}
+
+const togglePostfix = (event, index) => {
+    postfix_pop.value[index].toggle(event);
+}
+
 </script>
