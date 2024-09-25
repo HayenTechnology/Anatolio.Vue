@@ -9,7 +9,20 @@
         <!-- Columns List -->
         <div class="col-span-12" v-for="(col, index) in content.dataContent.columns" :key="index">
             <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-1"></div>
+                <div class="col-span-2"></div>
+                <!-- Icon (only for InfoContent) -->
+                <div class="col-span-4">
+                    <FormField label="Icon">
+                        <template #default="prp">
+                            <InputGroup>
+                                <Enum v-model="col.icon" :placeholder="prp.placeholder" :invalid="prp.invalid"
+                                    :showClear=false type="PrimeIcon" />
+                                <Enum v-model="col.contentColorString" type="PrimeColor" :invalid="prp.invalid"
+                                    :showClear=false />
+                            </InputGroup>
+                        </template>
+                    </FormField>
+                </div>
                 <div class="col-span-4">
 
                     <FormField label="Value Column">
@@ -29,30 +42,13 @@
                                     </FormField>
                                 </div>
                             </Popover>
+                            <InputGroupAddon @click="deleteColumn(index)">
+                                <i class="pi pi-trash text-red-500"></i>
+                            </InputGroupAddon>
                         </InputGroup>
                     </FormField>
                 </div>
 
-
-                <!-- Icon (only for InfoContent) -->
-                <div class="col-span-4">
-                    <FormField label="Icon">
-                        <template #default="prp">
-                            <InputGroup>
-                                <Enum v-model="col.icon" :placeholder="prp.placeholder" :invalid="prp.invalid"
-                                    :showClear=false type="PrimeIcon" />
-                                <Enum v-model="col.contentColorString" type="PrimeColor" :invalid="prp.invalid"
-                                    :showClear=false />
-                            </InputGroup>
-                        </template>
-                    </FormField>
-                </div>
-
-
-                <!-- Delete Button -->
-                <div class="col-span-2 text-center mt-5">
-                    <Button @click="deleteColumn(index)" class="p-button-danger" text icon="pi pi-trash" />
-                </div>
             </div>
         </div>
     </div>

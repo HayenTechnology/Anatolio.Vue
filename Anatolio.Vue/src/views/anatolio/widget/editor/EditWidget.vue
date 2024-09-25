@@ -76,9 +76,12 @@
             <div class="md:col-span-3">
                 <Panel class="pb-4">
                     <div class="widget-buttons text-center">
-                        <Button v-for="contentType in contentTypes" :key="contentType"
-                            @click="addContent(contentType.type)" :icon="contentType.icon" :label="$t(contentType.type)"
-                            iconPos="top" class="mr-1 p-button-primary" />
+                        <ButtonGroup>
+                            <Button v-for="contentType in contentTypes" :key="contentType"
+                                @click="addContent(contentType.type)" :icon="contentType.icon"
+                                :label="$t(contentType.type)" iconPos="top" class="mr-1 p-button-primary" outlined />
+                        </ButtonGroup>
+
                     </div>
                     <div v-if="!model.contents.length" class="text-center mt-10">
                         <p>{{ $t('There is no widget content. Please select.') }}</p>
