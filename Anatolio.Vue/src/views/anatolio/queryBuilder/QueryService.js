@@ -15,21 +15,38 @@ class QueryService {
         this.executedQueries = new Set();
         this.postfix = '_formated_';
         this.intervalId = null;
+        this.queryDeclares = ref(new Map());
 
         // Kuyruğu dinleyen yapıyı başlat
         this.startPeriodicExecution();
+
+        // queryDeclares'i izle
+        //watch(() => this.queryDeclares.value, this.handleQueryDeclaresChange.bind(this), { deep: true });
     }
 
     setI18n(t) {
         this.t = t;
     }
 
-    addQuery(queryId) {
+    addQuery(queryId, declares) {
         if (this.executedQueries.has(queryId)) {
             return this.queryResults.value[queryId];
         }
+        this.queryDeclares.value.set(queryId, declares);
         this.pendingQueries.add(queryId);
         return null;
+    }
+
+    handleQueryDeclaresChange() {
+        for (const [queryId, declares] of this.queryDeclares.value) {
+            this.reExecuteQuery(queryId, declares);
+        }
+    }
+
+    reExecuteQuery(queryId) {
+        this.executedQueries.delete(queryId);
+        this.pendingQueries.add(queryId);
+        this.executePendingQueries();
     }
 
     async executePendingQueries() {
@@ -39,11 +56,12 @@ class QueryService {
         for (const queryId of uniqueQueries) {
             if (!this.executedQueries.has(queryId)) {
                 try {
-                    const result = await this.post({ id: queryId, declares: [] });
+                    const declares = this.queryDeclares.value.get(queryId) || [];
+                    const result = await this.post({ id: queryId, declares: declares });
                     this.queryResults.value[queryId] = result;
                     this.executedQueries.add(queryId);
                 } catch (error) {
-                    console.error(`Error executing query ${queryId}:`, error);
+                    console.error(`${queryId} sorgusu yürütülürken hata oluştu:`, error);
                     this.queryResults.value[queryId] = [];
                 }
             }

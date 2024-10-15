@@ -94,6 +94,11 @@ const option = ref({
 const data = ref([]);
 const props = defineProps({
     content: Object,
+    refresh: Number,
+    declares: {
+        type: Array,
+        default: () => []
+    }
 });
 
 
@@ -168,13 +173,19 @@ watch([getPrimary, getSurface, isDarkTheme, props.content], () => {
 
 watch(() => props.content.queryId, (newResult) => {
     if (newResult) {
-        const existingResult = queryService.addQuery(newResult);
+        const existingResult = queryService.addQuery(newResult, props.declares);
         if (existingResult) {
             data.value = existingResult || {};
             setColorOptions();
         }
     }
 }, { immediate: true });
+
+watch(() => props.refresh, (newResult) => {
+    if (newResult) {
+        queryService.reExecuteQuery(props.content.queryId);
+    }
+});
 
 watch(() => queryService.queryResults.value[props.content.queryId], (newResult) => {
     if (newResult) {

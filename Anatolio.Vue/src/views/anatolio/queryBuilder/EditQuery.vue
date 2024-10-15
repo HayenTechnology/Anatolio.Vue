@@ -143,7 +143,7 @@ import { VueMonacoEditor } from '@guolao/vue-monaco-editor';
 import axios from 'axios';
 import { onBeforeMount, ref, shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
-import QueryService from './QueryService';
+import queryService from './QueryService';
 import DataSource from './components/DataSource.vue';
 import DeclareEditor from './components/DeclareEditor.vue';
 import DeclareView from './components/DeclareView.vue';
@@ -170,9 +170,6 @@ onBeforeMount(() => {
     }
 })
 
-
-
-const queryService = new QueryService();
 
 const queryRunnded = ref(false)
 const queryResult = ref([])

@@ -8,7 +8,7 @@
                         <Checkbox v-model="content.heatmapContent.horizontal" :binary="true" />
                     </InputGroupAddon>
                     <Select v-model="content.heatmapContent.keyColumn" optionValue="name" optionLabel="name"
-                        :options="content.query.queryColumns" />
+                        :options="content.query?.queryColumns" />
                     <InputGroupAddon @click="togglePostfix">
                         {{ content.heatmapContent.postfix ?? 'pos' }}
                     </InputGroupAddon>

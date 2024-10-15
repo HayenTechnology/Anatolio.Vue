@@ -2,7 +2,8 @@
     <div style="height:400px; width:100%">
         <l-map ref="map" :zoom="zoom" :center="center" @ready="onMapReady">
             <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
-            <MapItemComponent v-for="content in mapContents" :key="content.id" :content="content" />
+            <MapItemComponent v-for="content in mapContents" :key="content.id" :content="content" :declares="declares"
+                :refresh="refresh" />
         </l-map>
     </div>
 </template>
@@ -14,7 +15,12 @@ import "leaflet/dist/leaflet.css";
 import { computed, onMounted, ref, watch } from 'vue';
 import MapItemComponent from './MapItemComponent.vue';
 const props = defineProps({
-    widget: Object
+    widget: Object,
+    refresh: Number,
+    declares: {
+        type: Array,
+        default: () => []
+    }
 });
 
 const map = ref(null);

@@ -23,6 +23,11 @@ const hasError = ref(false); // Hata durumunu kontrol etmek için değişken
 const errorMessage = ref(''); // Hata mesajını saklamak için değişken
 const props = defineProps({
     content: Object,
+    refresh: Number,
+    declares: {
+        type: Array,
+        default: () => []
+    }
 });
 
 const dynamicComponent = ref(null);
@@ -80,13 +85,20 @@ const loadComponent = () => {
 
 watch(() => props.content.queryId, (newResult) => {
     if (newResult) {
-        const existingResult = queryService.addQuery(newResult);
+        const existingResult = queryService.addQuery(newResult, props.declares);
         if (existingResult) {
             data.value = existingResult || [];
             loadComponent();
         }
     }
 }, { immediate: true });
+
+watch(() => props.refresh, (newResult) => {
+    if (newResult) {
+        queryService.reExecuteQuery(props.content.queryId);
+    }
+});
+
 watch(() => queryService.queryResults.value[props.content.queryId], (newResult) => {
     if (newResult && newResult.length > 0) {
         data.value = newResult || [];

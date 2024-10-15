@@ -29,6 +29,11 @@ import queryService from '../queryBuilder/QueryService';
 
 const props = defineProps({
     content: Object,
+    refresh: Number,
+    declares: {
+        type: Array,
+        default: () => []
+    }
 });
 
 const markers = ref([]);
@@ -169,12 +174,18 @@ const calculateColor = (data, mapContent) => {
 
 watch(() => props.content.queryId, (newResult) => {
     if (newResult) {
-        const existingResult = queryService.addQuery(newResult);
+        const existingResult = queryService.addQuery(newResult, props.declares);
         if (existingResult) {
             processData(existingResult || []);
         }
     }
 }, { immediate: true });
+
+watch(() => props.refresh, (newResult) => {
+    if (newResult) {
+        queryService.reExecuteQuery(props.content.queryId);
+    }
+});
 
 watch(() => queryService.queryResults.value[props.content.queryId], (newResult) => {
     if (newResult) {

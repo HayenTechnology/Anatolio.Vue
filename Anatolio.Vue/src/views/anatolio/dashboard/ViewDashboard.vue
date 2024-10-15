@@ -12,16 +12,14 @@
         <!-- Orta Kısım (Arama) -->
         <template #center v-if="model.declares.filter(declare => declare.visible).length">
             <div class="grid grid-cols-3 gap-4">
-                <div v-for="declare in model.declares">
+                <div v-for="declare in model.declares.filter(declare => declare.visible)">
                     <DeclareView :showName="false" :declare="declare"></DeclareView>
                 </div>
             </div>
         </template>
 
         <!-- Sağ Kısım (Declare/Filters) -->
-        <template #end>
-            <Button label="Reload Dashboard" icon="pi pi-refresh" @click="reloadDashboard" />
-        </template>
+
     </Toolbar>
 
 
@@ -45,7 +43,9 @@
                     @contextmenu="onImageRightClick($event, index)">
                     <ContextMenu ref="menu" :model="items(item, index)" />
                     <div class="grid-stack-item-content" style="overflow: hidden;" :class="{ 'editable': !editable }">
-                        <Widget :widgetId="item.widgetId" class="h-full"></Widget>
+                        <Widget :widgetId="item.widgetId" :declares="model.declares" :refresh="item.refresh"
+                            class="h-full">
+                        </Widget>
                     </div>
                 </div>
             </div>
@@ -58,9 +58,10 @@ import 'gridstack/dist/gridstack.min.css';
 
 import HelperService from '@/services/HelperService';
 import axios from 'axios';
-import { onBeforeMount, onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import DeclareView from '../queryBuilder/components/DeclareView.vue';
+import queryService from '../queryBuilder/QueryService';
 import Widget from '../widget/ViewWidget.vue';
 import AddWidgetToDashboard from './components/AddWidgetToDashboard.vue';
 
@@ -78,6 +79,13 @@ const error = ref("");
 const menu = ref([]);
 const items = (place, index) => {
     return [
+        {
+            label: 'Refresh',
+            icon: 'pi pi-spinner',
+            command: () => {
+                place.refresh = (place.refresh ?? 0) + 1;
+            }
+        },
         {
             label: 'Edit',
             icon: 'pi pi-copy',
@@ -147,7 +155,9 @@ onMounted(() => {
         console.log(model.value.widgetPlaces)
     });
 
-
+    watch(() => model.value.declares, (newValue, oldValue) => {
+        queryService.handleQueryDeclaresChange();
+    }, { deep: true })
 });
 
 

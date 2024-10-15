@@ -16,17 +16,33 @@
         <div v-if="widget.hasHeader" class="font-semibold text-xl px-8 pt-8"> {{ widget.name || 'No Header' }}</div>
         <div v-for="(content, index) in sortedContents" :key="index">
 
-            <StatusContent v-if="content.contentType == 'StatusContent'" :content="content"></StatusContent>
-            <ChartContent v-if="content.contentType == 'ChartContent'" :content="content"></ChartContent>
-            <PieContent v-if="content.contentType == 'PieContent'" :content="content"></PieContent>
-            <GaugeContent v-if="content.contentType == 'GaugeContent'" :content="content"></GaugeContent>
-            <HeatmapContent v-if="content.contentType == 'HeatmapContent'" :content="content"></HeatmapContent>
-            <TableContent v-if="content.contentType == 'TableContent'" :content="content"></TableContent>
-            <InfoContent v-if="content.contentType == 'InfoContent'" :content="content"></InfoContent>
-            <HtmlContent v-if="content.contentType == 'HtmlContent'" :content="content"></HtmlContent>
+            <StatusContent v-if="content.contentType == 'StatusContent'" :content="content" :declares="declares"
+                :refresh="refresh">
+            </StatusContent>
+            <ChartContent v-if="content.contentType == 'ChartContent'" :content="content" :declares="declares"
+                :refresh="refresh">
+            </ChartContent>
+            <PieContent v-if="content.contentType == 'PieContent'" :content="content" :declares="declares"
+                :refresh="refresh"></PieContent>
+            <GaugeContent v-if="content.contentType == 'GaugeContent'" :content="content" :declares="declares"
+                :refresh="refresh">
+            </GaugeContent>
+            <HeatmapContent v-if="content.contentType == 'HeatmapContent'" :content="content" :declares="declares"
+                :refresh="refresh">
+            </HeatmapContent>
+            <TableContent v-if="content.contentType == 'TableContent'" :content="content" :declares="declares"
+                :refresh="refresh">
+            </TableContent>
+            <InfoContent v-if="content.contentType == 'InfoContent'" :content="content" :declares="declares"
+                :refresh="refresh">
+            </InfoContent>
+            <HtmlContent v-if="content.contentType == 'HtmlContent'" :content="content" :declares="declares"
+                :refresh="refresh">
+            </HtmlContent>
 
         </div>
-        <MapContent v-if="widget.contents.some(s => s.contentType == 'MapContent')" :widget="widget"></MapContent>
+        <MapContent v-if="widget.contents.some(s => s.contentType == 'MapContent')" :widget="widget"
+            :declares="declares" :refresh="refresh"></MapContent>
 
     </div>
 
@@ -54,7 +70,12 @@ const widget = ref(null)
 
 const props = defineProps({
     widgetId: [String, Number, Object],
-    widget: Object
+    widget: Object,
+    refresh: Number,
+    declares: {
+        type: Array,
+        default: () => []
+    }
 })
 
 onBeforeMount(() => {
