@@ -15,9 +15,13 @@ import {
 } from 'echarts/components';
 import { use } from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import { onBeforeMount, provide, ref, watch } from 'vue';
+import { provide, ref, watch } from 'vue';
 import VChart, { THEME_KEY } from 'vue-echarts';
-import QueryService from '../queryBuilder/QueryService';
+import { useI18n } from 'vue-i18n';
+import queryService from '../queryBuilder/QueryService';
+
+const { t } = useI18n();
+queryService.setI18n(t);
 
 const { getPrimary, getSurface, isDarkTheme } = useLayout();
 
@@ -61,36 +65,11 @@ const option = ref({
     ],
 });
 
-const queryService = new QueryService();
 const data = ref([]);
 const props = defineProps({
     content: Object,
 });
 
-// İlk sorguyu yapma
-onBeforeMount(() => {
-    getQuery();
-});
-
-const getQuery = () => {
-    if (!props.content.queryId) {
-        return;
-    }
-
-    queryService.get(
-        {
-            id: props.content.queryId,
-            declares: [],
-        },
-        (response) => {
-            data.value = response ?? [];
-            setColorOptions();
-        }
-    );
-};
-watch(() => props.content.queryId, () => {
-    getQuery();
-});
 
 function setColorOptions() {
     const chartContent = props.content.pieContent;
@@ -141,6 +120,24 @@ function generateRandomColors(length) {
     }
     return colors;
 }
+
+// İlk sorguyu yapma
+
+watch(() => props.content.queryId, (newResult) => {
+    if (newResult) {
+        const existingResult = queryService.addQuery(newResult);
+        if (existingResult) {
+            data.value = existingResult || [];
+            setColorOptions();
+        }
+    }
+}, { immediate: true });
+watch(() => queryService.queryResults.value[props.content.queryId], (newResult) => {
+    if (newResult) {
+        data.value = newResult || [];
+        setColorOptions();
+    }
+}, { immediate: true });
 
 </script>
 

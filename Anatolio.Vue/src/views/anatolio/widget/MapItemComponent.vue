@@ -24,33 +24,16 @@
 
 <script setup>
 import { LIcon, LMarker, LPolygon, LPolyline, LPopup } from "@vue-leaflet/vue-leaflet";
-import { onMounted, ref, watch } from 'vue';
-import QueryService from '../queryBuilder/QueryService';
+import { ref, watch } from 'vue';
+import queryService from '../queryBuilder/QueryService';
 
 const props = defineProps({
     content: Object,
 });
 
-const queryService = new QueryService();
 const markers = ref([]);
 const polygons = ref([]);
 const polylines = ref([]);
-
-const fetchData = async () => {
-    if (!props.content.queryId) return;
-
-    try {
-        await queryService.get({
-            id: props.content.queryId,
-            declares: [],
-        }, (response => {
-            processData(response);
-        }));
-
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-};
 
 const processData = (data) => {
     const mapContent = props.content.mapContent;
@@ -74,6 +57,7 @@ const processData = (data) => {
         }
     });
 };
+
 
 const addMarker = (d, mapContent) => {
     const latc = mapContent.latitudeColumn;
@@ -182,6 +166,21 @@ const calculateColor = (data, mapContent) => {
     }
 };
 
-onMounted(fetchData);
-watch(() => props.content, fetchData, { deep: true });
+
+watch(() => props.content.queryId, (newResult) => {
+    if (newResult) {
+        const existingResult = queryService.addQuery(newResult);
+        if (existingResult) {
+            processData(existingResult || []);
+        }
+    }
+}, { immediate: true });
+
+watch(() => queryService.queryResults.value[props.content.queryId], (newResult) => {
+    if (newResult) {
+        processData(newResult || []);
+    }
+}, { immediate: true });
+
+//watch(() => props.content, fetchData, { deep: true });
 </script>

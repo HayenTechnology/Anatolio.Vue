@@ -1,16 +1,70 @@
 import axios from 'axios';
 import { format } from 'date-fns';
-import { useI18n } from 'vue-i18n';
+import { ref } from 'vue';
 import enums from '../../../helper/enums';
 
-export default class QueryService {
+class QueryService {
     constructor() {
-        const { t } = useI18n();
-        this.t = t;
-        this.results = {};
-        this.queries = {};
-        this.inFlightQueries = {}; // O anda çalışan sorguları takip eden yapı
+        if (QueryService.instance) {
+            return QueryService.instance;
+        }
+        QueryService.instance = this;
+
+        this.pendingQueries = new Set();
+        this.queryResults = ref({});
+        this.executedQueries = new Set();
         this.postfix = '_formated_';
+        this.intervalId = null;
+
+        // Kuyruğu dinleyen yapıyı başlat
+        this.startPeriodicExecution();
+    }
+
+    setI18n(t) {
+        this.t = t;
+    }
+
+    addQuery(queryId) {
+        if (this.executedQueries.has(queryId)) {
+            return this.queryResults.value[queryId];
+        }
+        this.pendingQueries.add(queryId);
+        return null;
+    }
+
+    async executePendingQueries() {
+        const uniqueQueries = Array.from(this.pendingQueries);
+        this.pendingQueries.clear();
+
+        for (const queryId of uniqueQueries) {
+            if (!this.executedQueries.has(queryId)) {
+                try {
+                    const result = await this.post({ id: queryId, declares: [] });
+                    this.queryResults.value[queryId] = result;
+                    this.executedQueries.add(queryId);
+                } catch (error) {
+                    console.error(`Error executing query ${queryId}:`, error);
+                    this.queryResults.value[queryId] = [];
+                }
+            }
+        }
+    }
+
+    async post(options) {
+        try {
+            const response = await axios.post('/api/querybuilder/execute/exist', {
+                Id: options.id,
+                Declares: options.declares
+            }, { hideToast: true });
+
+            if (!response.data || !response.data.length) {
+                throw new Error('Sorgu Sonucu Getirilemedi, Sorguyu Kontrol Edin');
+            }
+
+            return response.data.map(d => this.format(response.query, d));
+        } catch (e) {
+            throw new Error('Sorgusunda Hata Var Kontrol Edin');
+        }
     }
 
     format(query, data) {
@@ -18,7 +72,6 @@ export default class QueryService {
             query.queryColumns.forEach((col) => {
                 try {
                     const formatType = col.outputType.toLowerCase();
-
                     data[col.name + this.postfix] =
                         this.formatData(
                             formatType,
@@ -65,60 +118,22 @@ export default class QueryService {
         return value;
     }
 
-    async get(options, func) {
-        if (!options || !options.id || !func) {
-            console.error('Please select or create a query');
-            return;
+    startPeriodicExecution(interval = 1000) {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
         }
-
-        const readyData = this.results[options.id];
-
-        if (readyData && !options.update) {
-            func(readyData);
-            return;
-        }
-
-        // Eğer aynı ID'li sorgu zaten çalışıyorsa, o sorgunun tamamlanmasını bekle.
-        if (this.inFlightQueries[options.id]) {
-            this.inFlightQueries[options.id].then(func).catch((error) => {
-                console.error('Error waiting for in-flight query:', error);
-                func([], 'Sorgusunda Hata Var Kontrol Edin');
-            });
-            return;
-        }
-
-        // Sorgu yoksa yeni bir sorgu başlat ve sonucu bekleyenlerle paylaş
-        this.inFlightQueries[options.id] = this.post(options).then((data) => {
-            delete this.inFlightQueries[options.id]; // Sorgu tamamlandığında in-flight'den kaldır
-            func(data);
-            return data;
-        }).catch((error) => {
-            delete this.inFlightQueries[options.id]; // Hata durumunda da in-flight'den kaldır
-            console.error('Error during query:', error);
-            func([], 'Sorgusunda Hata Var Kontrol Edin');
-        });
+        this.intervalId = setInterval(() => {
+            this.executePendingQueries();
+        }, interval);
     }
 
-    async post(options) {
-        try {
-            const response = await axios.post('/api/querybuilder/execute/exist', {
-                Id: options.id,
-                Declares: options.declares
-            }, { hideToast :true});
-
-            const result = response;
-
-            if ((!result || !result.data || !result.data.length) && !result.query) {
-                throw new Error('Sorgu Sonucu Getirilemedi, Sorguyu Kontrol Edin');
-            }
-
-            result.data = result.data.map((d) => this.format(result.query, d));
-
-            this.results[options.id] = result.data;
-            this.queries[options.id] = result.query;
-            return result.data;
-        } catch (e) {
-            throw new Error('Sorgusunda Hata Var Kontrol Edin');
+    stopPeriodicExecution() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
         }
     }
 }
+
+// Singleton instance'ı oluştur ve export et
+export default new QueryService();

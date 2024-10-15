@@ -183,7 +183,7 @@ const save = async () => {
 }
 
 const handleWidgetSelected = (widgetId) => {
-    const node = { x: 0, y: 0, w: 4, h: 3, widgetId: widgetId };
+    const node = { x: 0, y: 0, w: 4, h: 6, widgetId: widgetId };
     addToDashboard(node);
     model.value.widgetPlaces.push(node);
 };

@@ -9,41 +9,30 @@
 </template>
 
 <script setup>
+import { ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import queryService from '../queryBuilder/QueryService';
 
-import { onBeforeMount, ref, watch } from 'vue';
-import QueryService from '../queryBuilder/QueryService';
+const { t } = useI18n();
+queryService.setI18n(t);
 
-
-const queryService = new QueryService();
 const data = ref([]);
 const props = defineProps({
     content: Object,
 });
 
-// İlk sorguyu yapma
-onBeforeMount(() => {
-    getQuery();
-});
 
-const getQuery = () => {
-    if (!props.content.queryId) {
-        return;
-    }
-
-    queryService.get(
-        {
-            id: props.content.queryId,
-            declares: [],
-        },
-        (response) => {
-            data.value = response ?? [];
+watch(() => props.content.queryId, (newResult) => {
+    if (newResult) {
+        const existingResult = queryService.addQuery(newResult);
+        if (existingResult) {
+            data.value = existingResult || [];
         }
-    );
-};
-watch(() => props.content.queryId, () => {
-    getQuery();
-});
-
-
-
+    }
+}, { immediate: true });
+watch(() => queryService.queryResults.value[props.content.queryId], (newResult) => {
+    if (newResult) {
+        data.value = newResult || [];
+    }
+}, { immediate: true });
 </script>
