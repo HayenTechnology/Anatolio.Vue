@@ -1,13 +1,5 @@
-import axios from 'axios';
-import ExcelService from './ExportExcel';
-import odata from './OdataService';
-import { useI18n } from 'vue-i18n';
-
 export default class HelperService {
-    constructor() {
-        const { t } = useI18n();
-        this.t = t;
-    }
+  
     isNullOrEmpty(str) {
         return !str || str.trim() === '';
     }
@@ -85,26 +77,12 @@ export default class HelperService {
         window.print();
         document.body.innerHTML = originalContents;
     }
-    getExcel(url, parameters, columns) {
-        const titles = columns.map((col) => ({ data: col.props.field, title: col.props.header }));
-        const urlparams = new odata().createOdataQuery(parameters, true);
-
-        axios.get(url + urlparams).then((response) => {
-            try {
-                const filename = `file_${new Date().getTime()}.xlsx`;
-                const flattenMap = response.value.map((item) => new ExcelService().flatten(item, true, titles));
-                const ws = XLSX.utils.json_to_sheet(flattenMap);
-                const wb = XLSX.utils.book_new();
-
-                XLSX.utils.book_append_sheet(wb, ws, 'Veri');
-                XLSX.writeFile(wb, filename);
-            } catch (ex) {
-                console.error(ex);
-            }
+    guid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
         });
     }
-
-
     loadImage(src) {
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -125,5 +103,8 @@ export default class HelperService {
         }
 
         return new Blob([ab], { type: mimeString });
+    }
+    goToPage(url) {
+        window.location.href = url; // Sayfayı bu URL'ye yönlendirir
     }
 }

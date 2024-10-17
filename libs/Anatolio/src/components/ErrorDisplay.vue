@@ -1,12 +1,11 @@
-
 <template>
-    <Message severity="error" v-if="error || hasErrors">
+    <Message severity="error" v-if="error || hasErrors" class="mb-4">
         <template v-if="error">
             {{ $t(error) }}
         </template>
         <template v-for="(messages, field) in errors" :key="field">
             <small v-for="(message, index) in messages" :key="index">
-                <br>{{ $t(message,{field:$t(helper.parseCamelCase(field))}) }}
+                <br>{{ $t(message, { field: $t(helper.parseCamelCase(field)) }) }}
             </small>
         </template>
     </Message>
@@ -14,8 +13,12 @@
 
 <script>
     import HelperService from "../services/HelperService";
+    import Message from 'primevue/message';
 
     export default {
+        components: {
+            Message
+        },
         props: {
             error: String,
             errors: {
@@ -30,7 +33,7 @@
         },
         setup() {
             const helper = new HelperService();
-            
+
             return { helper }
         }
     };

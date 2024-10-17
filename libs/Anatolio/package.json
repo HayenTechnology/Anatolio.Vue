@@ -1,0 +1,49 @@
+{
+  "name": "@sinanekiz/anatolio",
+  "version": "1.5.0",
+  "description": "Anatolio Vue bileşen paketi",
+  "main": "dist/anatolio.umd.js",
+  "module": "dist/anatolio.es.js",
+  "style": "dist/style.css",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/anatolio.es.js",
+      "require": "./dist/anatolio.umd.js",
+      "style": "./dist/style.css"
+    }
+  },
+  "scripts": {
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "axios": "^1.0.0",
+    "date-fns": "^2.0.0",
+    "mqtt": "^4.0.0",
+    "primeicons": "^6.0.0",
+    "primevue": "^4.0.0",
+    "vue": "^3.0.0",
+    "vue-i18n": "^9.0.0",
+    "vue-router": "^4.0.0",
+    "xlsx": "^0.18.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@primevue/auto-import-resolver": "^4.1.1",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/compiler-sfc": "^3.5.12",
+    "rollup-plugin-postcss": "^4.0.2",
+    "unplugin-vue-components": "^0.27.4",
+    "vite": "^5.4.9"
+  },
+  "keywords": [
+    "vue",
+    "component",
+    "anatolio"
+  ],
+  "author": "Sinan Ekiz",
+  "license": "MIT"
+}

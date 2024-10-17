@@ -12,17 +12,11 @@ import '@/assets/tailwind.css';
 
 import i18n from './helper/i18n';
 
-import Enum from './components/Enum.vue';
-import ErrorDisplay from './components/ErrorDisplay.vue';
-import FormField from './components/FormField.vue';
-import MenuButton from './components/MenuButton.vue';
-import ODataTable from './components/ODataTable.vue';
-import OSelect from './components/OSelect.vue';
-import OView from './components/OView.vue';
-import PeriodicDatePicker from './components/PeriodicDatePicker.vue';
 import enums from './helper/enums';
 
 import { install as VueMonacoEditorPlugin } from '@guolao/vue-monaco-editor';
+
+import Anatolio from '@sinanekiz/anatolio';
 
 const app = createApp(App);
 
@@ -48,13 +42,13 @@ app.use(ToastService);
 app.use(ConfirmationService);
 app.use(i18n);
 
-app.component('OSelect', OSelect);
-app.component('MenuButton', MenuButton);
-app.component('OView', OView);
-app.component('ErrorDisplay', ErrorDisplay);
-app.component('FormField', FormField);
-app.component('Enum', Enum);
-app.component('ODataTable', ODataTable);
-app.component('PeriodicDatePicker', PeriodicDatePicker);
+app.component('OSelect', Anatolio.OSelect);
+app.component('MenuButton', Anatolio.MenuButton);
+app.component('OView', Anatolio.OView);
+app.component('ErrorDisplay', Anatolio.ErrorDisplay);
+app.component('FormField', Anatolio.FormField);
+app.component('Enum', Anatolio.Enum);
+app.component('ODataTable', Anatolio.ODataTable);
+app.component('PeriodicDatePicker', Anatolio.PeriodicDatePicker);
 
 app.mount('#app');

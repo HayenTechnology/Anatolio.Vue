@@ -5,22 +5,20 @@ import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-    optimizeDeps: {
-        noDiscovery: true,
-    },
     plugins: [
         vue(),
         Components({
             resolvers: [PrimeVueResolver()],
+            include: [/\.vue$/, /\.vue\?vue/],
+            exclude: [/node_modules\/(?!@sinanekiz\/anatolio)/],
         }),
     ],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
-            vue: 'vue/dist/vue.esm-bundler.js', // Vue için çalışma zamanı derlemeyi etkinleştirir
-
+            vue: 'vue/dist/vue.esm-bundler.js',
         },
     },
 });
+

@@ -65,6 +65,13 @@
 </template>
 
 <script setup>
+    import Button from 'primevue/button';
+    import DataTable from 'primevue/datatable';
+    import Column from 'primevue/column';
+    import ColumnGroup from 'primevue/columngroup';   // optional
+    import Row from 'primevue/row';
+    import InputText from 'primevue/inputtext';
+
     import { ref, onMounted, onBeforeMount, defineProps, watch, defineEmits } from 'vue';
     import axios from 'axios';
     import odata from '../services/OdataService';
@@ -89,11 +96,11 @@
         }
     });
 
-    var pageSizeStore=parseInt(localStorage.getItem('pageSize')??'10');
+    var pageSizeStore = parseInt(localStorage.getItem('pageSize') ?? '10');
 
 
     const dt = ref();
-    const pageSize = ref(pageSizeStore??10);
+    const pageSize = ref(pageSizeStore ?? 10);
     const totalCount = ref(0);
     const lazyParams = ref({
         first: 0,
@@ -171,10 +178,10 @@
 
         lazyParams.value = event;
         get();
-    
-        localStorage.setItem('pageSize',event.rows)
-    
-    
+
+        localStorage.setItem('pageSize', event.rows)
+
+
     };
     const onSort = (event) => {
         lazyParams.value = event;

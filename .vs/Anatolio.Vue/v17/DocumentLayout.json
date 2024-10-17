@@ -1,7 +1,32 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDDB353-3A7C-4849-9F04-4B4E446D9D8A}|libs\\Anatolio\\anatolio.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0CDDB353-3A7C-4849-9F04-4B4E446D9D8A}|libs\\Anatolio\\anatolio.esproj|solutionrelative:libs\\anatolio\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDDB353-3A7C-4849-9F04-4B4E446D9D8A}|libs\\Anatolio\\anatolio.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio\\vite.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{0CDDB353-3A7C-4849-9F04-4B4E446D9D8A}|libs\\Anatolio\\anatolio.esproj|solutionrelative:libs\\anatolio\\vite.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\src\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\src\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\vite.config.mjs||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\vite.config.mjs||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\anatolio.vue\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{10C9911A-F4C8-4CB9-B1BD-239ADAB45ED6}|Anatolio.Vue\\anatolio.vue.esproj|solutionrelative:anatolio.vue\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CDDB353-3A7C-4849-9F04-4B4E446D9D8A}|libs\\Anatolio\\anatolio.esproj|c:\\users\\sinan\\source\\repos\\hayentechnology\\anatolio.vue\\libs\\anatolio\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{0CDDB353-3A7C-4849-9F04-4B4E446D9D8A}|libs\\Anatolio\\anatolio.esproj|solutionrelative:libs\\anatolio\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 313,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,6 +71,105 @@
             {
               "$type": "Bookmark",
               "Name": "ST:143:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "vite.config.js",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio\\vite.config.js",
+              "RelativeDocumentMoniker": "libs\\Anatolio\\vite.config.js",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio\\vite.config.js",
+              "RelativeToolTip": "libs\\Anatolio\\vite.config.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-10-17T07:18:23.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "main.js",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\main.js",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\src\\main.js",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\src\\main.js",
+              "RelativeToolTip": "Anatolio.Vue\\src\\main.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-10-17T07:17:13.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "vite.config.mjs",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\vite.config.mjs",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\vite.config.mjs",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\vite.config.mjs",
+              "RelativeToolTip": "Anatolio.Vue\\vite.config.mjs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-10-17T07:10:17.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "package.json",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio\\package.json",
+              "RelativeDocumentMoniker": "libs\\Anatolio\\package.json",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio\\package.json",
+              "RelativeToolTip": "libs\\Anatolio\\package.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-17T06:57:40.972Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "index.js",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio\\src\\index.js",
+              "RelativeDocumentMoniker": "libs\\Anatolio\\src\\index.js",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\libs\\Anatolio\\src\\index.js",
+              "RelativeToolTip": "libs\\Anatolio\\src\\index.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-10-17T06:56:39.506Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "1e4f5eb9-887c-4361-9586-91e02eac7345",
+        "Display": 1,
+        "X": -5,
+        "Y": 0,
+        "Width": 1525,
+        "Height": 821,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "package.json",
+              "DocumentMoniker": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\package.json",
+              "RelativeDocumentMoniker": "Anatolio.Vue\\package.json",
+              "ToolTip": "C:\\Users\\Sinan\\source\\repos\\HayenTechnology\\Anatolio.Vue\\Anatolio.Vue\\package.json",
+              "RelativeToolTip": "Anatolio.Vue\\package.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAqwC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-17T07:06:24.587Z",
+              "EditorCaption": ""
             }
           ]
         }

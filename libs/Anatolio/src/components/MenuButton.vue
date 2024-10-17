@@ -15,6 +15,8 @@
 </template>
 
 <script setup>
+    import Menu from 'primevue/menu';
+    import Button from 'primevue/button';
 
     import { ref, onMounted, onBeforeMount, defineProps, watch, defineEmits } from 'vue';
 
